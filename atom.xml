@@ -5,7 +5,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://qianzewei.com//"/>
-  <updated>2015-12-10T13:20:41.274Z</updated>
+  <updated>2015-12-10T13:22:22.607Z</updated>
   <id>http://qianzewei.com//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://qianzewei.com/2015/12/10/%E5%87%86%E5%A4%87%E5%BC%80%E6%96%B0%E5%9D%91/"/>
     <id>http://qianzewei.com/2015/12/10/准备开新坑/</id>
     <published>2015-12-10T12:51:35.000Z</published>
-    <updated>2015-12-10T13:20:41.274Z</updated>
+    <updated>2015-12-10T13:22:22.607Z</updated>
     <content type="html"><![CDATA[<p>很久没有在博客里面更东西了，灰常的不好！<br>linux用起来算是习惯了，开发环境整体转移好咯<br>接下来就是开新坑的时间了<br><a id="more"></a><br>转linux有段时间了<br>发现一个很严重的时间</p>
 <pre><code>网易云音乐居然没有linux版本
 </code></pre><p>上网查了一下<br>oschina上有位童鞋一直在做linux版本<br>用了一下<br>觉得有点不适应<br>正好最近有比较多的时间<br>准备用electron+react写一个linux客户端<br>练练reactjs</p>
@@ -31,6 +31,8 @@
     <![CDATA[<p>很久没有在博客里面更东西了，灰常的不好！<br>linux用起来算是习惯了，开发环境整体转移好咯<br>接下来就是开新坑的时间了<br>]]>
     
     </summary>
+    
+      <category term="Diary" scheme="http://qianzewei.com/categories/Diary/"/>
     
   </entry>
   
@@ -1262,7 +1264,7 @@ node.setClient(‘color’, color);
     <link href="http://qianzewei.com/2015/05/25/blogq-start/"/>
     <id>http://qianzewei.com/2015/05/25/blogq-start/</id>
     <published>2015-05-25T00:42:41.000Z</published>
-    <updated>2015-12-10T13:17:10.591Z</updated>
+    <updated>2015-12-10T13:22:16.607Z</updated>
     <content type="html"><![CDATA[<h3 id="BlogQ_version1-0上线">BlogQ version1.0上线</h3><blockquote>
 <p>2015.5.25上线  </p>
 </blockquote>
