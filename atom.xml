@@ -5,7 +5,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://qianzewei.com//"/>
-  <updated>2015-12-10T13:22:22.607Z</updated>
+  <updated>2015-12-10T14:25:24.665Z</updated>
   <id>http://qianzewei.com//</id>
   
   <author>
@@ -14,6 +14,19 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[网易云音乐api整理]]></title>
+    <link href="http://qianzewei.com/2015/12/10/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90api%E6%95%B4%E7%90%86/"/>
+    <id>http://qianzewei.com/2015/12/10/网易云音乐api整理/</id>
+    <published>2015-12-10T14:25:24.000Z</published>
+    <updated>2015-12-10T14:25:24.665Z</updated>
+    <content type="html"></content>
+    <summary type="html">
+    
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[准备开新坑= =]]></title>
