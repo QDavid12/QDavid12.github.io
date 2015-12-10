@@ -5,7 +5,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://qianzewei.com//"/>
-  <updated>2015-12-10T12:44:41.560Z</updated>
+  <updated>2015-12-10T13:20:41.274Z</updated>
   <id>http://qianzewei.com//</id>
   
   <author>
@@ -16,12 +16,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[准备开新坑= =]]></title>
+    <link href="http://qianzewei.com/2015/12/10/%E5%87%86%E5%A4%87%E5%BC%80%E6%96%B0%E5%9D%91/"/>
+    <id>http://qianzewei.com/2015/12/10/准备开新坑/</id>
+    <published>2015-12-10T12:51:35.000Z</published>
+    <updated>2015-12-10T13:20:41.274Z</updated>
+    <content type="html"><![CDATA[<p>很久没有在博客里面更东西了，灰常的不好！<br>linux用起来算是习惯了，开发环境整体转移好咯<br>接下来就是开新坑的时间了<br><a id="more"></a><br>转linux有段时间了<br>发现一个很严重的时间</p>
+<pre><code>网易云音乐居然没有linux版本
+</code></pre><p>上网查了一下<br>oschina上有位童鞋一直在做linux版本<br>用了一下<br>觉得有点不适应<br>正好最近有比较多的时间<br>准备用electron+react写一个linux客户端<br>练练reactjs</p>
+<p>之后的计划<br>react native吧</p>
+<p>就酱</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>很久没有在博客里面更东西了，灰常的不好！<br>linux用起来算是习惯了，开发环境整体转移好咯<br>接下来就是开新坑的时间了<br>]]>
+    
+    </summary>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Hello Hexo]]></title>
     <link href="http://qianzewei.com/2015/07/08/hello-hexo/"/>
     <id>http://qianzewei.com/2015/07/08/hello-hexo/</id>
     <published>2015-07-08T07:21:41.000Z</published>
-    <updated>2015-12-10T12:44:41.560Z</updated>
-    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.<br><a id="more"></a></p>
+    <updated>2015-12-10T13:17:01.859Z</updated>
+    <content type="html"><![CDATA[<p>博客改成了 hexo + gitpage<br>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.<br><a id="more"></a></p>
 <h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 <p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
 <h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
@@ -32,7 +51,7 @@
 <p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.<br>]]>
+    <![CDATA[<p>博客改成了 hexo + gitpage<br>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.<br>]]>
     
     </summary>
     
@@ -53,7 +72,7 @@
 <p>页面用的是jQuery-ui里面的datepicker组件，用来选择起止时间以展示数据，有一个需求是页面初始化的时候，默认加载最近7天的数据。<br>于是定义了一个获取N天前的xxxx-xx-xx的函数：  </p>
 <pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">addDate</span>(<span class="params">date,days</span>)</span>{
     <span class="keyword">var</span> dtemp = date.replace(<span class="regexp">/[年-]/</span>, <span class="string">"/"</span>).replace(<span class="regexp">/[月-]/</span>, <span class="string">"/"</span>).replace(<span class="string">"日"</span>, <span class="string">""</span>);
-    <span class="comment">//在IE里面new Date().toLocaleDateString()会返回一个"xxxx年xx月xx日"，这里做一个强制转换</span>
+    <span class="comment">//在IE里面new Date().toLocaleDateString()会返回一个"<span class="doctag"><span class="keyword">xxx</span></span>x年xx月xx日"，这里做一个强制转换</span>
     d.setDate(d.getDate()+days);
     <span class="keyword">var</span> m=d.getMonth()+<span class="number">1</span>;
     <span class="keyword">if</span> (m.toString().length&lt;<span class="number">2</span>){m=<span class="string">"0"</span>+m;}
@@ -1243,7 +1262,7 @@ node.setClient(‘color’, color);
     <link href="http://qianzewei.com/2015/05/25/blogq-start/"/>
     <id>http://qianzewei.com/2015/05/25/blogq-start/</id>
     <published>2015-05-25T00:42:41.000Z</published>
-    <updated>2015-07-11T06:01:43.610Z</updated>
+    <updated>2015-12-10T13:17:10.591Z</updated>
     <content type="html"><![CDATA[<h3 id="BlogQ_version1-0上线">BlogQ version1.0上线</h3><blockquote>
 <p>2015.5.25上线  </p>
 </blockquote>
