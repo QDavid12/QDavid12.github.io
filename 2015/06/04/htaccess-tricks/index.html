@@ -1,0 +1,853 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
+
+
+    <meta name="description" content="一只Web小狮子的博客" />
+
+
+
+  <meta name="keywords" content=".htaccess," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="BlogQ - For Web Dev" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.3" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    analytics: {
+      google: 'UA-63092803-2'
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?76f80a9c5206fc1db460f1a20a2bf7c6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> .htaccess技巧-URL重写(Rewrite)与重定向(Redirect) // BlogQ - For Web Dev </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">BlogQ - For Web Dev</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+<form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '92rs5AQbPv-kmm9yiJBu','2.0.0');
+</script>
+
+<div class="site-search-toggle"></div>
+    </div>
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              .htaccess技巧-URL重写(Rewrite)与重定向(Redirect)
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-06-04
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/Repost/">Repost</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/06/04/htaccess-tricks/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/04/htaccess-tricks/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <blockquote>
+<p>转载自<a href="https://lesca.me/archives/htaccess-rewrite.html" target="_blank" rel="external">.htaccess技巧: URL重写(Rewrite)与重定向(Redirect) - Lesca技术宅</a></p>
+</blockquote>
+<p>在开发的时候有用到url rule，这样可以将不同的域名指向不同的子文件夹，也就实现了在同一个服务器上搭建多个站点，很实用的技巧<br><a id="more"></a><br>URL重定向是.htaccess的重头戏，它可以将长地址转为短地址、将动态地址转为静态地址、重定向丢失的页面、防止盗链、实现自动语言转换等。笔者觉得难点是在正则表达式的运用和理解上。有关htaccess的正则表达式用法，请查阅本站《<a href="htaccess-appendix.html#htaccess_regex">.htaccess正则表达式</a>》一文。</p><p></p>
+<h2 id="一、准备开始：mod_rewrite">一、准备开始：mod_rewrite</h2><p>实现所有这些神奇功能的模块叫做<strong>mod_rewrite</strong>，请确保你的服务器安装并启用了该模块：</p>
+<pre>sudo a2enmod rewrite
+</pre>
+
+<p>我们一般会把所有涉及URL重写或者重定向的代码这样放置：</p>
+<pre><ifmodule mod_rewrite.c="">
+ # Turn on rewrite engine
+ Options +FollowSymlinks
+ RewriteEngine on
+ # More rules below
+ ...
+</ifmodule>
+</pre>
+
+<p>一些我们需要注意的地方：</p>
+<ul>
+<li>FollowSymlinks必须启用，这是rewrite引擎的安全需求。</li>
+<li>通常FollowSymlinks在Apache的主配置文件中就已经启用了，所以通常可以省略。</li>
+<li>RewriteEngine命令用于启用rewrite引擎</li>
+<li>IfModule命令用于判断Apache是否安装了mod_rewrite模块，之后笔者会省略该命令，但不代表这是个好习惯。</li>
+<li>mod_rewrite会处理所有提交给Apache的URL请求，并与之后的规则进行匹配</li>
+</ul>
+<p>下面我们开始讲解一些例子。</p>
+<h2 id="二、利用-htaccess实现URL重写(rewrite)与URL重定向(redirect)">二、利用.htaccess实现URL重写(rewrite)与URL重定向(redirect)</h2><h3 id="1-将-htm页面映射到-php">1.将.htm页面映射到.php</h3><pre>Options +FollowSymlinks
+RewriteEngine on
+RewriteRule ^(.*)\.htm$ $1.php [NC]
+</pre>
+
+<p>注意事项：</p>
+<ul>
+<li>该RewriteRule能够将.htm静态页面映射到.php动态页面</li>
+<li>如果通过.htm进入，浏览器地址栏显示的是.htm扩展名，但服务器上实际执行的是.php</li>
+<li>必须保证服务器上有对应的.php，否则会404</li>
+<li>浏览器和搜索引擎可以同时通过.htm和.php访问网页</li>
+<li>如果该目录上存在.htm，将被忽略</li>
+<li><strong>[NC]</strong>表示“不区分大小写”，更多类似定义请参考本站《<a href="htaccess-appendix.html#htaccess_regex">.htaccess正则表达式</a>》一文</li>
+</ul>
+<h3 id="2-临时重定向(R=302)与永久重定向(R=301)">2.临时重定向(R=302)与永久重定向(R=301)</h3><pre>RewriteEngine on
+**RewriteBase /**
+RewriteRule ^(.*)\.htm$ $1.php [**R**,NC,**L**]
+</pre>
+
+<p>注意事项：</p>
+<ul>
+<li>该RewriteRule能够将.htm静态页面<strong>重定向</strong>到.php动态页面</li>
+<li>如果通过.htm进入，<strong>浏览器地址栏会自动转为.php</strong>，这也是重定向的本质</li>
+<li>必须保证服务器上有对应的.php，否则会404</li>
+<li>浏览器和搜索引擎可以同时通过.htm和.php访问网页</li>
+<li>如果该目录上存在.htm，将被忽略</li>
+<li><strong>RewriteBase</strong>定义了<strong>重写基准目录</strong>。</li>
+<li>例如，如果你将虚拟站点设置在<strong>/var/www</strong>目录下，删除这行将会导致重定向到<a href="http://yourdomain.com/**var/www/1.php**。显然这是找不到的，而且你也不会希望用户看见你的服务器的目录结构。" target="_blank" rel="external">http://yourdomain.com/**var/www/1.php**。显然这是找不到的，而且你也不会希望用户看见你的服务器的目录结构。</a></li>
+<li>再举个例子，如果<strong>RewriteBase /base/</strong>，那么将会重定向到<a href="http://yourdomain.com/**base**/1.php。" target="_blank" rel="external">http://yourdomain.com/**base**/1.php。</a></li>
+<li>对于重写基准目录，我们还可以通过将$1.php变成<strong>/$1.php</strong>实现直接变换，这时就可以将RewriteBase省略。</li>
+<li><strong>字母R</strong>表示临时重定向，相当于<strong>[R=302,NC]</strong>。关于重定向代码，请参考本站《<a href="htaccess-appendix.html#redirect_codes">HTTP协议重定向编码</a>》</li>
+<li><strong>字母L</strong>表示如果能匹配本条规则，那么本条规则是最后一条(Last)，忽略之后的规则。</li>
+</ul>
+<p>在讨论R=302临时重定向后，理解R=301永久重定向也就容易多了：</p>
+<pre>RewriteEngine on
+RewriteRule ^(.*)$ http://newdomain.com/$1 [R=301,NC,L]
+</pre>
+
+<ul>
+<li>这个规则告诉浏览器和搜索引擎，网站地址发生了永久性变更，用户的URL请求将会被发送给新的域名（主机）处理。</li>
+<li>由于是重定向到新的主机地址，RewriteBase也就没有出现的必要了。</li>
+</ul>
+<h3 id="3-为什么要用重定向？——重定向和URL重写的区别">3.为什么要用重定向？——重定向和URL重写的区别</h3><ul>
+<li>通过重定向，浏览器知道页面位置发生变化，从而改变地址栏显示的地址</li>
+<li>通过重定向，搜索引擎意识到页面被移动了，从而更新搜索引擎索引，将原来失效的链接从搜索结果中移除</li>
+<li>临时重定向(R=302)和永久重定向(R=301)都是亲搜索引擎的，是SEO的重要技术</li>
+<li>URL重写用于将页面映射到本站另一页面，若重写到另一网络主机（域名），则按重定向处理</li>
+</ul>
+<h3 id="4-长短地址转换">4.长短地址转换</h3><p>利用URL重写，我们可以很方便地实现长短地址的转换，但是用重定向就不合适了。   </p>
+<pre>RewriteEngine On
+RewriteRule ^grab /public/files/download/download.php
+</pre>
+
+<p>若访问</p>
+<p>  <a href="http://mysite/grab?file=my.zip" target="_blank" rel="external">http://mysite/grab?file=my.zip</a></p>
+<p>则会执行该页面：</p>
+<p>  <a href="http://mysite/public/files/download/download.php?file=my.zip" target="_blank" rel="external">http://mysite/public/files/download/download.php?file=my.zip</a></p>
+<h3 id="5-去掉www">5.去掉www</h3><pre>Options +FollowSymlinks
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,NC,L]
+</pre>
+
+<h3 id="6-加上www">6.加上www</h3><pre>RewriteEngine On
+RewriteCond %{HTTP_HOST} ^(.*)$
+RewriteRule (.*) http://www\.%1/$1 [R=301,L]
+</pre>
+
+<h3 id="7-支持多域名访问">7.支持多域名访问</h3><p>如果你不凑巧买到了不支持多域名的主机，那么.htaccess或许可以帮助你。现在假设你有域名domain-one.com和domain-two.com，并且在服务器根目录有对应文件夹one和two，那么通过下面的改写就能让Apache同时接受者两个域名的请求：</p>
+<pre>#two domains served from one root..
+RewriteCond %{HTTP_HOST} domain-one.com
+RewriteCond %{REQUEST_URI} !^/one
+RewriteRule ^(.*)$ /one/$1 [L]
+
+RewriteCond %{HTTP_HOST} domain-two.com
+RewriteCond %{REQUEST_URI} !^/two
+RewriteRule ^(.*)$ /two/$1 [L]
+</pre>
+
+<h3 id="三、改写查询字符串QUERY_STRING">三、改写查询字符串QUERY_STRING</h3><p>查询字符串是指URL请求中“问号”后面的部分。比如，<a href="http://mysite/grab?**foo=bar**中粗体部分就是查询字符串，其中变量名是foo，值是bar。" target="_blank" rel="external">http://mysite/grab?**foo=bar**中粗体部分就是查询字符串，其中变量名是foo，值是bar。</a></p>
+<h3 id="1-利用QSA转换查询字符串QUERY_STRING">1.利用QSA转换查询字符串QUERY_STRING</h3><p>QSA标志（ Query String Appending）用于在URI中<strong>截取</strong>查询字符串，这个截取操作是通过<strong>小括号正则表达式</strong>实现的：</p>
+<pre>RewriteEngine On
+RewriteRule /pages/(.+) /page.php?page=$1 [**QSA**]
+</pre>
+
+<ul>
+<li>将会把请求/pages/<strong>123?one=two</strong> 映射到 /page.php?page=<strong>123&amp;one=two</strong></li>
+<li>注意粗体部分几乎是相同的，除了“问号”变成了“与”符号</li>
+<li>如果没有QSA标志，那么会映射到/page.php?page=<strong>123</strong>。</li>
+<li>如果没有用到<strong>小括号正则表达式</strong>，就不需要QSA，这在上节<a href="#rewrite4">“长短地址转换”</a>中已经例证过了。</li>
+<li><strong>小括号正则表达式</strong>可以截取查询字符串中的内容，但是如果没有开启QSA标志，那么在<strong>/page.php?page=$1</strong>中“问号”之后将会被剥离丢弃。这种特性可以用于实现<a href="#qs4">“剥离查询字符串”</a></li>
+</ul>
+<p>通过QSA，我们可以将简单链接/simple/<strong>flat</strong>/<strong>link</strong>/ 映射成 server-side.php?first-var=<strong>flat</strong>&amp;second-var=<strong>link</strong></p>
+<pre>RewriteEngine On
+RewriteRule ^/([^/]+)/([^/]+)/? /index.php?first-var=$1&second-var=$2 [QSA]
+</pre>
+
+<h3 id="2-利用RewriteCond改写查询字符串QUERY_STRING">2.利用RewriteCond改写查询字符串QUERY_STRING</h3><pre>RewriteEngine On
+RewriteCond %{QUERY_STRING} foo=(.*)
+RewriteRule ^grab(.*) /page.php?bar=**%1**
+</pre>
+
+<ul>
+<li>该规则将访问请求<a href="http://mysite/**grab?foo=bar**转换为http://mysite/**page.php?bar=bar**" target="_blank" rel="external">http://mysite/**grab?foo=bar**转换为http://mysite/**page.php?bar=bar**</a></li>
+<li>RewriteCond用于捕获查询字符串（QUERY_STRING）中变量<var>foo</var>的值，并存储在<strong>%1</strong>中</li>
+<li>QUERY_STRING是Apache定义的“变量=值”向量（数组）</li>
+</ul>
+<h3 id="3-QSA与RewriteCond双剑齐发">3.QSA与RewriteCond双剑齐发</h3><pre>RewriteEngine On
+RewriteCond %{QUERY_STRING} foo=(.+)
+RewriteRule ^grab/(.*) /%1/index.php?file=$1 [QSA]
+</pre>
+
+<ul>
+<li>会把/grab/foobar.zip?level=5&amp;<strong>foo=bar</strong> 映射到 /<strong>bar</strong>/index.php?file=<strong>foobar.zip&amp;level=5&amp;foo=bar</strong></li>
+<li>转换后根目录是<strong>bar</strong>目录</li>
+<li>foobar.zip<strong>?</strong>level=5中的“问号”变成了foobar.zip<strong>&amp;</strong>level=5中的“与”符号</li>
+</ul>
+<h3 id="4-剥离查询字符串">4.剥离查询字符串</h3><p>只需在要开始剥离的链接后面加个“问号”，并且不要启用QSA标志，就可剥离查询字符串</p>
+<pre>RewriteEngine On
+# Whatever QS is
+RewriteCond %{QUERY_STRING} . 
+# I don't want it with Question mark
+RewriteRule foo.php(.*) /foo.php? [L] 
+</pre>
+
+<h2 id="四、利用RewriteCond和RewriteRule进行访问控制">四、利用RewriteCond和RewriteRule进行访问控制</h2><p>我们在第一篇.htaccess基础中提到了<a href="htaccess-basic.html#access_control">很多有用的访问控制方法</a>，其实通过Rewrite也能实现类似的功能，而且可以更强大！</p>
+<h3 id="1-文件访问控制">1.文件访问控制</h3><p>之前<a href="htaccess-basic.html#access_control">利用Order、Files及FilesMatch命令实现的访问控制</a>可以满足大部分要求，但是当用户被拒绝时，他们看到的是硕大的“403 Forbidden”，如果你不想伤害用户的感情，就需要显示一些别的东西，通过Rewrite就可以实现这个特性：</p>
+<pre>RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !^(.+)\.css$
+RewriteCond %{REQUEST_FILENAME} !^(.+)\.js$
+RewriteCond %{REQUEST_FILENAME} !special.zip$
+RewriteRule ^(.+)$ /chat/ [NC]
+</pre>
+
+<ul>
+<li>该规则将仅允许用户请求.css, .js类型的文件，还有special.zip文件</li>
+<li>RewriteRule 后面指定了<strong>限制规则</strong>：映射到/char/目录下处理</li>
+<li>RewriteCond 后面的“感叹号”(!)起到了“否定”作用，它表明，<strong>对不满足后面正则表达式者应用RewriteRule规则</strong>，也就是对当前类型的文件将不应用规则</li>
+<li>RewriteCond 之间是以逻辑“与”连接的，也就是只有当三个条件都不满足时才执行RewriteRule</li>
+<li>该规则也会限制访问.htm, .jpg等格式</li>
+<li>该规则不可以放在虚拟站点根目录（/）下，否则会死循环</li>
+<li>如果是二级目录，如/test/，那么传入RewriteCond的参数是以/test/开始的，因此从<strong>(.+)</strong>获得的文件名也含有/test/，读者必须对此多加小心</li>
+<li>要想仅获得文件名，可以将(.+)替换成<strong>([^/]+)</strong>，并且去掉符号^，如下所示：<pre>RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !**([^/]+)**\.css$
+RewriteCond %{REQUEST_FILENAME} !**([^/]+)**\.js$
+RewriteRule ^(.+)$ /chat/ [NC]
+</pre>
+
+</li>
+</ul>
+<h3 id="2-用-htaccess阻止User-agent">2.用.htaccess阻止User-agent</h3><p>什么是User-agent？User-agent用于浏览器向服务器“自报家门”，更确切的说是所有HTTP客户端都得用User-agent向服务器“自报家门”，以便服务器对不同的客户端作出不同响应。比如，某站点可能需要对浏览器、搜索引擎crawl还有各类下载工具作出不同的响应。服务器就是通过所谓的User-agent进行区分的。</p>
+<p>如果你的服务器提供某些资源的下载，那么你就必须多加小心诸如“迅雷”等下载软件，因为它们可能把你网站资源吸干，并且影响你的正常访客访问。为此，我们可以利用Rewrite限制某些UA的访问：</p>
+<pre>RewriteEngine on
+RewriteCond %{HTTP_USER_AGENT} 2.0.50727 [NC]
+RewriteRule . abuse.txt [L]
+</pre>
+
+<ul>
+<li>该规则限制“迅雷”客户端下载资源，并将下载文件重置到abuse.txt</li>
+<li>HTTP_USER_AGENT是Apache的内置变量</li>
+<li>2.0.50727是迅雷User-agent的特征字符串</li>
+<li>RewriteRule后面的“点”表示“任意URI”，也就是不管请求的是什么，都输出abuse.txt</li>
+</ul>
+<p>通常，我们不会仅限制一个UA。利用<strong>[OR]</strong>即可实现对多个UA作出统一处理：</p>
+<pre>RewriteEngine on
+RewriteCond %{HTTP_USER_AGENT} 2.0.50727 [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^BlackWidow [NC,OR]
+# etc..
+RewriteCond %{HTTP_USER_AGENT} ^Net\ Vampire [NC]
+RewriteRule . abuse.txt [L]
+</pre>
+
+<h3 id="3-用-htaccess阻止盗链(hot-linking)">3.用.htaccess阻止盗链(hot-linking)</h3><p>盗链，特别是图片，是非常可耻的！哪怕将图片复制到自己服务器上，也比盗用他人的图片链接来得光彩！（吐糟完毕）</p>
+<p>.htaccess的Rewrite功能可以提供非常简单、有效的方法阻止这种可耻行为：</p>
+<pre>RewriteEngine On
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^http://(www\.)?lesca\.me/ [NC]
+RewriteCond %{REQUEST_URI} !hotlink\.png [NC]
+RewriteRule .*\.(gif|jpg|png)$ /hotlink.png [NC]
+</pre>
+
+<p>简单解释一下该规则的功能：</p>
+<ul>
+<li>除本站以外其他网站都不得引用本站图片，具体可以理解为</li>
+<li>如果引用站点为“空”或者是“本站”，或者，所引用对象是“hotlink.png”，那么就允许访问</li>
+<li>再次提醒，RewriteCond之间默认的逻辑连接词是逻辑“与”</li>
+<li>这里的难点是理解逻辑转换，即<a href="http://simple.wikipedia.org/wiki/De_Morgan%27s_laws" target="_blank" rel="external">德·摩根定律</a></li>
+</ul>
+<h2 id="References:">References:</h2><p>[1] <a href="http://corz.org/serv/tricks/htaccess2.php" target="_blank" rel="external">more .htaccess tips and tricks..</a></p>
+<p>[2] <a href="http://perishablepress.com/stupid-htaccess-tricks/" target="_blank" rel="external">Stupid htaccess Tricks</a></p>
+<p>[3] <a href="http://httpd.apache.org/docs/2.2/rewrite/flags.html#flag_qsa" target="_blank" rel="external">QSA Flag</a></p>
+<p>[4] <a href="http://roshanbh.com.np/2008/03/url-rewriting-examples-htaccess.html" target="_blank" rel="external">5 useful url rewriting examples using .htaccess</a></p>
+
+      
+    </div>
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/htaccess/"> #.htaccess </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/06/05/webgl-repost-2/">HTML5 webGL（第二弹：打造最美3D机房）</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/06/03/web-tree/">Web中常见的四种树形结构</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2015/06/04/htaccess-tricks/"
+               data-title=".htaccess技巧-URL重写(Rewrite)与重定向(Redirect)" data-url="http://qianzewei.com/2015/06/04/htaccess-tricks/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="QDavid" />
+          <p class="site-author-name">QDavid</p>
+        </div>
+        <p class="site-description motion-element">一只Web小狮子的博客</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+            
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">分类</span>
+              
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/QDavid12" target="_blank">github</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.zhihu.com/people/qian-ze-wei" target="_blank">zhihu</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+        
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、准备开始：mod_rewrite"><span class="nav-number">1.</span> <span class="nav-text">一、准备开始：mod_rewrite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、利用-htaccess实现URL重写(rewrite)与URL重定向(redirect)"><span class="nav-number">2.</span> <span class="nav-text">二、利用.htaccess实现URL重写(rewrite)与URL重定向(redirect)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-将-htm页面映射到-php"><span class="nav-number">2.1.</span> <span class="nav-text">1.将.htm页面映射到.php</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-临时重定向(R=302)与永久重定向(R=301)"><span class="nav-number">2.2.</span> <span class="nav-text">2.临时重定向(R=302)与永久重定向(R=301)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-为什么要用重定向？——重定向和URL重写的区别"><span class="nav-number">2.3.</span> <span class="nav-text">3.为什么要用重定向？——重定向和URL重写的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-长短地址转换"><span class="nav-number">2.4.</span> <span class="nav-text">4.长短地址转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-去掉www"><span class="nav-number">2.5.</span> <span class="nav-text">5.去掉www</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-加上www"><span class="nav-number">2.6.</span> <span class="nav-text">6.加上www</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-支持多域名访问"><span class="nav-number">2.7.</span> <span class="nav-text">7.支持多域名访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、改写查询字符串QUERY_STRING"><span class="nav-number">2.8.</span> <span class="nav-text">三、改写查询字符串QUERY_STRING</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-利用QSA转换查询字符串QUERY_STRING"><span class="nav-number">2.9.</span> <span class="nav-text">1.利用QSA转换查询字符串QUERY_STRING</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-利用RewriteCond改写查询字符串QUERY_STRING"><span class="nav-number">2.10.</span> <span class="nav-text">2.利用RewriteCond改写查询字符串QUERY_STRING</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-QSA与RewriteCond双剑齐发"><span class="nav-number">2.11.</span> <span class="nav-text">3.QSA与RewriteCond双剑齐发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-剥离查询字符串"><span class="nav-number">2.12.</span> <span class="nav-text">4.剥离查询字符串</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、利用RewriteCond和RewriteRule进行访问控制"><span class="nav-number">3.</span> <span class="nav-text">四、利用RewriteCond和RewriteRule进行访问控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-文件访问控制"><span class="nav-number">3.1.</span> <span class="nav-text">1.文件访问控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-用-htaccess阻止User-agent"><span class="nav-number">3.2.</span> <span class="nav-text">2.用.htaccess阻止User-agent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-用-htaccess阻止盗链(hot-linking)"><span class="nav-number">3.3.</span> <span class="nav-text">3.用.htaccess阻止盗链(hot-linking)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References:"><span class="nav-number">4.</span> <span class="nav-text">References:</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">QDavid</span>
+</div>
+
+<div class="powered-by">
+  Powered by &nbsp;  <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.3"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.3"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.3" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.3" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"blogq"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js?v=0.4.3"></script>
+
+
+  
+  <!-- lazyload -->
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+      <script type="text/javascript">
+        jQuery(function() {          
+            jQuery("#posts img").lazyload({
+              placeholder:"http://www.arao.me/loading.gif",  
+                effect:"fadeIn"
+              });
+            });
+    </script>   
+</body>
+</html>

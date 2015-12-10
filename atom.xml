@@ -1,0 +1,1269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  
+  <title><![CDATA[BlogQ - For Web Dev]]></title>
+  
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://qianzewei.com//"/>
+  <updated>2015-07-11T07:39:50.276Z</updated>
+  <id>http://qianzewei.com//</id>
+  
+  <author>
+    <name><![CDATA[QDavid]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Hello Hexo]]></title>
+    <link href="http://qianzewei.com/2015/07/08/hello-hexo/"/>
+    <id>http://qianzewei.com/2015/07/08/hello-hexo/</id>
+    <published>2015-07-08T07:21:41.000Z</published>
+    <updated>2015-07-11T07:39:50.276Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.<br><a id="more"></a></p>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.<br>]]>
+    
+    </summary>
+    
+      <category term="Diary" scheme="http://qianzewei.com/categories/Diary/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Date对象的兼容性问题]]></title>
+    <link href="http://qianzewei.com/2015/06/18/date-object-problem/"/>
+    <id>http://qianzewei.com/2015/06/18/date-object-problem/</id>
+    <published>2015-06-18T03:33:19.000Z</published>
+    <updated>2015-07-11T07:39:33.760Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>最近用Datepicker出了一个很奇怪的兼容性问题，算是个坑，填一下  </p>
+</blockquote>
+<a id="more"></a>
+<p>页面用的是jQuery-ui里面的datepicker组件，用来选择起止时间以展示数据，有一个需求是页面初始化的时候，默认加载最近7天的数据。<br>于是定义了一个获取N天前的xxxx-xx-xx的函数：  </p>
+<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">addDate</span>(<span class="params">date,days</span>)</span>{
+    <span class="keyword">var</span> dtemp = date.replace(<span class="regexp">/[年-]/</span>, <span class="string">"/"</span>).replace(<span class="regexp">/[月-]/</span>, <span class="string">"/"</span>).replace(<span class="string">"日"</span>, <span class="string">""</span>);
+    <span class="comment">//在IE里面new Date().toLocaleDateString()会返回一个"xxxx年xx月xx日"，这里做一个强制转换</span>
+    d.setDate(d.getDate()+days);
+    <span class="keyword">var</span> m=d.getMonth()+<span class="number">1</span>;
+    <span class="keyword">if</span> (m.toString().length&lt;<span class="number">2</span>){m=<span class="string">"0"</span>+m;}
+    <span class="keyword">var</span> day = d.getDate();
+    <span class="keyword">if</span> (day.toString().length&lt;<span class="number">2</span>){day=<span class="string">"0"</span>+day;}
+    <span class="keyword">return</span> d.getFullYear()+<span class="string">'-'</span>+m+<span class="string">'-'</span>+day;
+}
+</code></pre>
+<p>在chrome、IE8、ff等等都测了木有问题，于是灰常开心的上线了  </p>
+<p>结果，过了两天，boss说他的chrome初始化的时候，并没有自动加载七天的数据<br>f12一看也没有报错，真是x了狗了<br>google一下发现低版本的chrome(37)和IE(8以下)，Date对象缺乏<code>dateObj = new Date(dateString);</code>这个方法= =<br>设了断点发现，执行到这里的时候不会报错，但是生成的Date对象是无效的，换句话说getYear这些个方法都返回了NaN<br>这不是逗我呢。。<br>但是支持以下三种方法：  </p>
+<pre><code class="javascript">dateObj = <span class="keyword">new</span> <span class="built_in">Date</span>()
+dateObj = <span class="keyword">new</span> <span class="built_in">Date</span>(dateVal)
+dateObj = <span class="keyword">new</span> <span class="built_in">Date</span>(year, month, date[, hours[, minutes[, seconds[,ms]]]])
+</code></pre>
+<p>所以只要小小改动一下上面的函数就可以了：  </p>
+<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">addDate</span>(<span class="params">date,days</span>)</span>{
+    <span class="keyword">var</span> dtemp = date.replace(<span class="regexp">/[年-]/</span>, <span class="string">"/"</span>).replace(<span class="regexp">/[月-]/</span>, <span class="string">"/"</span>).replace(<span class="string">"日"</span>, <span class="string">""</span>);
+    <span class="comment">//这里改成上面的第三种方法，传三个参数进去，就木有兼容性的问题了</span>
+    <span class="keyword">var</span> darray = dtemp.split(<span class="string">"/"</span>);
+    <span class="keyword">var</span> d = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="built_in">parseInt</span>(darray[<span class="number">0</span>]), <span class="built_in">parseInt</span>(darray[<span class="number">1</span>])-<span class="number">1</span>, <span class="built_in">parseInt</span>(darray[<span class="number">2</span>]));
+    d.setDate(d.getDate()+days);
+    <span class="keyword">var</span> m=d.getMonth()+<span class="number">1</span>;
+    <span class="keyword">if</span> (m.toString().length&lt;<span class="number">2</span>){m=<span class="string">"0"</span>+m;}
+    <span class="keyword">var</span> day = d.getDate();
+    <span class="keyword">if</span> (day.toString().length&lt;<span class="number">2</span>){day=<span class="string">"0"</span>+day;}
+    <span class="keyword">return</span> d.getFullYear()+<span class="string">'-'</span>+m+<span class="string">'-'</span>+day;
+}
+</code></pre>
+<p>解决</p>
+<p>6.19 更新：<br>在IE11下测试的时候发现，虽然它支持传三个参数的方法，但是很奇怪的是，如果传入的三个参数是字符串中动态取得的，就会取到一个无效的Date对象，很wierd的一个错误。最后我们决定把所有的Date都改成用毫秒数来进行日期的加减，这样所有的浏览器都适配了。<br>PS：刚刚听说Web Assembly，好像很好玩的样子。搞前端的又一次发明了silverLight。。</p>
+<p>Probably the END</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>最近用Datepicker出了一个很奇怪的兼容性问题，算是个坑，填一下  </p>
+</blockquote>]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://qianzewei.com/tags/JavaScript/"/>
+    
+      <category term="Coding" scheme="http://qianzewei.com/categories/Coding/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[cmd批量重命名]]></title>
+    <link href="http://qianzewei.com/2015/06/16/cmd-rename-tricks/"/>
+    <id>http://qianzewei.com/2015/06/16/cmd-rename-tricks/</id>
+    <published>2015-06-16T06:15:25.000Z</published>
+    <updated>2015-07-11T07:30:14.547Z</updated>
+    <content type="html"><![CDATA[<font face="宋体">原文链接：</font><a href="http://www.newsmth.net/bbscon.php?bid=34&amp;id=17370" target="_blank" rel="external"><font face="宋体">http://www.newsmth.net/bbscon.php?bid=34&amp;id=17370</font></a><br><br><font face="宋体">水木社区的老坟了，平时win用的多，刚好用到了</font><br><a id="more"></a><br><font face="宋体">发信人: oicu (Oh! I see you!), 信区: DOS<br>标  题: 按数字递增批量重命名文件的批处理<br>发信站: 水木社区 (Sat Dec 16 02:33:49 2006), 站内<br><br>一时兴起写了个简单的批量重命名的批处理：<br><br><font color="#008000"><strong>从数字1递增批量重命名ren.bat</strong>：</font><br>@echo off<br>SETLOCAL ENABLEDELAYEDEXPANSION<br>set /A num=0<br>FOR /F “tokens=<em>“ %%i in (‘dir /A-D /B /OD /TC’) do (<br>    IF NOT “%%i”==”%~n0%~x0” (<br>        set /A num+=1<br>        ren “%%i” “!num!%%~xi”<br>    )<br>)<br>ENDLOCAL<br>exit<br><br></em></font><font face="宋体"><font color="#008000"><strong>按00001这类格式递增批量重命名ren.bat：
+</strong></font>@echo off<br>SETLOCAL ENABLEDELAYEDEXPANSION<br>set /A num=0<br>FOR /F “tokens=“ %%i in (‘dir /A-D /B /OD /TC’) do (<br>    IF NOT “%%i”==”%~n0%~x0” (<br>        set /A num+=1<br>        if !num! LSS 10 (<br>            ren “%%i” 0000!num!%%~xi<br>        ) ELSE (<br>            if !num! LSS 100 (<br>                ren “%%i” 000!num!%%~xi<br>            ) ELSE (<br>                if !num! LSS 1000 (<br>                    ren “%%i” 00!num!%%~xi<br>                ) ELSE (<br>                    if !num! LSS 10000 ren “%%i” 0!num!%%~xi<br>                )<br>            )<br>        )<br>    )<br>)<br>ENDLOCAL<br>exit<br><br>如果觉得0多了，可以用下面的批处理来去掉，默认是去1个，要去多少个就<br>把!name:~1!中的数字1改成要去的个数，改这个批处理要比改前面的批处理<br>方便一些，所以写了这个用：<br><br>@echo off<br>SETLOCAL ENABLEDELAYEDEXPANSION<br>set name=<br>FOR /F “tokens=<em>“ %%i in (‘dir /A-D /B /OD /TC’) do (<br>    IF NOT “%%i”==”%~n0%~x0” (<br>        set name=%%i<br>        set name=!name:~1!<br>        ren “%%i” “!name!”<br>    )<br>)<br>ENDLOCAL<br>exit<br><br>上面的批处理要和文件放在一个目录里，命名后删除批处理文件即可。<br><br>直接使用dir的话，缺点是重命名的时候把批处理本身及子文件夹也改名了，而且<br>所得文件名字不能连续排序（批处理文件可能占了中间某个序号），因此用dir参<br>数进行排除文件夹内的子文件夹以及排序（排序目的就是把批处理排到最后）。<br><br>还有就是重名现象不好解决，如果原来已经含有一个重命名后可能会出现的名称，<br>名称被占用了程序就不能继续运行。可以事先用系统的重命名功能命名一次，方<br>法是选择要重命名的所有文件，Ctrl+a或者选择第一个再按住Shift不放，再选最<br>后一个进行连续选择，右键点击其中一个文件，选择重命名，然后随便写一个名<br>字，你将看到系统的批量命名是以括号内数字递增的。<br><br>排序参数的说明：<br>下面这行<br>FOR /F “tokens=</em>“ %%i in (‘dir /A-D /B /OD /TC’) do (<br>中的/OD参数是按时间排序，使用的时候把批处理文件复制到文件夹里，那么批处<br>理文件的创建时间就是最后的了，解决了文件连续的问题。<br><br>如果用/O-E也可以，这样也能使批处理文件排在最后(扩展名是bat，b的优先级高，<br>用-号来颠倒顺序)。<br><br><strong><font color="#ff0000">/OD后再加/TC更准确些。</font></strong></font>
+
+<font face="宋体">dir中/O和/T参数的说明：<br>/O           用分类顺序列出文件。<br>sortorder    N  按名称(字母顺序)     S  按大小(从小到大)<br>             E  按扩展名(字母顺序)   D  按日期/时间(从先到后)<br>             G  组目录优先           -  颠倒顺序的前缀</font><br><font face="宋体"><br><br>/T           控制显示或用来分类的时间字符域。<br>timefield    C  创建时间<br>             A  上次访问时间<br>             W  上次写入的时间<br><br>for会自动去掉空行的，所以参数肯定不为空。<br>Update: 2009/12/18<br><br></font> 
+
+<font face="宋体"> </font>
+
+<font face="宋体"><font color="#008000"><strong>从数字1递增批量重命名ren.bat</strong></font>这个如果改用shell的就简便多了：</font>
+
+<font face="宋体">#!/bin/csh<br>n=0<br>foreach file (<code>ls</code>)<br>@ n += 1<br>mv $file $n<br>end</font>
+
+<font face="宋体">可以把文件都改成0到<em>*的，有多少改多少。<br><br>—<br>  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁<br>  ▏MM Hunter.        Oh! My Goddess!                      × ▏<br>  ▏︹—+—︹  搜寻PPMM中                    当前进度：86%    ▏<br>  ▏/\  |  /\  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁    ▁▁▁▁▁   ▏<br>  ▏︺ <em>|</em> ︺▕█████████████    ▏  ▏Cancel  ▏ ▏<br>  ▏           ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔    ▔▔▔▔▔   ▏<br><br>※ 来源:·水木社区 newsmth.net·[FROM: 211.99.222.</em>]</font>]]></content>
+    <summary type="html">
+    <![CDATA[<font face="宋体">原文链接：</font><a href="http://www.newsmth.net/bbscon.php?bid=34&amp;id=17370"><font face="宋体">http://www.newsmth.net/bbscon.php?bid=34&amp;id=17370</font></a><br><br><font face="宋体">水木社区的老坟了，平时win用的多，刚好用到了</font><br>]]>
+    
+    </summary>
+    
+      <category term="Windows" scheme="http://qianzewei.com/tags/Windows/"/>
+    
+      <category term="Repost" scheme="http://qianzewei.com/categories/Repost/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[ReactJs资料小结]]></title>
+    <link href="http://qianzewei.com/2015/06/14/reactjs-documents/"/>
+    <id>http://qianzewei.com/2015/06/14/reactjs-documents/</id>
+    <published>2015-06-14T14:41:24.000Z</published>
+    <updated>2015-07-11T07:30:44.174Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>最近在学习ReactJs，一起看的还有Angular的1/2、Flux/Reflux、backbone这些个东东，先列一下React入门比较有用的资料<br>研究一段时间补充几篇具体的笔记</p>
+</blockquote>
+<a id="more"></a>
+<p>Flux + ReactJS架构 </p>
+<p><a href="http://www.react-china.org/t/flux/615基于Flux的前端系统架构" target="_blank" rel="external">http://www.react-china.org/t/flux/615基于Flux的前端系统架构</a></p>
+<p>在这个项目中采用的基础架构是reflux.js + react.js + 一些小的library，例如：director.js，jquery.js，lodash.js。</p>
+<hr>
+<p>没了解的东西：<br>LISP、Meteor</p>
+<hr>
+<p>部署、工程化、组件加载的问题：<br>gulp、requirejs、seajs、commonjs、AMD/CMD、Webpack</p>
+<p><a href="http://www.ruanyifeng.com/blog/2015/03/react.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2015/03/react.html</a> 阮一峰的入门实例</p>
+<p><a href="http://www.react-china.org/t/reflux/1032" target="_blank" rel="external">http://www.react-china.org/t/reflux/1032</a> ReFulx的使用心得</p>
+<p><a href="http://www.phperz.com/article/15/0523/129259.html" target="_blank" rel="external">http://www.phperz.com/article/15/0523/129259.html</a> 一片不错的入门理念文章</p>
+<p><a href="http://www.phperz.com/article/15/0419/64564.html" target="_blank" rel="external">http://www.phperz.com/article/15/0419/64564.html</a> 资料整理</p>
+<p><a href="http://xinranliu.me/2014-10-26-getting-started-with-facebooks-reactjs-library/" target="_blank" rel="external">http://xinranliu.me/2014-10-26-getting-started-with-facebooks-reactjs-library/</a> ReactJS教程: 开始使用Facebook的ReactJS</p>
+<p><a href="http://www.gbtags.com/gb/share/3848.htm" target="_blank" rel="external">http://www.gbtags.com/gb/share/3848.htm</a> 一个比较angularJs、bakcbone、react+flux的文章</p>
+<p><a href="http://www.html-js.com/article/2328" target="_blank" rel="external">http://www.html-js.com/article/2328</a> reactJs编程范式</p>
+<p><a href="http://blog.jobbole.com/77703/" target="_blank" rel="external">http://blog.jobbole.com/77703/</a> react和ui层的结合 看看react-bootstrap</p>
+<p><a href="http://www.html-js.com/article/2580" target="_blank" rel="external">http://www.html-js.com/article/2580</a> FLUX实践</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>最近在学习ReactJs，一起看的还有Angular的1/2、Flux/Reflux、backbone这些个东东，先列一下React入门比较有用的资料<br>研究一段时间补充几篇具体的笔记</p>
+</blockquote>]]>
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://qianzewei.com/tags/JavaScript/"/>
+    
+      <category term="ReactJs" scheme="http://qianzewei.com/tags/ReactJs/"/>
+    
+      <category term="Coding" scheme="http://qianzewei.com/categories/Coding/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[被域名折腾的灰常Angry]]></title>
+    <link href="http://qianzewei.com/2015/06/05/domain-name-trouble/"/>
+    <id>http://qianzewei.com/2015/06/05/domain-name-trouble/</id>
+    <published>2015-06-05T09:02:00.000Z</published>
+    <updated>2015-07-11T07:37:05.834Z</updated>
+    <content type="html"><![CDATA[<h4 id="为什马吐这个槽">为什马吐这个槽</h4><p>qianzewei.com这个域名是5月份在万网买的，万网的价格也没有很多人说的比godaddy高上很多，价格还是很亲民的。<br>折腾就这么开始了。。也可以说作死就这么开始了  </p>
+<h2 id="<!-_more_->"><a id="more"></a></h2><p>之前两个域名都是在万网买的，感觉就是备案真是麻烦，当时naive，还不知道只要主机是在国内，就得备案。。<br>就记得那时候一心不想备案，还真没想到什么好选择，香港机房的主机普遍有些坑，就没尝试。<br>主要原因是当时手里已经有阿里云的两个虚拟主机了，就不太想换到香港或者国外主机去了。  </p>
+<p>于是很自作聪明的想到了把域名转到国外去是不是就可以绕过备案了？</p>
+<p>有时候想想自己还是蛮机智的QAQ</p>
+<p>机智你妹啊！！！书读得这么少想的倒挺多啊！！！作死第一步啊啊啊！！！人有时候傻起来义无反顾的坑自己啊！！！<br>我非常果断自作聪明的把域名duang给转到godaddy去了，其实这一步回头看看还是挺复杂的，耗的时间完全足够我备案了。<br>也没有好好的在百度、谷歌上查一查，就义无反顾的跳坑里去了。  </p>
+<p>而且自己当时还挺开心的。  </p>
+<p>转到godaddy以后，窝用他默认的dns解析，先把A记录都解析回国内主机上面去，结果哈。。阿里云主机还是提示木有备案，没绕过去= =<br>于是又试了CNAME解析，我想这总不会不行了吧。还是检测出来了！真是naive，想的太简单了。<br>突然我看到，虽然他默认的dns里面木有url转发，但是在域名信息的首页上面有forward这个选项，我满怀期待的点开它，果然不出所料！确实是url转发，有301、302两种，可选隐式和显式，飞快的把他们填了，指向我绑定在主机上已经备案的域名。  </p>
+<p>然后，F5<br>嗯？没有反应<br>再按一下<br>等啊等<br>唉？还是没反应<br>大概是dns服务器还没刷新呢<br>于是我去刷了一会儿知乎（真的是一小会儿）<br>然后F5<br>。。</p>
+<p>被墙了<br>整个人都惊呆了<br>其实开始的时候，我是拒绝相信的<br>但是折腾了很久<br>我还是很不情愿的相信了  </p>
+<p>然后我还试了把dns转到dnspod<br>结果<br>居然说使用不到30天无法使用url转发<br>也是很开心啊  </p>
+<p>再后来<br>我投降，我老老实实备案<br>打了一通咨询电话，结果那头说<br>钱先生啊，你这个情况呢，我们是不给你备案的<br>你的域名是国外注册的，我们北京地区的主体现在是不接受国外域名的备案的  </p>
+<p>唉TT<br>都是泪啊<br>当初为嘛要转出去的？我已经记不得了  </p>
+<p>两眼泪汪汪啊<br>我投降。。我把域名转回来还不成嘛<br>我又哼唧哼唧提交了域名转移申请，结果。。啪一个巴掌又打我脸上了  </p>
+<p>一切都很顺利<br>好像只是时间问题了<br>但是这个时候，我亲爱的go巴巴给我发了个邮件<br>说为了我的安全啊<br>78天之内是不能再转移的。。  </p>
+<p>……………………  </p>
+<p>不要问我为什么哭泣<br>我的内心是崩溃的啊<br>这猴子死了我们高低怎么守啊这样的绝望<br>但我不是肉9怎么翻这个盘  </p>
+<p>打算不折腾国内的主机了<br>考虑过一段时间换静态博客</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h4 id="为什马吐这个槽">为什马吐这个槽</h4><p>qianzewei.com这个域名是5月份在万网买的，万网的价格也没有很多人说的比godaddy高上很多，价格还是很亲民的。<br>折腾就这么开始了。。也可以说作死就这么开始了  </p>
+<h2 id="<!-_more_->">]]>
+    
+    </summary>
+    
+      <category term="Diary" scheme="http://qianzewei.com/categories/Diary/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[HTML5 webGL（第二弹：打造最美3D机房）]]></title>
+    <link href="http://qianzewei.com/2015/06/05/webgl-repost-2/"/>
+    <id>http://qianzewei.com/2015/06/05/webgl-repost-2/</id>
+    <published>2015-06-05T08:03:41.000Z</published>
+    <updated>2015-07-11T07:19:55.633Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>转载自<a href="http://segmentfault.com/" target="_blank" rel="external">segmentfault</a>上面MonoLog的专栏，<a href="http://segmentfault.com/a/1190000002866653" target="_blank" rel="external">传送门</a></p>
+</blockquote>
+<h2 id="前言">前言</h2><p>最近项目开发任务告一段落，刚好有时间整理这大半年的一些成果。使用html5时间还不久，对js的认识还不够深入。没办法，以前一直搞java，对js的一些语言特性和概念一时还转换不过来。</p>
+<p>上一篇<a href="http://segmentfault.com/a/1190000002775741" target="_blank" rel="external">第一弹</a>介绍了项目中做的一个彩虹爆炸图，主要用了 html5的canvas的2d绘制技术。这一回我想介绍一下项目中的一个亮点技术：html5的3D，以及如何用它打造精美的3D机房监控系统。<br><a id="more"></a></p>
+<h2 id="目标效果图">目标效果图</h2><p>下图是领导给找的一张的效果参考图，客户希望机房至少能达到下面的3D效果。<br><img src="http://sfault-image.b0.upaiyun.com/237/954/237954236-556c064686199" alt="图片描述"></p>
+<p>懂的人都知道，这可是一张设计公司出的装修效果图啊，就算是用max建模，也需要大量的工作，何况咱可是程序员在做数据中心的可视化项目啊。。。强忍心中奔腾的万千头**马，静下心来思考，那就先从搭建一个webGL的场景开始吧。</p>
+<h2 id="WebGL基本场景搭建">WebGL基本场景搭建</h2><p>在html5里面使用3D已经不是什么高深技术，它的基础是WebGL，一个OpenGL的浏览器子集，支持大部分主要3D功能接口。目前最新的浏览器都有比较好的支持，IE需要到11（是的，你没有看错）。</p>
+<blockquote>
+<p>要检测你的浏览器是否支持webGL，可直接访问网页<a href="http://get.webgl.org/" target="_blank" rel="external">http://get.webgl.org/</a> 看是否能看到一个旋转的立方体。如果能看到，说明你的浏览器支持webgGL，否则，可以下一个最新的chrome试试吧。相对来说chrome对webGL的支持最好，效率也很优秀。</p>
+</blockquote>
+<p>要在浏览器里面使用webGL，就要研究webGL相关的技术和用法。做3D应用并不是一件轻松的事。就算最简单的搭建一下webGL场景，也需要下面这些代码：</p>
+<pre class="hljs javascript"><span class="widget-clipboard"></span>`<span class="hljs-keyword">var</span> width = <span class="hljs-built_in">window</span>.innerWidth; 
+<span class="hljs-keyword">var</span> height= <span class="hljs-built_in">window</span>.innerHeight; 
+<span class="hljs-keyword">var</span> container = <span class="hljs-built_in">document</span>.createElement( <span class="hljs-string">'div'</span> ); 
+<span class="hljs-built_in">document</span>.body.appendChild( container ); 
+<span class="hljs-keyword">var</span> webglcanvas = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'canvas'</span>); 
+container.appendChild(webglcanvas); 
+<span class="hljs-keyword">var</span> gl = webglcanvas.getContext(<span class="hljs-string">"experimental-webgl"</span>); 
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateFrame</span> <span class="hljs-params">()</span> </span>{ 
+  gl.viewport ( <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height ); 
+        gl.clearColor(<span class="hljs-number">0.4</span>, <span class="hljs-number">0.4</span>, <span class="hljs-number">0.7</span>, <span class="hljs-number">1</span>); 
+        gl.clear ( gl.COLOR_BUFFER_BIT ); 
+         setTimeout( 
+    <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{updateFrame()}, 
+            <span class="hljs-number">20</span>); 
+     } 
+
+setTimeout( 
+  <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    updateFrame();
+  }, 
+<span class="hljs-number">20</span>); 
+`</pre>
+
+<p>和html一样，需要先创建一个canvas元素，并获得其webgl上下文：</p>
+<p><code>var gl = webglcanvas.getContext(&quot;experimental-webgl&quot;);</code></p>
+<p>然后在一个<code>updateFrame</code>的函数中，像html5的2D context一样，去绘制3D的内容。</p>
+<p>另外，要再起一个死循环，每隔**毫秒调用一次这个<code>updateFrame</code>函数来重绘场景。和2D不同，3D场景里面的变化是随时随地的，所以需要不停刷新，就像播放电影或视频，静止不动的画面基本没有，所以死循环刷新基本是必要的。不过实际项目使用中会有很多优化，尽量做到“按需刷新”，节省cpu和移动设备电量。有感兴趣的同学，哥可以单独写文章介绍。这段程序基本上什么也没做，就画了一个静止不动的区域，如下图：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/182/795/1827951388-556c040f99841" alt="图片描述"></p>
+<p>虽然看不见任何3D的内容，不过它已经是一个最简单的webgl程序了。我们的3D机房，也就是在这上面不断丰富而已。</p>
+<h2 id="对象封装">对象封装</h2><p>要做项目，搭建下去工作量太大了，时间周期也不允许。使用第三方辅助工具是不可避免的，像Three.js, twaver.js都是选择。这些工具都可以提供3D的基本对象和各种特效，当然这都不是最主要的，主要是如何利用它做出我想要的效果：好看。为了避免大量修改代码，在项目里做了一些封装，即把原始3D的立方体等对象进行进一步封装，让一个json数据就可以提供这些对象的定义。这样使用起来就比较方便了。json大致结构如下：</p>
+<pre class="hljs coffeescript"><span class="widget-clipboard"></span>`<span class="hljs-reserved">var</span> json={ 
+<span class="hljs-attribute">objects</span>: [{
+    <span class="hljs-attribute">name</span>: <span class="hljs-string">'地板'</span>,
+    …
+},{
+…
+}],
+}
+`</pre>
+
+<p>下面我们逐一来看这些3D对象是怎么进行美化的，过程可能稍显啰嗦，跬步千里，这次的基础打好了，以后的项目就手到擒来了。</p>
+<h3 id="地板和斜坡">地板和斜坡</h3><p>第一个要做的，也是应该比较简单的，就是地板对象。3D中，地板应该是一个有些厚度、带上格子贴图的薄薄立方体平面。因此我对经过封装的立方体对象，用一段json对象定义如下：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'地板'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">1600</span>,
+    height: <span class="hljs-number">10</span>,
+    depth: <span class="hljs-number">1300</span>,
+
+    style: {
+        <span class="hljs-string">'m.color'</span>: <span class="hljs-string">'#BEC9BE'</span>,
+        <span class="hljs-string">'m.ambient'</span>: <span class="hljs-string">'#BEC9BE'</span>,
+    </span></span></span>}
+}
+`</pre>
+
+<p>通过定义，创建了一个13米*16米的地板块，这也是客户小型机房的实际尺寸：<br><img src="http://sfault-image.b0.upaiyun.com/245/020/2450209967-556c0631a9fd9" alt="图片描述"></p>
+<p>看起来有那么点意思，就是颜色还不够，需要找一个地板砖纹理图。需要注意的是，纹理图的尺寸都需要是宽和高都是2的幂，例如128x128、256*256等，这样出来效果才会好。这也是3D软件一般所要求的。另外纹理要能连续拼接不露破绽，这样才好。例如下面我google出来的图：<br><img src="http://sfault-image.b0.upaiyun.com/206/110/2061108203-556c069a0b9ef" alt="图片描述"></p>
+<p>在style里面添加：</p>
+<pre class="hljs coffeescript"><span class="widget-clipboard"></span>` <span class="hljs-string">'top.m.texture.image'</span>: <span class="hljs-string">'images/floor.png'</span>,
+   <span class="hljs-string">'top.m.texture.repeat'</span>: <span class="hljs-keyword">new</span> mono.Vec2(<span class="hljs-number">10</span>,<span class="hljs-number">10</span>),
+`</pre>
+
+<p>效果如下：<br><img src="http://sfault-image.b0.upaiyun.com/222/778/2227783586-556c06b175331" alt="图片描述"></p>
+<p>有图片材质纹理，效果果然好多了。突然想到客户说，他们机房底面有一个方便运送设备的斜坡，必须要画出来。这……（╯－＿－）╯</p>
+<p>后来想到twaver里面的对象可以支持运算，比如可以定义一个斜的立方体，让地板剪掉立方体，就可以做到。于是继续定义json：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'地板切坡'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">200</span>,
+    height: <span class="hljs-number">20</span>,
+    depth: <span class="hljs-number">260</span>,
+    translate: [-<span class="hljs-number">348</span>,<span class="hljs-number">0</span>,<span class="hljs-number">530</span>],
+    rotate: [Math.PI/<span class="hljs-number">180</span>*<span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+    op: <span class="hljs-string">'-'</span>,
+    style: {
+        …,
+    </span></span></span>}
+}
+`</pre>
+
+<p>这里定义的一个倾斜的立方体，通过<code>translate</code>定义位置，<code>rotate</code>定义旋转角度，然后再通过<code>op</code>定义运算符，这里是“减去”，就用“-”表示。被剪掉的立方体也可以设置材质、纹理、贴图、颜色…等等，和地板一样。看看效果：<br><img src="http://sfault-image.b0.upaiyun.com/904/485/904485326-556c07ba4a30c" alt="图片描述"></p>
+<p>第一步总算是有惊无险地搞定了。</p>
+<h3 id="走廊桌">走廊桌</h3><p>下一步找了个简单的对象，按要求走廊要放一个接待桌。为了简单，我决定就偷懒做一个立方体表示。</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'走廊板凳'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">300</span>,
+    height: <span class="hljs-number">50</span>,
+    depth: <span class="hljs-number">100</span>,
+    translate: [<span class="hljs-number">350</span>, <span class="hljs-number">0</span>, -<span class="hljs-number">500</span>],
+</span></span></span>}
+`</pre>
+
+<p>效果如下：<br><img src="http://sfault-image.b0.upaiyun.com/132/991/1329916338-556c08138982b" alt="图片描述"></p>
+<p>这里偷懒其实是有原因的。在3D里，最重视的就是效率，千万不要放一些很复杂的模型，尤其是这类非业务对象。就像这个桌子，尽管只是个简单的立方体，但只要和整体风格协调一致，再增加一点配色并启动阴影效果后，看着就好多了：<br><img src="http://sfault-image.b0.upaiyun.com/264/311/2643114269-556c086e081f0" alt="图片描述"></p>
+<h3 id="墙体">墙体</h3><p>墙体是机房里很重要的一个部分，有好的光照、阴影的效果才能看起来更加逼真。由于墙体是不规则的路径，一段一段去生成还真挺麻烦的，还好引擎支持这种物体，甚至曲线路径都可以。这里只要在json里面定义一组数字的坐标，让这些数字依次连接，组成一个墙体，最后生成3D对象放入场景中就行啦。</p>
+<p>json定义如下：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'主墙体'</span>,
+    type: <span class="hljs-string">'path'</span>,
+    width: <span class="hljs-number">20</span>,
+    height: <span class="hljs-number">200</span>,
+    translate: [-<span class="hljs-number">500</span>, <span class="hljs-number">0</span>, -<span class="hljs-number">500</span>],
+    data:[
+        [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+        [<span class="hljs-number">1000</span>, <span class="hljs-number">0</span>],
+        [<span class="hljs-number">1000</span>, <span class="hljs-number">500</span>],
+        [<span class="hljs-number">500</span>, <span class="hljs-number">500</span>],
+        [<span class="hljs-number">500</span>, <span class="hljs-number">1000</span>],
+        [<span class="hljs-number">0</span>, <span class="hljs-number">1000</span>],
+        [<span class="hljs-number">0</span>,<span class="hljs-number">0</span>],
+    ],
+</span></span></span>}
+`</pre>
+
+<p>注意这里的类型变成了<code>path</code>，<code>data</code>中定义了一个二维坐标数组来描述墙体。由于墙都是从底面开始的，所以只定义它的平面的x、y坐标就行了。看看效果：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/317/842/3178426896-556c08b82e8ce" alt="图片描述"></p>
+<p>不过如前文所说，还是需要上色、上阴影，才能有更好的效果。这里我们启用阴影并咨询设计师美眉几个颜色值，加上去后再看下效果：<br><img src="http://sfault-image.b0.upaiyun.com/293/973/2939731936-556c08d3ebac4" alt="图片描述"></p>
+<p>以及一些细节：<br><img src="http://sfault-image.b0.upaiyun.com/313/534/3135344588-556c08e64e318" alt="图片描述"></p>
+<h3 id="门">门</h3><p>看着雪白的墙，是不是觉得少了点什么？对，就是门。在3D机房的监控系统里，门禁是很重要的一块，客户要求门应该与实际位置相对应，并且要有开门关门的动画效果。这样，实际的门禁信息采集上来后，就能在界面实时看到门的状态了。</p>
+<p>这里，考虑到门如果直接放上去，会被墙盖住；如果比墙厚，又难看不符合实际。还是应该先定义一个门洞立方体，把门所在的位置挖掉：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'门洞'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">195</span>,
+    height: <span class="hljs-number">170</span>,
+    depth: <span class="hljs-number">30</span>,
+    op: <span class="hljs-string">'-'</span>,
+    translate:[-<span class="hljs-number">350</span>,<span class="hljs-number">2</span>,<span class="hljs-number">500</span>],
+</span></span></span>}
+`</pre>
+
+<p>刚好挖在斜坡的位置，这样设备进屋就方便了：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/422/332/4223328678-556c09d8a8c63" alt="图片描述"></p>
+<p>不过这门没有一个门框，感觉不太生动。多一个门框会感觉立体感强一些。门框可以是一个比门洞略大的立方体，在挖门洞之前添加：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'门框'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">205</span>,
+    height: <span class="hljs-number">180</span>,
+    depth: <span class="hljs-number">26</span>,
+    translate: [-<span class="hljs-number">350</span>, <span class="hljs-number">0</span>, <span class="hljs-number">500</span>],
+    op: <span class="hljs-string">'+'</span>,
+</span></span></span>}
+`</pre>
+
+<p>加上阴影和光线等综合效果后，还不错，挺有档次的。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/184/975/1849752950-556c09fd856e7" alt="图片描述"></p>
+<p>来张全景图看看：<br><img src="http://sfault-image.b0.upaiyun.com/167/228/1672283062-556c0a2945d1a" alt="图片描述"></p>
+<p>接着，只要把门安上去就行了。门的定义比较简单，就是一个薄的立方体。不过为了做到玻璃效果，需要设置透明度，让它看上去更像一个玻璃，再让设计师美眉弄一张好看一点的门的图，贴上去。尽管有了webGL，复杂的建模工作可以省略了，不过设计师美眉的配合仍然很重要。</p>
+<p>先做左边的门：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'左门'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">93</span>,
+    height: <span class="hljs-number">165</span>,
+    depth: <span class="hljs-number">2</span>,
+    translate:[-<span class="hljs-number">397</span>,<span class="hljs-number">4</span>,<span class="hljs-number">500</span>],
+    style:{
+        <span class="hljs-string">'m.transparent'</span>: true,
+        <span class="hljs-string">'m.texture.image'</span>: <span class="hljs-string">'images/door_left.png'</span>, 
+    </span></span></span>}
+`</pre>
+
+<p>上面增加的style主要透明和贴图两项。看看效果：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/232/066/232066746-556c0a4b4c387" alt="图片描述"></p>
+<p>同样的方法，再把右侧门贴上就搞定了。为了增加体验，也是用户的要求，门上面设置了动画：双击可以自动打开，再双击可以直接关闭。动画功能引擎做好了封装，在json中直接指定动画类型就行了。不过要注意左右门的动画旋转方向要相反，要不然一个向里开一个向外开感觉比较怪异。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/861/022/861022871-556c0b1454ff4" alt="图片描述"></p>
+<h3 id="窗">窗</h3><p>项目中，窗本身不需要有任何业务属性，但是美观度的要求可一点都不能少。方法和门类似，先放窗框后挖窗体。不过为了有点变化，这里不做窗框了，做一个窗台，方法和道理与门相同。</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'主窗户洞'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">420</span>,
+    height: <span class="hljs-number">150</span>,
+    depth: <span class="hljs-number">50</span>, 
+    translate: [<span class="hljs-number">200</span>, <span class="hljs-number">30</span>, <span class="hljs-number">500</span>],
+    op: <span class="hljs-string">'-'</span>,
+</span></span></span>},<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'主窗户台'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">420</span>,
+    height: <span class="hljs-number">10</span>,
+    depth: <span class="hljs-number">40</span>, 
+    translate: [<span class="hljs-number">200</span>, <span class="hljs-number">30</span>, <span class="hljs-number">510</span>],
+    op: <span class="hljs-string">'+'</span>,
+</span></span></span>}
+`</pre>
+
+<p>定义了一个窗洞（挖掉）、一个窗台（添加）。一个大窗户就做好了：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/258/916/2589168837-556c0b5ca58ff" alt="图片描述"></p>
+<p>再添加一个略带颜色的透明玻璃。玻璃设置点高光和反射，增加“玻璃”感觉：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'主窗户玻璃'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">420</span>,
+    height: <span class="hljs-number">150</span>,
+    depth: <span class="hljs-number">2</span>,
+    translate: [<span class="hljs-number">200</span>, <span class="hljs-number">30</span>, <span class="hljs-number">500</span>],
+    op: <span class="hljs-string">'+'</span>,
+    style: {
+        <span class="hljs-string">'m.transparent'</span>: true,
+        <span class="hljs-string">'m.opacity'</span>:<span class="hljs-number">0.4</span>,
+        <span class="hljs-string">'m.color'</span>:<span class="hljs-string">'#58ACFA'</span>,
+    </span></span></span>}, 
+}
+`</pre>
+
+<p>json中玻璃设置了透明度和颜色。这样一个半透明的茶色玻璃就好了：<br><img src="http://sfault-image.b0.upaiyun.com/385/375/3853759272-556c0b774d44b" alt="图片描述"></p>
+<p>到这里突然在想：盖房子如果像写程序一样简单就好了，所有的程序猿就不会是无房一族单身狗了。当然写程序和盖房子一样：该封装好的要封装好，最后就是搭积木组装就行了。如果盖房子都是从挖土活泥巴开始，那就杯具了。写程序也是一样，如果从webGL的main开始写……这3D机房的系统要几个月甚至几年才能做出来呢？</p>
+<h3 id="外侧墙">外侧墙</h3><p>按照项目实际要求，继续增加更多建筑物墙体。主要是房间外侧有两道走廊隔墙。这是一个中间有大片透明玻璃的走廊隔墙，需要做的好看一点。由于是直线墙，没有复杂走向，直接用立方体定义：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'左外墙'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">20</span>,
+    height: <span class="hljs-number">200</span>,
+    depth: <span class="hljs-number">1300</span>,
+    translate: [-<span class="hljs-number">790</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+    op: <span class="hljs-string">'+'</span>,
+</span></span></span>}
+`</pre>
+
+<p>效果如下：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/308/900/3089001985-556c0e5753b24" alt="图片描述"></p>
+<p>再继续挖掉中间的窗户部分：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'左外墙洞'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">30</span>,
+    height: <span class="hljs-number">110</span>,
+    depth: <span class="hljs-number">1300</span>,
+    translate: [-<span class="hljs-number">790</span>, <span class="hljs-number">60</span>, <span class="hljs-number">0</span>],
+    op: <span class="hljs-string">'-'</span>,
+</span></span></span>}
+`</pre>
+
+<p><img src="http://sfault-image.b0.upaiyun.com/647/713/647713443-556c0ec65f1cb" alt="图片描述"></p>
+<p>空白显得很奇怪，加上玻璃试试：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'左外墙玻璃'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">4</span>,
+    height: <span class="hljs-number">110</span>,
+    depth: <span class="hljs-number">1300</span>,
+    translate: [-<span class="hljs-number">790</span>, <span class="hljs-number">60</span>, <span class="hljs-number">0</span>],
+    op: <span class="hljs-string">'+'</span>,
+    style: {
+        <span class="hljs-string">'m.transparent'</span>: true,
+        <span class="hljs-string">'m.opacity'</span>:<span class="hljs-number">0.6</span>,
+    </span></span></span>},
+}
+`</pre>
+
+<p><img src="http://sfault-image.b0.upaiyun.com/292/195/2921957613-556c0ea5e3a00" alt="图片描述"></p>
+<p>有了半透明和高光的效果，看起来就有质感了，右边也如法炮制：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/314/838/3148382993-556c0ee97a26d" alt="图片描述"></p>
+<p>这样，整个建筑的外观就基本完成了。最后，放一些绿植，增加些生气吧。</p>
+<h3 id="植物">植物</h3><p>做一盆植物，需要有一个空的花盆，花盆里面有泥土，上面有一株植物。这些东西用3D做起来都有点啰嗦。不过也不难。花盆用一个大圆柱剪掉中间的小圆柱，做成空心花盆；植物用贴图+透明模拟一下就行，不用真的去做植物的3D模型，否则要累死了。</p>
+<p>根据上面的思路，在项目中通过仔细调整，把创建花盆的代码封装好，然后在json中定义花盆位置就行了。下面定义一个：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'花1'</span>,
+    type: <span class="hljs-string">'plant'</span>,
+    translate: [<span class="hljs-number">560</span>, <span class="hljs-number">0</span>, <span class="hljs-number">400</span>],
+</span></span></span>}
+`</pre>
+
+<p>程序中解析如果type是plant则创建植物对象并添加场景。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/606/507/606507623-556c0f2e5fa19" alt="图片描述"></p>
+<p>在房间、走廊、甚至窗台上都可以放几盆，窗台上的可以通过设置scale缩小一些，并提升其高度到窗台位置即可。<br><img src="http://sfault-image.b0.upaiyun.com/275/507/2755071403-556c0f4be89bd" alt="图片描述"></p>
+<p>看看下整体效果，还不赖吧。<br><img src="http://sfault-image.b0.upaiyun.com/164/479/1644793129-556c0f5a176e6" alt="图片描述"></p>
+<h2 id="机柜和设备">机柜和设备</h2><p>写了那么一大篇，才终于把3D机房的外观装修完成，咱也算是个设计师程序员的混合型人才了呢。其实机房最核心的资源——机柜，还没找落呢，没办法，形象工程也是项目建设的一大亮点。</p>
+<h3 id="机柜">机柜</h3><p>机柜，以及其中的服务器设备。这才是3D机房里面最终要管理的内容。在我们的实际项目中，这些资产都是在数据库中存储，并通过json接口加载到浏览器中显示。这里为了演示方便，直接写几个机柜的片段，看一下显示效果。<br><img src="http://sfault-image.b0.upaiyun.com/914/156/914156955-556c0f926cec9" alt="图片描述"></p>
+<p><strong>机柜对象在项目中是这样封装的：用一个立方体来表示机柜，并加上贴图。项目中，为了提高显示速度，机柜一开始并不加载内部服务器内容，而是只显示自身一个立方体。当用户双击后，会触发一个延迟加载器，从服务器端加载机柜内部服务器，并加载到对应的位置上。此时，机柜会被挖空成一个空心的立方体，以便视觉上更像一个机柜。</strong></p>
+<p>定义机柜的json如下：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'机柜'</span>,
+    type: <span class="hljs-string">'rack'</span>,
+    lazy: true,
+    width: <span class="hljs-number">70</span>,
+    depth: <span class="hljs-number">100</span>,
+    height: <span class="hljs-number">220</span>,
+    translate: [-<span class="hljs-number">370</span>, <span class="hljs-number">0</span>, -<span class="hljs-number">250</span>],
+    severity: CRITICAL,
+</span></span></span>}
+`</pre>
+
+<p>上面的机柜定义中，有一个<code>lazy</code>标记，标记它是否延迟加载其内容。如果延迟加载，则双击触发，否则程序显示时直接加载其内容。<code>Severity</code>是定义了机柜的告警信息，它是否有业务告警。如果有告警，会用一个气泡显示在机柜的上方，同时机柜也会被染色成告警对应的颜色。</p>
+<p>加入更多的机柜看看效果：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/417/694/4176947532-556c0fe0a020b" alt="图片描述"></p>
+<h3 id="设备">设备</h3><p>简单起见，这里管理的设备假设都是机架设备，尺寸规格比较规整，因此比较容易在机柜中组织。一个设备的外观确定后，在数据库中定义好模板，加载时根据其所在机柜的位置放置即可。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/417/437/4174379090-556c10478633e" alt="图片描述"></p>
+<p>这里只是随机生成了几个服务器设备，并按位置摆放。在实际应用中，可以通过手工录入或者智能机架报送的信息来确定服务器的类型和位置。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/343/734/3437342577-556c1052320a2" alt="图片描述"></p>
+<p><strong>如果需要监控到端口级别，还可以在服务器弹出后，再进一步延迟加载设备商的板卡、端口对象，并点击后进一步进行配置、监控等操作。当然加载的数据越细，对3D引擎和浏览器的压力会越大。可以通过动态延迟加载/卸载策略，获取一些平衡折中。</strong></p>
+<h3 id="电视机">电视机</h3><p>纯属无聊，再做一个电视机挂在墙上。依旧，定义一个立方体、挖空屏幕，放上透明玻璃，再贴上我们喜欢的电视节目画面，就ok了。</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'电视机体'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">150</span>,
+    height: <span class="hljs-number">80</span>,
+    depth: <span class="hljs-number">5</span>,
+    translate: [<span class="hljs-number">80</span>, <span class="hljs-number">100</span>, <span class="hljs-number">13</span>],
+    op: <span class="hljs-string">'+'</span>, 
+</span></span></span>},<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'电视机挖空'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">130</span>,
+    height: <span class="hljs-number">75</span>,
+    depth: <span class="hljs-number">5</span>,
+    translate: [<span class="hljs-number">80</span>, <span class="hljs-number">102.5</span>, <span class="hljs-number">17</span>],
+    op: <span class="hljs-string">'-'</span>,
+</span></span></span>},<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'电视机屏幕'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">130</span>,
+    height: <span class="hljs-number">75</span>,
+    depth: <span class="hljs-number">1</span>,
+    translate: [<span class="hljs-number">80</span>, <span class="hljs-number">102.5</span>, <span class="hljs-number">14.6</span>],
+    op: <span class="hljs-string">'+'</span>,
+    style: {
+        <span class="hljs-string">'front.m.texture.image'</span>: <span class="hljs-string">'images/screen.jpg'</span>,
+    </span></span></span>},
+}
+`</pre>
+
+<p>当然，实际项目中，可以换上监控大屏幕的效果：<br><img src="http://sfault-image.b0.upaiyun.com/175/103/175103621-556c1081aa689" alt="图片描述"></p>
+<h2 id="总结">总结</h2><p>整个场景写到最后，我也已经脑洞大开游刃有余了。3D场景，尤其是这类业务系统，并不一定要死抠模型的仿真度，才能做到“好看”的效果。先来一张全景看一下：<br><img src="http://sfault-image.b0.upaiyun.com/276/357/2763572951-556c109b39f92" alt="图片描述"></p>
+<p>怎么样，还算精美吧？基本不输前面看到的广告公司的效果图。但和效果图一张死图片不一样，我们这是一个能操作、能漫游、能缩放、有动画、显示流畅、浏览器无需插件就能直接打开的3D机房小程序，就一个json文件和一百多行代码和一天的时间就搞定了，还是让人有点惊讶的。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/338/284/3382844176-556c10abdfc4e" alt="图片描述"></p>
+<p>不用插件、不用3Dmax，不用模型库，干干净净纯粹的小程序，手机和平板也能用哦，而且还很流畅！上一张我的Nexus5截图瞅瞅：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/213/632/2136321317-556c10be2f2fe" alt="图片描述"></p>
+<p>经过优化，场景加载已经控制在600毫秒以内，缩放漫游也很流畅。当然，技术和美化永无止境，用户的需求也千变万化精益求精。但只要我们选择好了技术和工具，就能事半功倍。Html5就是极佳的一个选择。</p>
+<p>Html5，也许它还不是银弹，但它确实是很好的一个炮弹。本文这一弹，你还喜欢吗？欢迎来信留言索取代码、技术交流：tw-service@servasoftware.com</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>转载自<a href="http://segmentfault.com/">segmentfault</a>上面MonoLog的专栏，<a href="http://segmentfault.com/a/1190000002866653">传送门</a></p>
+</blockquote>
+<h2 id="前言">前言</h2><p>最近项目开发任务告一段落，刚好有时间整理这大半年的一些成果。使用html5时间还不久，对js的认识还不够深入。没办法，以前一直搞java，对js的一些语言特性和概念一时还转换不过来。</p>
+<p>上一篇<a href="http://segmentfault.com/a/1190000002775741">第一弹</a>介绍了项目中做的一个彩虹爆炸图，主要用了 html5的canvas的2d绘制技术。这一回我想介绍一下项目中的一个亮点技术：html5的3D，以及如何用它打造精美的3D机房监控系统。<br>]]>
+    
+    </summary>
+    
+      <category term="Canvas" scheme="http://qianzewei.com/tags/Canvas/"/>
+    
+      <category term="HTML5" scheme="http://qianzewei.com/tags/HTML5/"/>
+    
+      <category term="WebGl" scheme="http://qianzewei.com/tags/WebGl/"/>
+    
+      <category term="Repost" scheme="http://qianzewei.com/categories/Repost/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[.htaccess技巧-URL重写(Rewrite)与重定向(Redirect)]]></title>
+    <link href="http://qianzewei.com/2015/06/04/htaccess-tricks/"/>
+    <id>http://qianzewei.com/2015/06/04/htaccess-tricks/</id>
+    <published>2015-06-04T07:44:06.000Z</published>
+    <updated>2015-07-11T07:31:09.152Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>转载自<a href="https://lesca.me/archives/htaccess-rewrite.html" target="_blank" rel="external">.htaccess技巧: URL重写(Rewrite)与重定向(Redirect) - Lesca技术宅</a></p>
+</blockquote>
+<p>在开发的时候有用到url rule，这样可以将不同的域名指向不同的子文件夹，也就实现了在同一个服务器上搭建多个站点，很实用的技巧<br><a id="more"></a><br>URL重定向是.htaccess的重头戏，它可以将长地址转为短地址、将动态地址转为静态地址、重定向丢失的页面、防止盗链、实现自动语言转换等。笔者觉得难点是在正则表达式的运用和理解上。有关htaccess的正则表达式用法，请查阅本站《<a href="htaccess-appendix.html#htaccess_regex">.htaccess正则表达式</a>》一文。</p><p></p>
+<h2 id="一、准备开始：mod_rewrite">一、准备开始：mod_rewrite</h2><p>实现所有这些神奇功能的模块叫做<strong>mod_rewrite</strong>，请确保你的服务器安装并启用了该模块：</p>
+<pre>sudo a2enmod rewrite
+</pre>
+
+<p>我们一般会把所有涉及URL重写或者重定向的代码这样放置：</p>
+<pre><ifmodule mod_rewrite.c="">
+ # Turn on rewrite engine
+ Options +FollowSymlinks
+ RewriteEngine on
+ # More rules below
+ ...
+</ifmodule>
+</pre>
+
+<p>一些我们需要注意的地方：</p>
+<ul>
+<li>FollowSymlinks必须启用，这是rewrite引擎的安全需求。</li>
+<li>通常FollowSymlinks在Apache的主配置文件中就已经启用了，所以通常可以省略。</li>
+<li>RewriteEngine命令用于启用rewrite引擎</li>
+<li>IfModule命令用于判断Apache是否安装了mod_rewrite模块，之后笔者会省略该命令，但不代表这是个好习惯。</li>
+<li>mod_rewrite会处理所有提交给Apache的URL请求，并与之后的规则进行匹配</li>
+</ul>
+<p>下面我们开始讲解一些例子。</p>
+<h2 id="二、利用-htaccess实现URL重写(rewrite)与URL重定向(redirect)">二、利用.htaccess实现URL重写(rewrite)与URL重定向(redirect)</h2><h3 id="1-将-htm页面映射到-php">1.将.htm页面映射到.php</h3><pre>Options +FollowSymlinks
+RewriteEngine on
+RewriteRule ^(.*)\.htm$ $1.php [NC]
+</pre>
+
+<p>注意事项：</p>
+<ul>
+<li>该RewriteRule能够将.htm静态页面映射到.php动态页面</li>
+<li>如果通过.htm进入，浏览器地址栏显示的是.htm扩展名，但服务器上实际执行的是.php</li>
+<li>必须保证服务器上有对应的.php，否则会404</li>
+<li>浏览器和搜索引擎可以同时通过.htm和.php访问网页</li>
+<li>如果该目录上存在.htm，将被忽略</li>
+<li><strong>[NC]</strong>表示“不区分大小写”，更多类似定义请参考本站《<a href="htaccess-appendix.html#htaccess_regex">.htaccess正则表达式</a>》一文</li>
+</ul>
+<h3 id="2-临时重定向(R=302)与永久重定向(R=301)">2.临时重定向(R=302)与永久重定向(R=301)</h3><pre>RewriteEngine on
+**RewriteBase /**
+RewriteRule ^(.*)\.htm$ $1.php [**R**,NC,**L**]
+</pre>
+
+<p>注意事项：</p>
+<ul>
+<li>该RewriteRule能够将.htm静态页面<strong>重定向</strong>到.php动态页面</li>
+<li>如果通过.htm进入，<strong>浏览器地址栏会自动转为.php</strong>，这也是重定向的本质</li>
+<li>必须保证服务器上有对应的.php，否则会404</li>
+<li>浏览器和搜索引擎可以同时通过.htm和.php访问网页</li>
+<li>如果该目录上存在.htm，将被忽略</li>
+<li><strong>RewriteBase</strong>定义了<strong>重写基准目录</strong>。</li>
+<li>例如，如果你将虚拟站点设置在<strong>/var/www</strong>目录下，删除这行将会导致重定向到<a href="http://yourdomain.com/**var/www/1.php**。显然这是找不到的，而且你也不会希望用户看见你的服务器的目录结构。" target="_blank" rel="external">http://yourdomain.com/**var/www/1.php**。显然这是找不到的，而且你也不会希望用户看见你的服务器的目录结构。</a></li>
+<li>再举个例子，如果<strong>RewriteBase /base/</strong>，那么将会重定向到<a href="http://yourdomain.com/**base**/1.php。" target="_blank" rel="external">http://yourdomain.com/**base**/1.php。</a></li>
+<li>对于重写基准目录，我们还可以通过将$1.php变成<strong>/$1.php</strong>实现直接变换，这时就可以将RewriteBase省略。</li>
+<li><strong>字母R</strong>表示临时重定向，相当于<strong>[R=302,NC]</strong>。关于重定向代码，请参考本站《<a href="htaccess-appendix.html#redirect_codes">HTTP协议重定向编码</a>》</li>
+<li><strong>字母L</strong>表示如果能匹配本条规则，那么本条规则是最后一条(Last)，忽略之后的规则。</li>
+</ul>
+<p>在讨论R=302临时重定向后，理解R=301永久重定向也就容易多了：</p>
+<pre>RewriteEngine on
+RewriteRule ^(.*)$ http://newdomain.com/$1 [R=301,NC,L]
+</pre>
+
+<ul>
+<li>这个规则告诉浏览器和搜索引擎，网站地址发生了永久性变更，用户的URL请求将会被发送给新的域名（主机）处理。</li>
+<li>由于是重定向到新的主机地址，RewriteBase也就没有出现的必要了。</li>
+</ul>
+<h3 id="3-为什么要用重定向？——重定向和URL重写的区别">3.为什么要用重定向？——重定向和URL重写的区别</h3><ul>
+<li>通过重定向，浏览器知道页面位置发生变化，从而改变地址栏显示的地址</li>
+<li>通过重定向，搜索引擎意识到页面被移动了，从而更新搜索引擎索引，将原来失效的链接从搜索结果中移除</li>
+<li>临时重定向(R=302)和永久重定向(R=301)都是亲搜索引擎的，是SEO的重要技术</li>
+<li>URL重写用于将页面映射到本站另一页面，若重写到另一网络主机（域名），则按重定向处理</li>
+</ul>
+<h3 id="4-长短地址转换">4.长短地址转换</h3><p>利用URL重写，我们可以很方便地实现长短地址的转换，但是用重定向就不合适了。   </p>
+<pre>RewriteEngine On
+RewriteRule ^grab /public/files/download/download.php
+</pre>
+
+<p>若访问</p>
+<p>  <a href="http://mysite/grab?file=my.zip" target="_blank" rel="external">http://mysite/grab?file=my.zip</a></p>
+<p>则会执行该页面：</p>
+<p>  <a href="http://mysite/public/files/download/download.php?file=my.zip" target="_blank" rel="external">http://mysite/public/files/download/download.php?file=my.zip</a></p>
+<h3 id="5-去掉www">5.去掉www</h3><pre>Options +FollowSymlinks
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,NC,L]
+</pre>
+
+<h3 id="6-加上www">6.加上www</h3><pre>RewriteEngine On
+RewriteCond %{HTTP_HOST} ^(.*)$
+RewriteRule (.*) http://www\.%1/$1 [R=301,L]
+</pre>
+
+<h3 id="7-支持多域名访问">7.支持多域名访问</h3><p>如果你不凑巧买到了不支持多域名的主机，那么.htaccess或许可以帮助你。现在假设你有域名domain-one.com和domain-two.com，并且在服务器根目录有对应文件夹one和two，那么通过下面的改写就能让Apache同时接受者两个域名的请求：</p>
+<pre>#two domains served from one root..
+RewriteCond %{HTTP_HOST} domain-one.com
+RewriteCond %{REQUEST_URI} !^/one
+RewriteRule ^(.*)$ /one/$1 [L]
+
+RewriteCond %{HTTP_HOST} domain-two.com
+RewriteCond %{REQUEST_URI} !^/two
+RewriteRule ^(.*)$ /two/$1 [L]
+</pre>
+
+<h3 id="三、改写查询字符串QUERY_STRING">三、改写查询字符串QUERY_STRING</h3><p>查询字符串是指URL请求中“问号”后面的部分。比如，<a href="http://mysite/grab?**foo=bar**中粗体部分就是查询字符串，其中变量名是foo，值是bar。" target="_blank" rel="external">http://mysite/grab?**foo=bar**中粗体部分就是查询字符串，其中变量名是foo，值是bar。</a></p>
+<h3 id="1-利用QSA转换查询字符串QUERY_STRING">1.利用QSA转换查询字符串QUERY_STRING</h3><p>QSA标志（ Query String Appending）用于在URI中<strong>截取</strong>查询字符串，这个截取操作是通过<strong>小括号正则表达式</strong>实现的：</p>
+<pre>RewriteEngine On
+RewriteRule /pages/(.+) /page.php?page=$1 [**QSA**]
+</pre>
+
+<ul>
+<li>将会把请求/pages/<strong>123?one=two</strong> 映射到 /page.php?page=<strong>123&amp;one=two</strong></li>
+<li>注意粗体部分几乎是相同的，除了“问号”变成了“与”符号</li>
+<li>如果没有QSA标志，那么会映射到/page.php?page=<strong>123</strong>。</li>
+<li>如果没有用到<strong>小括号正则表达式</strong>，就不需要QSA，这在上节<a href="#rewrite4">“长短地址转换”</a>中已经例证过了。</li>
+<li><strong>小括号正则表达式</strong>可以截取查询字符串中的内容，但是如果没有开启QSA标志，那么在<strong>/page.php?page=$1</strong>中“问号”之后将会被剥离丢弃。这种特性可以用于实现<a href="#qs4">“剥离查询字符串”</a></li>
+</ul>
+<p>通过QSA，我们可以将简单链接/simple/<strong>flat</strong>/<strong>link</strong>/ 映射成 server-side.php?first-var=<strong>flat</strong>&amp;second-var=<strong>link</strong></p>
+<pre>RewriteEngine On
+RewriteRule ^/([^/]+)/([^/]+)/? /index.php?first-var=$1&second-var=$2 [QSA]
+</pre>
+
+<h3 id="2-利用RewriteCond改写查询字符串QUERY_STRING">2.利用RewriteCond改写查询字符串QUERY_STRING</h3><pre>RewriteEngine On
+RewriteCond %{QUERY_STRING} foo=(.*)
+RewriteRule ^grab(.*) /page.php?bar=**%1**
+</pre>
+
+<ul>
+<li>该规则将访问请求<a href="http://mysite/**grab?foo=bar**转换为http://mysite/**page.php?bar=bar**" target="_blank" rel="external">http://mysite/**grab?foo=bar**转换为http://mysite/**page.php?bar=bar**</a></li>
+<li>RewriteCond用于捕获查询字符串（QUERY_STRING）中变量<var>foo</var>的值，并存储在<strong>%1</strong>中</li>
+<li>QUERY_STRING是Apache定义的“变量=值”向量（数组）</li>
+</ul>
+<h3 id="3-QSA与RewriteCond双剑齐发">3.QSA与RewriteCond双剑齐发</h3><pre>RewriteEngine On
+RewriteCond %{QUERY_STRING} foo=(.+)
+RewriteRule ^grab/(.*) /%1/index.php?file=$1 [QSA]
+</pre>
+
+<ul>
+<li>会把/grab/foobar.zip?level=5&amp;<strong>foo=bar</strong> 映射到 /<strong>bar</strong>/index.php?file=<strong>foobar.zip&amp;level=5&amp;foo=bar</strong></li>
+<li>转换后根目录是<strong>bar</strong>目录</li>
+<li>foobar.zip<strong>?</strong>level=5中的“问号”变成了foobar.zip<strong>&amp;</strong>level=5中的“与”符号</li>
+</ul>
+<h3 id="4-剥离查询字符串">4.剥离查询字符串</h3><p>只需在要开始剥离的链接后面加个“问号”，并且不要启用QSA标志，就可剥离查询字符串</p>
+<pre>RewriteEngine On
+# Whatever QS is
+RewriteCond %{QUERY_STRING} . 
+# I don't want it with Question mark
+RewriteRule foo.php(.*) /foo.php? [L] 
+</pre>
+
+<h2 id="四、利用RewriteCond和RewriteRule进行访问控制">四、利用RewriteCond和RewriteRule进行访问控制</h2><p>我们在第一篇.htaccess基础中提到了<a href="htaccess-basic.html#access_control">很多有用的访问控制方法</a>，其实通过Rewrite也能实现类似的功能，而且可以更强大！</p>
+<h3 id="1-文件访问控制">1.文件访问控制</h3><p>之前<a href="htaccess-basic.html#access_control">利用Order、Files及FilesMatch命令实现的访问控制</a>可以满足大部分要求，但是当用户被拒绝时，他们看到的是硕大的“403 Forbidden”，如果你不想伤害用户的感情，就需要显示一些别的东西，通过Rewrite就可以实现这个特性：</p>
+<pre>RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !^(.+)\.css$
+RewriteCond %{REQUEST_FILENAME} !^(.+)\.js$
+RewriteCond %{REQUEST_FILENAME} !special.zip$
+RewriteRule ^(.+)$ /chat/ [NC]
+</pre>
+
+<ul>
+<li>该规则将仅允许用户请求.css, .js类型的文件，还有special.zip文件</li>
+<li>RewriteRule 后面指定了<strong>限制规则</strong>：映射到/char/目录下处理</li>
+<li>RewriteCond 后面的“感叹号”(!)起到了“否定”作用，它表明，<strong>对不满足后面正则表达式者应用RewriteRule规则</strong>，也就是对当前类型的文件将不应用规则</li>
+<li>RewriteCond 之间是以逻辑“与”连接的，也就是只有当三个条件都不满足时才执行RewriteRule</li>
+<li>该规则也会限制访问.htm, .jpg等格式</li>
+<li>该规则不可以放在虚拟站点根目录（/）下，否则会死循环</li>
+<li>如果是二级目录，如/test/，那么传入RewriteCond的参数是以/test/开始的，因此从<strong>(.+)</strong>获得的文件名也含有/test/，读者必须对此多加小心</li>
+<li>要想仅获得文件名，可以将(.+)替换成<strong>([^/]+)</strong>，并且去掉符号^，如下所示：<pre>RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !**([^/]+)**\.css$
+RewriteCond %{REQUEST_FILENAME} !**([^/]+)**\.js$
+RewriteRule ^(.+)$ /chat/ [NC]
+</pre>
+
+</li>
+</ul>
+<h3 id="2-用-htaccess阻止User-agent">2.用.htaccess阻止User-agent</h3><p>什么是User-agent？User-agent用于浏览器向服务器“自报家门”，更确切的说是所有HTTP客户端都得用User-agent向服务器“自报家门”，以便服务器对不同的客户端作出不同响应。比如，某站点可能需要对浏览器、搜索引擎crawl还有各类下载工具作出不同的响应。服务器就是通过所谓的User-agent进行区分的。</p>
+<p>如果你的服务器提供某些资源的下载，那么你就必须多加小心诸如“迅雷”等下载软件，因为它们可能把你网站资源吸干，并且影响你的正常访客访问。为此，我们可以利用Rewrite限制某些UA的访问：</p>
+<pre>RewriteEngine on
+RewriteCond %{HTTP_USER_AGENT} 2.0.50727 [NC]
+RewriteRule . abuse.txt [L]
+</pre>
+
+<ul>
+<li>该规则限制“迅雷”客户端下载资源，并将下载文件重置到abuse.txt</li>
+<li>HTTP_USER_AGENT是Apache的内置变量</li>
+<li>2.0.50727是迅雷User-agent的特征字符串</li>
+<li>RewriteRule后面的“点”表示“任意URI”，也就是不管请求的是什么，都输出abuse.txt</li>
+</ul>
+<p>通常，我们不会仅限制一个UA。利用<strong>[OR]</strong>即可实现对多个UA作出统一处理：</p>
+<pre>RewriteEngine on
+RewriteCond %{HTTP_USER_AGENT} 2.0.50727 [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^BlackWidow [NC,OR]
+# etc..
+RewriteCond %{HTTP_USER_AGENT} ^Net\ Vampire [NC]
+RewriteRule . abuse.txt [L]
+</pre>
+
+<h3 id="3-用-htaccess阻止盗链(hot-linking)">3.用.htaccess阻止盗链(hot-linking)</h3><p>盗链，特别是图片，是非常可耻的！哪怕将图片复制到自己服务器上，也比盗用他人的图片链接来得光彩！（吐糟完毕）</p>
+<p>.htaccess的Rewrite功能可以提供非常简单、有效的方法阻止这种可耻行为：</p>
+<pre>RewriteEngine On
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^http://(www\.)?lesca\.me/ [NC]
+RewriteCond %{REQUEST_URI} !hotlink\.png [NC]
+RewriteRule .*\.(gif|jpg|png)$ /hotlink.png [NC]
+</pre>
+
+<p>简单解释一下该规则的功能：</p>
+<ul>
+<li>除本站以外其他网站都不得引用本站图片，具体可以理解为</li>
+<li>如果引用站点为“空”或者是“本站”，或者，所引用对象是“hotlink.png”，那么就允许访问</li>
+<li>再次提醒，RewriteCond之间默认的逻辑连接词是逻辑“与”</li>
+<li>这里的难点是理解逻辑转换，即<a href="http://simple.wikipedia.org/wiki/De_Morgan%27s_laws" target="_blank" rel="external">德·摩根定律</a></li>
+</ul>
+<h2 id="References:">References:</h2><p>[1] <a href="http://corz.org/serv/tricks/htaccess2.php" target="_blank" rel="external">more .htaccess tips and tricks..</a></p>
+<p>[2] <a href="http://perishablepress.com/stupid-htaccess-tricks/" target="_blank" rel="external">Stupid htaccess Tricks</a></p>
+<p>[3] <a href="http://httpd.apache.org/docs/2.2/rewrite/flags.html#flag_qsa" target="_blank" rel="external">QSA Flag</a></p>
+<p>[4] <a href="http://roshanbh.com.np/2008/03/url-rewriting-examples-htaccess.html" target="_blank" rel="external">5 useful url rewriting examples using .htaccess</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>转载自<a href="https://lesca.me/archives/htaccess-rewrite.html">.htaccess技巧: URL重写(Rewrite)与重定向(Redirect) - Lesca技术宅</a></p>
+</blockquote>
+<p>在开发的时候有用到url rule，这样可以将不同的域名指向不同的子文件夹，也就实现了在同一个服务器上搭建多个站点，很实用的技巧<br>]]>
+    
+    </summary>
+    
+      <category term=".htaccess" scheme="http://qianzewei.com/tags/htaccess/"/>
+    
+      <category term="Repost" scheme="http://qianzewei.com/categories/Repost/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Web中常见的四种树形结构]]></title>
+    <link href="http://qianzewei.com/2015/06/03/web-tree/"/>
+    <id>http://qianzewei.com/2015/06/03/web-tree/</id>
+    <published>2015-06-02T18:15:21.000Z</published>
+    <updated>2015-07-11T07:39:52.431Z</updated>
+    <content type="html"><![CDATA[<h4 id="写在前面">写在前面</h4><blockquote>
+<p>最近开发博客的时候Tag Model想写成树形结构，翻了一些博客文章，写篇小结，仅供参考。</p>
+</blockquote>
+<hr>
+<h4 id="Web中常见的四种树形结构">Web中常见的四种树形结构</h4><ul>
+<li>Adjacency List:：记录父节点parent_id（变种加上深度值）</li>
+<li>Path Enumerations：记录整个Node Path</li>
+<li>Closure Table：专门一张表维护Path</li>
+<li>Nested Sets：记录左值和右值</li>
+</ul>
+<p>基本上web中最常见的就是这四种mysql设计。</p>
+<p><img src="http://7xjdel.com1.z0.glb.clouddn.com/blogq/web-tree-1.png" alt="Alt text"><br><a id="more"></a></p>
+<p>各方面的比较图</p>
+<hr>
+<h4 id="Adjacency_List">Adjacency List</h4><blockquote>
+<p>这是最常见也是最简单的一种方式，仅仅加上一个parent_id就可以。</p>
+</blockquote>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">|<span class="string"> node_id </span>|<span class="string"> parent_id </span>|</span><br></pre></td></tr></table></figure>
+<h5 id="CRUD方面">CRUD方面</h5><p>由于互相之间的关系只由一个parent_id维护，所以增删改都是非常容易，只需要改动和他直接相关的记录就可以。<br>但是，<strong>查询和展现开销比较大</strong>，举个例子，如果想要返回所有<strong>水果</strong>，也就是水果的所有子孙节点，看似很简单的操作，就需要用到<strong>duang</strong>一堆<strong>递归</strong>了。所以异步加载这个特性也不太友好，天生不适合，不如一次性返回整个数。</p>
+<p>如果数据量很有限，那么这是一个很好（简单暴力）的选择。（比如一个博客程序的tags归类）</p>
+<h4 id="Path_Enumerations">Path Enumerations</h4><blockquote>
+<p>将整个Node Path作为一个字段，单独存储 </p>
+</blockquote>
+<p>这样可以改善一些Adjacency List查询方面的的缺陷，加入类似于A-B-C-D这样的路径字段，可以让查询子孙节点，查询树结构中的一部分，这样的操作更加简单。<br>还有类似的改进方案是加入level值，有时候也被命名为depth，也就是代表是第几层。也可以实现类似的效果。</p>
+<p>不过，查询只能说是相对高效。</p>
+<hr>
+<h4 id="Closure_Table">Closure Table</h4><blockquote>
+<p>这和上面的Path思路一致，但是不同的是用单独的一张表，维护Path</p>
+</blockquote>
+<p>参考文章 <a href="https://coderwall.com/p/lixing/closure-tables-for-browsing-trees-in-sql" target="_blank" rel="external"><strong>Closure Tables for Browsing Trees in SQL</strong></a></p>
+<p>用comment表煮个栗子<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">comment</span><br><span class="line"> -<span class="ruby"> id</span><br><span class="line"></span> -<span class="ruby"> name</span><br><span class="line"></span> -<span class="ruby"> parent</span><br><span class="line"></span> -<span class="ruby"> rank</span><br><span class="line"></span>comment_closure</span><br><span class="line"> -<span class="ruby"> ancester(the parent)</span><br><span class="line"></span> -<span class="ruby"> descendant(the child)</span><br><span class="line"></span> -<span class="ruby"> depth</span></span><br></pre></td></tr></table></figure></p>
+<p>比如有这样的一个评论结构<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> </span><br><span class="line">   <span class="string">| - 2 </span></span><br><span class="line">       <span class="string">| - 3 </span></span><br><span class="line">           <span class="string">| - 6</span></span><br><span class="line">       <span class="string">| - 5</span></span><br><span class="line">   <span class="string">| - 4</span></span><br></pre></td></tr></table></figure></p>
+<p>那么我们的cloure_table就会这么设计<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO `comment_closure` <span class="params">(`ancestor`, `descendant`, `depth`)</span> VALUES</span><br><span class="line"><span class="params">(<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">2</span>, <span class="number">2</span>, <span class="number">0</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">3</span>, <span class="number">3</span>, <span class="number">0</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">0</span>, <span class="number">3</span>, <span class="number">2</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">4</span>, <span class="number">4</span>, <span class="number">0</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">0</span>, <span class="number">4</span>, <span class="number">1</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">5</span>, <span class="number">5</span>, <span class="number">0</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">1</span>, <span class="number">5</span>, <span class="number">2</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">2</span>, <span class="number">5</span>, <span class="number">1</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">0</span>, <span class="number">5</span>, <span class="number">2</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">6</span>, <span class="number">6</span>, <span class="number">0</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">1</span>, <span class="number">6</span>, <span class="number">3</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">2</span>, <span class="number">6</span>, <span class="number">2</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">3</span>, <span class="number">6</span>, <span class="number">1</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">0</span>, <span class="number">6</span>, <span class="number">3</span>)</span>;</span><br></pre></td></tr></table></figure></p>
+<p>取6这个节点说明，<code>(6, 6, 0)</code>就是这个节点本身，<code>(1, 6, 3)，(2, 6, 2),(3, 6, 1)，(0, 6, 3)</code>分别代表这个节点和0（root），1，2，3这四个节点的深度关系。<br>来做一次查询，我们查询2节点下的整个树：<br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT <span class="escape">`i</span>d<span class="escape">`,</span><span class="escape">`p</span>arent<span class="escape">` </span>FROM <span class="escape">`c</span>omments<span class="escape">` </span><span class="escape">`c</span>omment<span class="escape">`</span><br><span class="line"></span>  JOIN <span class="escape">`c</span>omments_closure<span class="escape">` </span><span class="escape">`c</span>losure<span class="escape">`</span><br><span class="line"></span>  ON <span class="escape">`c</span>omment<span class="escape">`.</span><span class="escape">`i</span>d<span class="escape">` </span>= <span class="escape">`c</span>losure<span class="escape">`.</span><span class="escape">`d</span>escendant<span class="escape">`</span><br><span class="line"></span>WHERE <span class="escape">`c</span>losure<span class="escape">`.</span><span class="escape">`a</span>ncestor<span class="escape">` </span>= <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
+<p>于是很愉快的返回了<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="property">id</span> parent</span><br><span class="line"><span class="number">2</span> <span class="number">1</span></span><br><span class="line"><span class="number">3</span> <span class="number">2</span></span><br><span class="line"><span class="number">5</span> <span class="number">2</span></span><br><span class="line"><span class="number">6</span> <span class="number">3</span></span><br></pre></td></tr></table></figure></p>
+<p>rank这个字段是由他的Path生成的，类似于这样：<code>0000000001-0000000002-0000000003</code>，在上面提到的文章中，原作者将他的适用场景描述为：对comments进行排序操作。个人觉得不是这个方法的精髓，所以不放在文章里面了，有兴趣的童鞋请移步<a href="https://coderwall.com/p/lixing/closure-tables-for-browsing-trees-in-sql" target="_blank" rel="external">传送们</a>。</p>
+<p>查询优化了很多，不过<strong>缺点</strong>也是显而易见的，<strong>查询</strong>和<strong>删除</strong>这样的操作会涉及非常多的东西，需要单独写函数来做了= =<br>如果树结构很庞大，对查询、定位这样的效率需求高，又不是很追求改动的效率的话（改动次数少、只有管理员可以改动），这个方式比较适合</p>
+<hr>
+<h4 id="Nested_Sets">Nested Sets</h4><blockquote>
+<p>记录左值和右值，比较独特的一种方式，查询非常高效</p>
+</blockquote>
+<p><strong>这个必须先上图了</strong></p>
+<p><img src="http://7xjdel.com1.z0.glb.clouddn.com/blogq/web-tree-2.png" alt="Alt text"></p>
+<p>PS：好像也叫Modified Preorder Tree</p>
+<p>按照深度优先，由左到右的原则遍历整个树，从1开始给每个节点标注上left值和right值，并将这两个值存入对应的name之中。<br>因为跳出了<strong>父子节点</strong>这样一个框架，所以看起来就比较复杂，不直观，不过复杂自然有复杂的道理，不然就称不上一个优秀的树形结构设计了。</p>
+<h5 id="CRUD">CRUD</h5><ol>
+<li>获取某节点的子孙节点<br><code>SELECT * FROM Tree WHERE Lft BETWEEN 左值 AND 右值 ORDER BY Lft ASC</code></li>
+<li>获取某节点的Path<br><code>SELECT* FROM Tree WHERE Lft &lt; 左值 AND Rgt &gt; 右值 ORDER BY Lft ASC</code></li>
+<li>添加一个节点<br>需要两步，这里讨论的是，加入的节点是个<strong>末端节点</strong>，所谓末端节点，就是插入的这个节点，不是任何当前已存在的节点的父节点<ol>
+<li>首先，需要给这个节点<strong>腾出地方</strong>，比如我要在6、7中间插入一个元素，那么所有左值和右值大于6的节点，左值右值都得+2；</li>
+<li>其次，把这个节点加进来，给他左右值附值7、8。</li>
+</ol>
+</li>
+<li>删除一个节点<br>同样比较复杂，如果我们想要删除某个节点，会同时删除该节点的所有子孙节点，而这些被删除的节点的个数为：(被删除节点的右值 – 被删除节点的左值+ 1) / 2，而剩下的节点左、右值在大于被删除节点左、右值的情况下会进行调整。</li>
+</ol>
+<p>优缺点非常明显：<br>查询高效，增删改非常难。。</p>
+<hr>
+<h4 id="总结">总结</h4><p>根据使用场景，选择适合的方案</p>
+<hr>
+<h4 id="相关文章和站点">相关文章和站点</h4><ul>
+<li><a href="http://stackoverflow.com/questions/4048151/what-are-the-options-for-storing-hierarchical-data-in-a-relational-database" target="_blank" rel="external">What are the Options for Storing Hierarchical Data in a Relational Database? - stackoverflow</a></li>
+<li><a href="http://www.csdn.net/article/2014-12-17/2823183" target="_blank" rel="external">门户级UGC系统的技术进化路线——新浪新闻评论系统的架构演进和经验总结</a></li>
+<li><a href="https://ruby-china.org/topics/2533" target="_blank" rel="external">关于类似网易评论盖楼的数据库设计</a></li>
+<li><a href="http://www.zhihu.com/question/20417447/answer/15078011" target="_blank" rel="external">怎样在 MySQL 表中存储树形结构数据？（卢钧轶的回答） 知乎</a></li>
+<li><a href="https://coderwall.com/p/lixing/closure-tables-for-browsing-trees-in-sql" target="_blank" rel="external">Closure Tables for Browsing Trees in SQL</a></li>
+<li><a href="http://blog.csdn.net/monkey_d_meng/article/details/6647488" target="_blank" rel="external">树形结构的数据库表Schema设计</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h4 id="写在前面">写在前面</h4><blockquote>
+<p>最近开发博客的时候Tag Model想写成树形结构，翻了一些博客文章，写篇小结，仅供参考。</p>
+</blockquote>
+<hr>
+<h4 id="Web中常见的四种树形结构">Web中常见的四种树形结构</h4><ul>
+<li>Adjacency List:：记录父节点parent_id（变种加上深度值）</li>
+<li>Path Enumerations：记录整个Node Path</li>
+<li>Closure Table：专门一张表维护Path</li>
+<li>Nested Sets：记录左值和右值</li>
+</ul>
+<p>基本上web中最常见的就是这四种mysql设计。</p>
+<p><img src="http://7xjdel.com1.z0.glb.clouddn.com/blogq/web-tree-1.png" alt="Alt text"><br>]]>
+    
+    </summary>
+    
+      <category term="MySql" scheme="http://qianzewei.com/tags/MySql/"/>
+    
+      <category term="Web开发" scheme="http://qianzewei.com/tags/Web%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="Coding" scheme="http://qianzewei.com/categories/Coding/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[HTML5 webGL（第一弹：彩虹爆炸图）]]></title>
+    <link href="http://qianzewei.com/2015/06/01/webgl-repost-1/"/>
+    <id>http://qianzewei.com/2015/06/01/webgl-repost-1/</id>
+    <published>2015-06-01T07:46:54.000Z</published>
+    <updated>2015-07-11T07:20:55.016Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>转载自<a href="http://segmentfault.com/" target="_blank" rel="external">segmentfault</a>上面MonoLog的专栏，<a href="http://segmentfault.com/a/1190000002775741" target="_blank" rel="external">传送门</a></p>
+</blockquote>
+<h2 id="前言">前言</h2><p>25年过去了，Brooks博士著名的“没有银弹”的论断依旧没有被打破。HTML5也是一样。但这并不妨碍HTML5是一个越来越有威力的“炸弹”：发展迅速、势不可挡。随着HTML5技术的普及，用HTML5做可视化呈现的项目越来越多了。HTML5的优势明显：网页上直接运行无需插件、手机平板方便兼容、代码开发和维护相对容易，等等。一大波一大波的做Java、.NET甚至C++桌面的程序老手们都纷纷开始研究javascript了，而初出茅庐的新一代程序猿更是义无反顾的直奔HTML5这个技术大热点而来。</p>
+<p>HTML5涵盖的技术点很多，甚至延伸到了前端、后端、通讯等各个层面。前端的canvas绘图这块无疑是它的核心内容。Canvas的API虽然不是很复杂很强大，但是做一般的2d绘图基本都够用了。基于这些API，一大堆的2d绘图组件纷纷出炉。Echarts、d3.js都是很不错的项目。Echarts主要是chart组件，而d3相对杂一些，很多呈现方式很有创意，值得研究。<br><a id="more"></a></p>
+<h2 id="概述">概述</h2><p>研究d3的起因是最近有一个项目，用户截了一张效果图让我们用HTML5做一下：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/391/318/391318123-555ab313946b4" alt="图片描述"></p>
+<p>看着很眼熟，搜了一下，感觉就是d3例子中的sunburst效果，程序在这里：</p>
+<blockquote>
+<p><a href="http://bl.ocks.org/mbostock/4063423" target="_blank" rel="external">http://bl.ocks.org/mbostock/4063423</a></p>
+</blockquote>
+<p>看上去似乎也不难，就是一圈一圈的饼图，把树状结构数据按占比一层一层绘制上去就行了。所以引起了自己动手做一个的兴趣。“sunburst”英文里应该是“云开日出”的意思，类似强烈的光芒从云层背后透射出来，不知为何中文里大多把它翻译成“日落”。比如这把Fender Telecaster吉他型号是Brown Sunburst款，就会被大家翻译成“日落色”。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/156/229/1562297313-555ab34aec0fa" alt="图片描述"></p>
+<p>关于日出和日落更喜欢哪一个的问题，网上还真有这样的调查。有意思的是，选择喜欢日落的远多于选择日出的。日出代表希望，日落代表成熟，都是一种美，哪个更美要看你个人的心境，因为它的美丽是由心生。为了不在这个问题上站错对，我们还是给他重新起一个更加响亮霸气的中文名字：“彩虹爆炸图”，怎么样？</p>
+<p>仔细研究一下彩虹爆炸图的结构，无非就是一个树形结构，并采用发射状的布局。根节点在中间（也可以认为没有唯一的根，而是一堆根节点围绕在第一圈），一次向外发散排列。每一个节点有名称、数值。节点可以按照自身数值在扇区所占比例进行绘制，这样就不用管节点具体数值有多大多小了。</p>
+<blockquote>
+<p>这种图最先是由布朗大学教授John T. Stasko设计。<br><a href="http://www.cc.gatech.edu/~john.stasko/" target="_blank" rel="external">http://www.cc.gatech.edu/~john.stasko/</a></p>
+</blockquote>
+<p>经过一天的折腾，终于做出了一个还算过得去的“彩虹爆炸图”。先上个图看看：<br><img src="http://sfault-image.b0.upaiyun.com/367/647/3676475477-5559a9f164da0" alt="图片描述"></p>
+<p>主要功能包括了：</p>
+<p>• 可以通过json来定义数据和样式（类似百度的echarts那样）；</p>
+<p>• 颜色可以固定，也可以自动彩虹色；</p>
+<p>• 自动计算数值及角度占比；</p>
+<p>• 动态显示导航路径；</p>
+<p>• 鼠标动态高亮显示路径；</p>
+<p>• 动画飞入、展开导航路径；</p>
+<p>• 文字显示及角度控制；</p>
+<p>• 全矢量，可鼠标缩放、平移，不失真；</p>
+<p>下面重点码一下折腾过程中的几个重点：</p>
+<h2 id="一、定义节点对象">一、定义节点对象</h2><p>首先定义每一个小扇片节点。每个扇片可以用一段饼图来绘制。为了简单方便，这里用了最简单高效偷懒的方法：用一个半径很粗的线画一段角度的arc，即可。如下图：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/262/702/2627026-5559aa9cd98d1" alt="图片描述"></p>
+<p>另外还有文字等内容。所以定义它的json结构大概如下：</p>
+<pre><span class="widget-clipboard"></span>`<span class="hljs-keyword">var</span> item = {name: <span class="hljs-string">'名称'</span>, color: <span class="hljs-string">'red'</span>, angle: <span class="hljs-string">'45'</span>, …};
+`</pre>
+
+<p>此外，下一圈的数据，可直接定义为这个节点的“孩子节点”，直接在item中定义一个data的子节点数据：</p>
+<pre><span class="widget-clipboard"></span>`<span class="hljs-keyword">var</span> item = {name: <span class="hljs-string">'名称'</span>, color: <span class="hljs-string">'red'</span>, angle: <span class="hljs-string">'45'</span>, data:[
+    {name:’孩子一’, color:’green’,…},
+    {name:’孩子二’, color:’yellow’,…},
+]};
+
+`</pre>
+
+<p>这样就可以组成一个树状结构。接下来要在canvas上绘制图形了。为了方便，这里直接使用了矢量图进行定义：</p>
+<pre><span class="widget-clipboard"></span>`twaver.Util.registerImage(<span class="hljs-string">'node'</span>, { 
+  v: [{
+    shape: <span class="hljs-string">'circle'</span>,
+    r: ...
+    lineColor: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data,view)</span></span>{<span class="hljs-keyword">return</span> data.getClient(<span class="hljs-string">"lineColor"</span>);}, 
+    lineWidth: ...
+    startAngle: ...
+    endAngle: ...
+  },{
+    shape: <span class="hljs-string">'text'</span>,
+    textBaseline: <span class="hljs-string">'middle'</span>,
+    textAlign: ...
+    text: ...
+    x: ...
+    y: ...
+    font: ...
+    fill: ...
+    rotate: ...
+    visible: ...
+    shadow: ...
+  }],
+}); 
+
+`</pre>
+
+<p>矢量图中定义了2个图形元素：一个arc弧线、一个文字对象，分别用于画node和绘制其文字。颜色、字体、是否可见、阴影、对齐、位置、线宽、角度…等等均在上面的定义中用一个function动态获取。例如，这个节点的半径，通过下面的方法，就可以在图形的lineColor属性中保存并驱动，需要修改，直接修改lineColor这个client属性即可，而不用去修改绘图参数，非常方便：</p>
+<pre><span class="widget-clipboard"></span>`r:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data,view)</span></span>{<span class="hljs-keyword">return</span> data.getClient(<span class="hljs-string">"lineColor"</span>);}
+`</pre>
+
+<p>这里有一个比较啰嗦的地方是：每个扇片的角度需要根据每个item定义的原始值进行计算角度占比。而且，对于太小的扇片，可以给一定的最小值（例如1度），保证能视觉上看到它。否则，显示10000和1两个数值，由于对比过大，可能就杯具了，因为1连1度都占不到，显示效果会非常差。还有，每个扇片之间应该尽量留有一定的空隙。如果连续绘制，就会连成一片，没有“分片”感。这些可以在代码中进行简单控制。</p>
+<h2 id="二、文字控制">二、文字控制</h2><p>文字控制也比较啰嗦。首先是对齐方式。最简单的方式当然是让文字在所在扇片处，直接居中、旋转。这样文字会在径向的中间位置，如下图。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/388/979/3889796661-5559af32dcf4e" alt="图片描述"></p>
+<p>但这样显示感觉并不是很完美。对于中文来说，如果能统一靠近圆心方向的位置对齐，会更好看一些。这样，即使文字过长，也会向外延伸，不会和里面的重叠。如下图：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/803/802/80380298-555ab3f334dae" alt="图片描述"></p>
+<p>还有，当文字在左半圆时，如果不做特殊处理，文字旋转会导致文字大头朝下，阅读起来有把脖子歪断的风险。所以应该动态判断，如果文字在左侧，应该文字再增加旋转180度。同时左侧的文字对齐也要特殊考虑，应该变成右对齐，才能保持径向的整齐一致。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/278/954/2789547509-555ab41b414bd" alt="图片描述"></p>
+<p>文字还有一个细节就是颜色和阴影的问题。不使用阴影，单纯的使用颜色（例如白色），则在一些方向上的节点的文字会看不清楚，因为我们做的是彩虹爆炸图，各个方向颜色都不一样，而且还会随着圈数增加而变淡颜色，所以几乎不可能用一个固定的颜色（例如白色或黑色）能保证文字在所有地方都能和node颜色搭配并看清楚。所以思来想去还是使用了阴影效果。</p>
+<p>联想了一下我们看美剧时候的字幕，似乎也是同样的问题。视频字幕要显示在千变万化的视频场景里面，视频场景的颜色完全随机出现无从知晓，要想让字幕看清楚，必然也会想一些办法解决。我们仔细观察一下视频字幕：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/762/777/76277797-555ab46bb6e88" alt="图片描述"></p>
+<p>仔细观察，字幕是白色文字加了一圈黑色外框，这样就不怕任何场景了。我们在文字定义时也模拟一下，设置阴影和阴影偏移试一试：</p>
+<pre><span class="widget-clipboard"></span>`fill:<span class="hljs-string">'white'</span>,
+            shadow: {
+                offsetX: <span class="hljs-number">2</span>,
+                offsetY: <span class="hljs-number">2</span>,
+                blur: <span class="hljs-number">4</span>,
+                color: <span class="hljs-string">'black'</span>,
+            },
+`</pre>
+
+<p>看一下使用前和使用后的效果对比：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/335/158/3351585863-555ab4812837a" alt="图片描述"></p>
+<p>使用阴影后不但文字更清晰了，而且也增加了立体感，效果还是不错的。下面图显示在应用在节点上的效果：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/273/186/2731865649-555ab4beabb35" alt="图片描述"></p>
+<p>可见不论什么颜色，都能比较好的勾勒出文字轮廓，保持清晰可读。</p>
+<h2 id="三、生成彩虹颜色">三、生成彩虹颜色</h2><p>关于颜色，是一个有趣的话题。对于广大程序猿来说，颜色是一个既简单又困难的东西。我们随手就能写下’red’, ‘green’, ‘orange’, ‘yellow’这样的色彩斑斓的颜色，还能保证没有语法错误；我们还会写’#FF55AA’、’#0c0’、’RGB（0,204,0）’、’ RGB（0％，80％，0％）’这样的各种颜色写法；我们也明白RGBA的含义和用途。但是，我们很少能把一个demo写的颜色很好看、很搭配。关于颜色和配色以后再专门讨论。这里我们只想自动生成一圈彩虹一样的颜色。用我们熟悉的RGB方法好像比较困难了。于是想起了那个HSV的颜色定义方法，它貌似很适合解决这个问题。</p>
+<blockquote>
+<p>HSV颜色模型定义了色调H、饱和度S和亮度V，由A. R. Smith在1978年创建的一种颜色空间。其中H用一圈360度表示所有颜色，从红色开始按逆时针方向计算，红色为0度。饱和度S从0到1，越大越饱和。亮度V从0到255（也可以转换为从0到1，方便使用），越大越明亮，越小越暗淡。</p>
+</blockquote>
+<p><img src="http://sfault-image.b0.upaiyun.com/336/224/3362247702-555ab4d7234fd" alt="图片描述"></p>
+<p>Js里面并没有直接处理HSV颜色的函数。不过用下面的代码很方便可以从hsv转为rgb：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/645/347/645347425-555ab4ee99f36" alt="图片描述"></p>
+<p>写一个对应的js函数也很简单：</p>
+<pre><span class="widget-clipboard"></span>` <span class="hljs-comment">/* h, s, v (0 ~ 1) */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getHSVColor</span><span class="hljs-params">(h, s, v)</span> </span>{
+        <span class="hljs-keyword">var</span> r, g, b, i, f, p, q, t;
+        <span class="hljs-keyword">if</span> (h && s === <span class="hljs-literal">undefined</span> && v === <span class="hljs-literal">undefined</span>) {
+            s = h.s, v = h.v, h = h.h;
+        }
+        i = <span class="hljs-built_in">Math</span>.floor(h * <span class="hljs-number">6</span>);
+        f = h * <span class="hljs-number">6</span> - i;
+        p = v * (<span class="hljs-number">1</span> - s);
+        q = v * (<span class="hljs-number">1</span> - f * s);
+        t = v * (<span class="hljs-number">1</span> - (<span class="hljs-number">1</span> - f) * s);
+        <span class="hljs-keyword">switch</span> (i % <span class="hljs-number">6</span>) {
+            <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: r = v, g = t, b = p; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: r = q, g = v, b = p; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: r = p, g = v, b = t; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>: r = p, g = q, b = v; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>: r = t, g = p, b = v; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>: r = v, g = p, b = q; <span class="hljs-keyword">break</span>;
+        }
+        <span class="hljs-keyword">var</span> rgb=<span class="hljs-string">'#'</span>+toHex(r * <span class="hljs-number">255</span>)+toHex(g * <span class="hljs-number">255</span>)+toHex(b * <span class="hljs-number">255</span>);
+        <span class="hljs-keyword">return</span> rgb;
+    }
+`</pre>
+
+<p>再回到我们的彩虹爆炸图。每一个节点对应的所在角度（中心角度）决定了它自己的颜色值。所以，我们可以直接根据这个角度得到颜色的h。然后，为了让彩虹逐渐一圈一圈变淡，再把s饱和度从1逐圈递减（例如0.1），产生变淡的效果。为了防止圈太多最后看不清，减到0.2到0.3左右可以停止递减。</p>
+<pre><span class="widget-clipboard"></span>`<span class="hljs-keyword">var</span> fromAngle=node.getClient(‘fromAngle’);
+<span class="hljs-keyword">var</span> toAngle=node.getClient(‘toAngle’);
+<span class="hljs-keyword">var</span> level=node.getClient(‘level’);<span class="hljs-comment">//节点在第几圈</span>
+<span class="hljs-keyword">var</span> h = (fromAngle+to)/<span class="hljs-number">2</span> % <span class="hljs-number">360</span> /<span class="hljs-number">360</span>; <span class="hljs-comment">//中心角度，并转换为弧度</span>
+<span class="hljs-keyword">var</span> s = <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0.2</span>, <span class="hljs-number">1</span>-level*<span class="hljs-number">0.1</span>);<span class="hljs-comment">//每圈s递减0.1，直到0.2为止</span>
+<span class="hljs-keyword">var</span> v=<span class="hljs-number">1</span>;
+<span class="hljs-keyword">var</span> color=getHSVColor(h, s, v);
+`</pre>
+
+<p>这样就获得了一圈颜色。实验效果如下：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/122/931/1229319040-5559b1a30202a" alt="图片描述"></p>
+<p>如果相对某个节点的颜色做特殊处理，例如强制为橙色来凸显，我们可以在数据中定义时加个标记，设置颜色时候直接使用而不用计算即可。</p>
+<pre><span class="widget-clipboard"></span>`{name:<span class="hljs-string">'浦东新区'</span>, value: <span class="hljs-number">2600</span>, color: <span class="hljs-string">'#FE9A2E'</span>}
+`</pre>
+
+<p>接下来要实现鼠标划过节点，自动计算路径、高亮路径节点、暗淡非路径节点。为了方便路径寻找，程序把每个节点的下一圈子数据定义为子节点，子节点通过getParent()函数可以直接获得父对象。这样，通过不断getParent就可以获得整个路径上的节点，并修改其颜色为预设颜色，实现高亮效果：</p>
+<pre><span class="widget-clipboard"></span>` <span class="hljs-keyword">var</span> node=highlightedNode;
+        <span class="hljs-keyword">while</span>(node){ 
+            node.setClient(‘color’, node.getClient(‘color.original’));
+            node=node.getParent();
+        }
+`</pre>
+
+<p>对于非路径节点的颜色，可以设置为预设颜色但饱和度为0.1的淡颜色 ，让它变淡，以便突出高亮路径：</p>
+<pre><span class="widget-clipboard"></span>`<span class="hljs-keyword">var</span> color = getHSVColor(h, <span class="hljs-number">0.1</span>, v);
+node.setClient(‘color’, color);
+`</pre>
+
+<h2 id="四、动画效果">四、动画效果</h2><p>最后，为了图形更生动，使用了一些动画效果。首先想到的就是图形出来时候，用动画从小到大发散开来，会很动感。这样做需要用动画函数来驱动每一个节点的半径位置，从0增加到所在的半径位置，如果大家一起设置，整个图就会动起来。这里用了一个动画函数来驱动，并使用了网上常用的easing函数来控制，避免线性的动画太死板：</p>
+<pre><span class="widget-clipboard"></span>`<span class="hljs-keyword">new</span> Animate({
+    from: <span class="hljs-number">0</span>,
+    to: <span class="hljs-number">1</span>,
+    dur: <span class="hljs-number">3000</span>+level*<span class="hljs-number">100</span>,
+    easing: <span class="hljs-string">'elasticOut'</span>,
+    onUpdate: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(value)</span> </span>{
+        node.setLocation(<span class="hljs-string">'pie.location’, value);
+    },
+}).play(); 
+</span>`</pre>
+
+<p>上面定义的动画，用3秒钟跑完，用’elasticOut’的easing方式。每一帧，修改node的位置信息。这样就完成了橡皮筋一样的环形弹出散开效果。</p>
+<p>另外，导航条的出来也比较突兀，这里也使用一下动画，让它从左到右慢慢伸出：</p>
+<pre><span class="widget-clipboard"></span>`<span class="hljs-keyword">new</span> Animate({
+    from: {x:x1, y:y1},
+    to: {x:x2, y:y2},
+    delay:<span class="hljs-number">50</span>,
+    type: <span class="hljs-string">'point'</span>,
+    dur: <span class="hljs-number">1000</span>,
+    easing: <span class="hljs-string">'bounceOut'</span>,
+    onUpdate: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(value)</span> </span>{ 
+        node.setCenterLocation(value.x, value.y);
+    },
+}).play(); 
+`</pre>
+
+<p>和上一个动画的不同之处在于这里使用了{x、y}的point结构，每一帧直接更新节点位置。同时设置了50毫秒的delay，让动画有一点点粘性停滞，不至于太突兀。效果不错。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/322/712/3227124234-5559b2c8848a6" alt="图片描述"></p>
+<p>至此，彩虹爆炸图基本上就做的差不多了。使用起来也很简单，只要准备一些json数据就可以了，下面是一些有趣的数据做出来的效果。感兴趣的同学可以邮件<a rel="nofollow">info@servasoft.com</a>索取代码。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/180/042/1800426720-5559b331b8cf1" alt="图片描述"></p>
+<p>实际应用在项目中的示意图。如果你也希望项目中用一下彩虹爆炸图，欢迎给我私信索取:<a rel="nofollow">info@servasoft.com</a></p>
+<p><img src="http://sfault-image.b0.upaiyun.com/124/064/1240643697-5559b369d9625" alt="图片描述"></p>
+<p><img src="http://sfault-image.b0.upaiyun.com/273/445/2734456667-5559b3726d035" alt="图片描述"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>转载自<a href="http://segmentfault.com/">segmentfault</a>上面MonoLog的专栏，<a href="http://segmentfault.com/a/1190000002775741">传送门</a></p>
+</blockquote>
+<h2 id="前言">前言</h2><p>25年过去了，Brooks博士著名的“没有银弹”的论断依旧没有被打破。HTML5也是一样。但这并不妨碍HTML5是一个越来越有威力的“炸弹”：发展迅速、势不可挡。随着HTML5技术的普及，用HTML5做可视化呈现的项目越来越多了。HTML5的优势明显：网页上直接运行无需插件、手机平板方便兼容、代码开发和维护相对容易，等等。一大波一大波的做Java、.NET甚至C++桌面的程序老手们都纷纷开始研究javascript了，而初出茅庐的新一代程序猿更是义无反顾的直奔HTML5这个技术大热点而来。</p>
+<p>HTML5涵盖的技术点很多，甚至延伸到了前端、后端、通讯等各个层面。前端的canvas绘图这块无疑是它的核心内容。Canvas的API虽然不是很复杂很强大，但是做一般的2d绘图基本都够用了。基于这些API，一大堆的2d绘图组件纷纷出炉。Echarts、d3.js都是很不错的项目。Echarts主要是chart组件，而d3相对杂一些，很多呈现方式很有创意，值得研究。<br>]]>
+    
+    </summary>
+    
+      <category term="Canvas" scheme="http://qianzewei.com/tags/Canvas/"/>
+    
+      <category term="HTML5" scheme="http://qianzewei.com/tags/HTML5/"/>
+    
+      <category term="WebGl" scheme="http://qianzewei.com/tags/WebGl/"/>
+    
+      <category term="Repost" scheme="http://qianzewei.com/categories/Repost/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[框架小结]]></title>
+    <link href="http://qianzewei.com/2015/05/29/web-frameworks-note/"/>
+    <id>http://qianzewei.com/2015/05/29/web-frameworks-note/</id>
+    <published>2015-05-29T08:21:41.000Z</published>
+    <updated>2015-07-11T06:03:09.188Z</updated>
+    <content type="html"><![CDATA[<h3 id="写在前面">写在前面</h3><p>这段时间（大概大半个月吧）用</p>
+<blockquote>
+<p>nodejs(express) + mongodb（搭建完成）<br>django + mysql（写到登录和博客页面的解析结束）<br>php(laravel) + mysql（目前博客的构建）</p>
+</blockquote>
+<p>都写了遍自己的博客<br>总台感受是，没有最好的框架，只有最适合的框架<br>小结一下，写的多有不到位，还望指出</p>
+<h2 id="<!-_more_->"><a id="more"></a></h2><h3 id="Django">Django</h3><p>Django还挺好用的，而且组件相当全，本身基因决定是个服务于媒体站点的框架<br>自带auth、article、blog、admin这样的模块<br>非常方便好用，而且部署还算是比较方便的（天杀的sae竟然只有1.4的django，应用引擎们对某些框架不是特别友好唉）<br>而且app这样的概念非常棒，可以木有顾虑的删除某个app子目录而不影响整个应用，在其他框架里比较少见的优点。</p>
+<p>要说缺点的话</p>
+<p>总感觉Django框架的速度比php的框架要慢，速度一般般吧，虽然可以用c改写组件，但是好多国内的应用引擎不支持CPYTHON<br>template很弱还不太好换<br>比如我在用的sae（再来一遍吐艳的sae）</p>
+<p><strong>就这个框架本身而言，优缺点是相生的</strong></p>
+<blockquote>
+<ul>
+<li>组件的丰富就构成了第一个缺点，大包大揽，框架不够轻。虽然不要的组件也不会影响效率，可以自己在原生的组件基础上修改自己的model出来，很人性化（说好的缺点呢= =），但是不是那么好改的。他自己的auth模块改了很久，因为他是Nickname unique，耦合性高，牵一发动全身 </li>
+<li>最为人吐槽的一点，就是官方文档和官方教程有点简陋，而且我至今木有找到一个非常新的教程（本人用的是1.8的系统），边看官方的文档，然后借助stackoverflow到处填坑；</li>
+<li>坑比较多，更新官方称是向后兼容的，其实1.7、1.8已经变动非常大了，但是主流的这些个app engine还没有支持最新的，django book写只写到了1.6，所以好多还多坑啊（主要是我还不习惯完全用文档来学习0.0）</li>
+</ul>
+</blockquote>
+<p>总结来讲：<br><strong>Django是一个相对比较重的框架，大包大揽，组件的可替换和扩展性比较差。如果你的web开发风格和django很相似，那django对你来说简直是仙丹，但是如果有很多相悖的地方，改造起来很痛苦，甚至不如自己组建一个框架。</strong></p>
+<hr>
+<h3 id="Express">Express</h3><p>JavaScript真是个又爱又恨的语言（Php：主人那不是我么，爱我你不怕么O.O），优点是动态语言这个大类都有的，不过缺点啊。。回调用来处理小程序的非阻塞还好，试想一下如果是写一个逻辑稍复杂一些的，cb套cb想起来就有点恐怖啊，非阻塞也有非阻塞的坏处。<br>不过很多大神表示这个还是很好克服的，以后关注一下。作为一只前端，能用JavaScript来写后台，太浪漫了。</p>
+<p>不过，我用NodeJs遇到的最大的一个困难，是mongodb的model层，我先后用monk、mongoose管理mongodb，monk非常简洁，当然功能不够丰富，没有model的概念，mongoose是有model的概念的，当时认证卡了比较长的时间。当时正好想试试django、php，这点就直接放下了，博客写完了没部署。</p>
+<p>用的时间不长，不多写了，留个坑以后填。</p>
+<hr>
+<h3 id="Laravel">Laravel</h3><p><strong>Php是个又爱又恨的典范</strong></p>
+<p>骂Php的人很多，因为他太流行了，份额巨大，也有托WP的福。<br>大家一直都这么说，不过这个语言就是为web而生的，不能再适合快速敏捷的Web开发了。 </p>
+<p>为什么大家都黑他，其实跟当年JavaScript很相像嘛，入门门槛很低，很多不重视技术的站长都拿来扫个两眼视频教程，想怎么写就怎么写，JavaScript往HTML里到处写、随便命名（这错误自己入门时候经常犯），不像Java、Python的使用者那样平均素养来的高<br>写Php的就更不说了。。我相信有非常非常多的人都是在不合理的使用Php，比如把视图、逻辑、数据模型全都混在一起。</p>
+<p><strong>Laravel提供了一个比较完善的解决方案</strong></p>
+<p>我用过的框架不多，公司里用的Java的Spring，自己也只用过屈指可数的框架。  </p>
+<p>但是一用到<strong>Laravel</strong>瞬间觉得世界都美好了。</p>
+<ul>
+<li>开发优雅、简单、语义化，开发的非常开心，不到2天就基本写完了，一些基本的组件很轻很好扩展，比如用户认证这块，甩了Django好远，而且有Eloquent ORM这么强大的model层组件，非常非常好使。</li>
+<li>部署快捷也是优势，直接传文件，改一下.htaccess就上线了，对于中小型的web开发是神器级别的。</li>
+</ul>
+<p><strong>缺点呢</strong> </p>
+<ul>
+<li>调试真的不是非常方便，有点反人类，duang几个翻页的信息，问题定位比较慢。<a href="http://golaravel.com" target="_blank" rel="external">Laravel中文社区</a>上面有问答区，还是比较活跃的。</li>
+<li>路由模块有点反人类，个人认为不如django的正则优雅。有时候会出奇奇怪怪的问题。</li>
+<li>其他暂时没发现什么。</li>
+</ul>
+<hr>
+<p>个人最习惯用的还是Laravel</p>
+<p>2015.5.30</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="写在前面">写在前面</h3><p>这段时间（大概大半个月吧）用</p>
+<blockquote>
+<p>nodejs(express) + mongodb（搭建完成）<br>django + mysql（写到登录和博客页面的解析结束）<br>php(laravel) + mysql（目前博客的构建）</p>
+</blockquote>
+<p>都写了遍自己的博客<br>总台感受是，没有最好的框架，只有最适合的框架<br>小结一下，写的多有不到位，还望指出</p>
+<h2 id="<!-_more_->">]]>
+    
+    </summary>
+    
+      <category term="Django" scheme="http://qianzewei.com/tags/Django/"/>
+    
+      <category term="Express" scheme="http://qianzewei.com/tags/Express/"/>
+    
+      <category term="JavaScript" scheme="http://qianzewei.com/tags/JavaScript/"/>
+    
+      <category term="Laravel" scheme="http://qianzewei.com/tags/Laravel/"/>
+    
+      <category term="Nodejs" scheme="http://qianzewei.com/tags/Nodejs/"/>
+    
+      <category term="Php" scheme="http://qianzewei.com/tags/Php/"/>
+    
+      <category term="Python" scheme="http://qianzewei.com/tags/Python/"/>
+    
+      <category term="Web框架" scheme="http://qianzewei.com/tags/Web%E6%A1%86%E6%9E%B6/"/>
+    
+      <category term="Coding" scheme="http://qianzewei.com/categories/Coding/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Laravel开发手记]]></title>
+    <link href="http://qianzewei.com/2015/05/25/laravel-dev-note/"/>
+    <id>http://qianzewei.com/2015/05/25/laravel-dev-note/</id>
+    <published>2015-05-25T01:38:13.000Z</published>
+    <updated>2015-07-11T05:56:37.258Z</updated>
+    <content type="html"><![CDATA[<h3 id="写在前面">写在前面</h3><blockquote>
+<p>其实刚开始想到要写博客的时候，我是拒绝的，你不能让我写就写<br>我得先试一试，于是……<br>duang，就试了三种语言，NodeJs、Python还有Php   </p>
+</blockquote>
+<p>前前后后开发了快一个月吧，主要用的实习的闲碎时间，还有晚上的大段时间。<br>中间也偷过不少懒= =<br>总之，最后这个blog系统，是用的Php<br>因为<strong>Php是世界上最好的语言</strong><br><a id="more"></a><br>先留个坑，以后来补，先写一发代码压压精去</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="写在前面">写在前面</h3><blockquote>
+<p>其实刚开始想到要写博客的时候，我是拒绝的，你不能让我写就写<br>我得先试一试，于是……<br>duang，就试了三种语言，NodeJs、Python还有Php   </p>
+</blockquote>
+<p>前前后后开发了快一个月吧，主要用的实习的闲碎时间，还有晚上的大段时间。<br>中间也偷过不少懒= =<br>总之，最后这个blog系统，是用的Php<br>因为<strong>Php是世界上最好的语言</strong><br>]]>
+    
+    </summary>
+    
+      <category term="Laravel" scheme="http://qianzewei.com/tags/Laravel/"/>
+    
+      <category term="Php" scheme="http://qianzewei.com/tags/Php/"/>
+    
+      <category term="Coding" scheme="http://qianzewei.com/categories/Coding/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[博客发布纪念]]></title>
+    <link href="http://qianzewei.com/2015/05/25/blogq-start/"/>
+    <id>http://qianzewei.com/2015/05/25/blogq-start/</id>
+    <published>2015-05-25T00:42:41.000Z</published>
+    <updated>2015-07-11T06:01:43.610Z</updated>
+    <content type="html"><![CDATA[<h3 id="BlogQ_version1-0上线">BlogQ version1.0上线</h3><blockquote>
+<p>2015.5.25上线  </p>
+</blockquote>
+<a id="more"></a>
+<p>基本是裸奔在阿里云上啊<br>刚刚写了不到3天的博客代码<br>用的laravel5做的框架<br>只做了很基本的文章发布和后台管理<br>还有很简单的评论功能</p>
+<p>都很简单<br>不过<br>博客虽小<br>他也是个博客咯<br>以后就在这个小窝里写文章了</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello, world</span><br></pre></td></tr></table></figure>
+<p>第一篇博文就是这么短0.0<br><img src="http://7xjdel.com1.z0.glb.clouddn.com/blogq/blog-5.30.jpg" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="BlogQ_version1-0上线">BlogQ version1.0上线</h3><blockquote>
+<p>2015.5.25上线  </p>
+</blockquote>]]>
+    
+    </summary>
+    
+      <category term="Blog" scheme="http://qianzewei.com/tags/Blog/"/>
+    
+      <category term="Diary" scheme="http://qianzewei.com/categories/Diary/"/>
+    
+  </entry>
+  
+</feed>

@@ -1,0 +1,831 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
+
+
+    <meta name="description" content="一只Web小狮子的博客" />
+
+
+
+  <meta name="keywords" content="Canvas,HTML5,WebGl," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="BlogQ - For Web Dev" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.3" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    analytics: {
+      google: 'UA-63092803-2'
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?76f80a9c5206fc1db460f1a20a2bf7c6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> HTML5 webGL（第一弹：彩虹爆炸图） // BlogQ - For Web Dev </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">BlogQ - For Web Dev</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+<form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '92rs5AQbPv-kmm9yiJBu','2.0.0');
+</script>
+
+<div class="site-search-toggle"></div>
+    </div>
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              HTML5 webGL（第一弹：彩虹爆炸图）
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-06-01
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/Repost/">Repost</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/06/01/webgl-repost-1/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/01/webgl-repost-1/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <blockquote>
+<p>转载自<a href="http://segmentfault.com/" target="_blank" rel="external">segmentfault</a>上面MonoLog的专栏，<a href="http://segmentfault.com/a/1190000002775741" target="_blank" rel="external">传送门</a></p>
+</blockquote>
+<h2 id="前言">前言</h2><p>25年过去了，Brooks博士著名的“没有银弹”的论断依旧没有被打破。HTML5也是一样。但这并不妨碍HTML5是一个越来越有威力的“炸弹”：发展迅速、势不可挡。随着HTML5技术的普及，用HTML5做可视化呈现的项目越来越多了。HTML5的优势明显：网页上直接运行无需插件、手机平板方便兼容、代码开发和维护相对容易，等等。一大波一大波的做Java、.NET甚至C++桌面的程序老手们都纷纷开始研究javascript了，而初出茅庐的新一代程序猿更是义无反顾的直奔HTML5这个技术大热点而来。</p>
+<p>HTML5涵盖的技术点很多，甚至延伸到了前端、后端、通讯等各个层面。前端的canvas绘图这块无疑是它的核心内容。Canvas的API虽然不是很复杂很强大，但是做一般的2d绘图基本都够用了。基于这些API，一大堆的2d绘图组件纷纷出炉。Echarts、d3.js都是很不错的项目。Echarts主要是chart组件，而d3相对杂一些，很多呈现方式很有创意，值得研究。<br><a id="more"></a></p>
+<h2 id="概述">概述</h2><p>研究d3的起因是最近有一个项目，用户截了一张效果图让我们用HTML5做一下：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/391/318/391318123-555ab313946b4" alt="图片描述"></p>
+<p>看着很眼熟，搜了一下，感觉就是d3例子中的sunburst效果，程序在这里：</p>
+<blockquote>
+<p><a href="http://bl.ocks.org/mbostock/4063423" target="_blank" rel="external">http://bl.ocks.org/mbostock/4063423</a></p>
+</blockquote>
+<p>看上去似乎也不难，就是一圈一圈的饼图，把树状结构数据按占比一层一层绘制上去就行了。所以引起了自己动手做一个的兴趣。“sunburst”英文里应该是“云开日出”的意思，类似强烈的光芒从云层背后透射出来，不知为何中文里大多把它翻译成“日落”。比如这把Fender Telecaster吉他型号是Brown Sunburst款，就会被大家翻译成“日落色”。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/156/229/1562297313-555ab34aec0fa" alt="图片描述"></p>
+<p>关于日出和日落更喜欢哪一个的问题，网上还真有这样的调查。有意思的是，选择喜欢日落的远多于选择日出的。日出代表希望，日落代表成熟，都是一种美，哪个更美要看你个人的心境，因为它的美丽是由心生。为了不在这个问题上站错对，我们还是给他重新起一个更加响亮霸气的中文名字：“彩虹爆炸图”，怎么样？</p>
+<p>仔细研究一下彩虹爆炸图的结构，无非就是一个树形结构，并采用发射状的布局。根节点在中间（也可以认为没有唯一的根，而是一堆根节点围绕在第一圈），一次向外发散排列。每一个节点有名称、数值。节点可以按照自身数值在扇区所占比例进行绘制，这样就不用管节点具体数值有多大多小了。</p>
+<blockquote>
+<p>这种图最先是由布朗大学教授John T. Stasko设计。<br><a href="http://www.cc.gatech.edu/~john.stasko/" target="_blank" rel="external">http://www.cc.gatech.edu/~john.stasko/</a></p>
+</blockquote>
+<p>经过一天的折腾，终于做出了一个还算过得去的“彩虹爆炸图”。先上个图看看：<br><img src="http://sfault-image.b0.upaiyun.com/367/647/3676475477-5559a9f164da0" alt="图片描述"></p>
+<p>主要功能包括了：</p>
+<p>• 可以通过json来定义数据和样式（类似百度的echarts那样）；</p>
+<p>• 颜色可以固定，也可以自动彩虹色；</p>
+<p>• 自动计算数值及角度占比；</p>
+<p>• 动态显示导航路径；</p>
+<p>• 鼠标动态高亮显示路径；</p>
+<p>• 动画飞入、展开导航路径；</p>
+<p>• 文字显示及角度控制；</p>
+<p>• 全矢量，可鼠标缩放、平移，不失真；</p>
+<p>下面重点码一下折腾过程中的几个重点：</p>
+<h2 id="一、定义节点对象">一、定义节点对象</h2><p>首先定义每一个小扇片节点。每个扇片可以用一段饼图来绘制。为了简单方便，这里用了最简单高效偷懒的方法：用一个半径很粗的线画一段角度的arc，即可。如下图：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/262/702/2627026-5559aa9cd98d1" alt="图片描述"></p>
+<p>另外还有文字等内容。所以定义它的json结构大概如下：</p>
+<pre><span class="widget-clipboard"></span>`<span class="hljs-keyword">var</span> item = {name: <span class="hljs-string">'名称'</span>, color: <span class="hljs-string">'red'</span>, angle: <span class="hljs-string">'45'</span>, …};
+`</pre>
+
+<p>此外，下一圈的数据，可直接定义为这个节点的“孩子节点”，直接在item中定义一个data的子节点数据：</p>
+<pre><span class="widget-clipboard"></span>`<span class="hljs-keyword">var</span> item = {name: <span class="hljs-string">'名称'</span>, color: <span class="hljs-string">'red'</span>, angle: <span class="hljs-string">'45'</span>, data:[
+    {name:’孩子一’, color:’green’,…},
+    {name:’孩子二’, color:’yellow’,…},
+]};
+
+`</pre>
+
+<p>这样就可以组成一个树状结构。接下来要在canvas上绘制图形了。为了方便，这里直接使用了矢量图进行定义：</p>
+<pre><span class="widget-clipboard"></span>`twaver.Util.registerImage(<span class="hljs-string">'node'</span>, { 
+  v: [{
+    shape: <span class="hljs-string">'circle'</span>,
+    r: ...
+    lineColor: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data,view)</span></span>{<span class="hljs-keyword">return</span> data.getClient(<span class="hljs-string">"lineColor"</span>);}, 
+    lineWidth: ...
+    startAngle: ...
+    endAngle: ...
+  },{
+    shape: <span class="hljs-string">'text'</span>,
+    textBaseline: <span class="hljs-string">'middle'</span>,
+    textAlign: ...
+    text: ...
+    x: ...
+    y: ...
+    font: ...
+    fill: ...
+    rotate: ...
+    visible: ...
+    shadow: ...
+  }],
+}); 
+
+`</pre>
+
+<p>矢量图中定义了2个图形元素：一个arc弧线、一个文字对象，分别用于画node和绘制其文字。颜色、字体、是否可见、阴影、对齐、位置、线宽、角度…等等均在上面的定义中用一个function动态获取。例如，这个节点的半径，通过下面的方法，就可以在图形的lineColor属性中保存并驱动，需要修改，直接修改lineColor这个client属性即可，而不用去修改绘图参数，非常方便：</p>
+<pre><span class="widget-clipboard"></span>`r:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data,view)</span></span>{<span class="hljs-keyword">return</span> data.getClient(<span class="hljs-string">"lineColor"</span>);}
+`</pre>
+
+<p>这里有一个比较啰嗦的地方是：每个扇片的角度需要根据每个item定义的原始值进行计算角度占比。而且，对于太小的扇片，可以给一定的最小值（例如1度），保证能视觉上看到它。否则，显示10000和1两个数值，由于对比过大，可能就杯具了，因为1连1度都占不到，显示效果会非常差。还有，每个扇片之间应该尽量留有一定的空隙。如果连续绘制，就会连成一片，没有“分片”感。这些可以在代码中进行简单控制。</p>
+<h2 id="二、文字控制">二、文字控制</h2><p>文字控制也比较啰嗦。首先是对齐方式。最简单的方式当然是让文字在所在扇片处，直接居中、旋转。这样文字会在径向的中间位置，如下图。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/388/979/3889796661-5559af32dcf4e" alt="图片描述"></p>
+<p>但这样显示感觉并不是很完美。对于中文来说，如果能统一靠近圆心方向的位置对齐，会更好看一些。这样，即使文字过长，也会向外延伸，不会和里面的重叠。如下图：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/803/802/80380298-555ab3f334dae" alt="图片描述"></p>
+<p>还有，当文字在左半圆时，如果不做特殊处理，文字旋转会导致文字大头朝下，阅读起来有把脖子歪断的风险。所以应该动态判断，如果文字在左侧，应该文字再增加旋转180度。同时左侧的文字对齐也要特殊考虑，应该变成右对齐，才能保持径向的整齐一致。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/278/954/2789547509-555ab41b414bd" alt="图片描述"></p>
+<p>文字还有一个细节就是颜色和阴影的问题。不使用阴影，单纯的使用颜色（例如白色），则在一些方向上的节点的文字会看不清楚，因为我们做的是彩虹爆炸图，各个方向颜色都不一样，而且还会随着圈数增加而变淡颜色，所以几乎不可能用一个固定的颜色（例如白色或黑色）能保证文字在所有地方都能和node颜色搭配并看清楚。所以思来想去还是使用了阴影效果。</p>
+<p>联想了一下我们看美剧时候的字幕，似乎也是同样的问题。视频字幕要显示在千变万化的视频场景里面，视频场景的颜色完全随机出现无从知晓，要想让字幕看清楚，必然也会想一些办法解决。我们仔细观察一下视频字幕：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/762/777/76277797-555ab46bb6e88" alt="图片描述"></p>
+<p>仔细观察，字幕是白色文字加了一圈黑色外框，这样就不怕任何场景了。我们在文字定义时也模拟一下，设置阴影和阴影偏移试一试：</p>
+<pre><span class="widget-clipboard"></span>`fill:<span class="hljs-string">'white'</span>,
+            shadow: {
+                offsetX: <span class="hljs-number">2</span>,
+                offsetY: <span class="hljs-number">2</span>,
+                blur: <span class="hljs-number">4</span>,
+                color: <span class="hljs-string">'black'</span>,
+            },
+`</pre>
+
+<p>看一下使用前和使用后的效果对比：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/335/158/3351585863-555ab4812837a" alt="图片描述"></p>
+<p>使用阴影后不但文字更清晰了，而且也增加了立体感，效果还是不错的。下面图显示在应用在节点上的效果：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/273/186/2731865649-555ab4beabb35" alt="图片描述"></p>
+<p>可见不论什么颜色，都能比较好的勾勒出文字轮廓，保持清晰可读。</p>
+<h2 id="三、生成彩虹颜色">三、生成彩虹颜色</h2><p>关于颜色，是一个有趣的话题。对于广大程序猿来说，颜色是一个既简单又困难的东西。我们随手就能写下’red’, ‘green’, ‘orange’, ‘yellow’这样的色彩斑斓的颜色，还能保证没有语法错误；我们还会写’#FF55AA’、’#0c0’、’RGB（0,204,0）’、’ RGB（0％，80％，0％）’这样的各种颜色写法；我们也明白RGBA的含义和用途。但是，我们很少能把一个demo写的颜色很好看、很搭配。关于颜色和配色以后再专门讨论。这里我们只想自动生成一圈彩虹一样的颜色。用我们熟悉的RGB方法好像比较困难了。于是想起了那个HSV的颜色定义方法，它貌似很适合解决这个问题。</p>
+<blockquote>
+<p>HSV颜色模型定义了色调H、饱和度S和亮度V，由A. R. Smith在1978年创建的一种颜色空间。其中H用一圈360度表示所有颜色，从红色开始按逆时针方向计算，红色为0度。饱和度S从0到1，越大越饱和。亮度V从0到255（也可以转换为从0到1，方便使用），越大越明亮，越小越暗淡。</p>
+</blockquote>
+<p><img src="http://sfault-image.b0.upaiyun.com/336/224/3362247702-555ab4d7234fd" alt="图片描述"></p>
+<p>Js里面并没有直接处理HSV颜色的函数。不过用下面的代码很方便可以从hsv转为rgb：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/645/347/645347425-555ab4ee99f36" alt="图片描述"></p>
+<p>写一个对应的js函数也很简单：</p>
+<pre><span class="widget-clipboard"></span>` <span class="hljs-comment">/* h, s, v (0 ~ 1) */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getHSVColor</span><span class="hljs-params">(h, s, v)</span> </span>{
+        <span class="hljs-keyword">var</span> r, g, b, i, f, p, q, t;
+        <span class="hljs-keyword">if</span> (h && s === <span class="hljs-literal">undefined</span> && v === <span class="hljs-literal">undefined</span>) {
+            s = h.s, v = h.v, h = h.h;
+        }
+        i = <span class="hljs-built_in">Math</span>.floor(h * <span class="hljs-number">6</span>);
+        f = h * <span class="hljs-number">6</span> - i;
+        p = v * (<span class="hljs-number">1</span> - s);
+        q = v * (<span class="hljs-number">1</span> - f * s);
+        t = v * (<span class="hljs-number">1</span> - (<span class="hljs-number">1</span> - f) * s);
+        <span class="hljs-keyword">switch</span> (i % <span class="hljs-number">6</span>) {
+            <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>: r = v, g = t, b = p; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: r = q, g = v, b = p; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: r = p, g = v, b = t; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>: r = p, g = q, b = v; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>: r = t, g = p, b = v; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>: r = v, g = p, b = q; <span class="hljs-keyword">break</span>;
+        }
+        <span class="hljs-keyword">var</span> rgb=<span class="hljs-string">'#'</span>+toHex(r * <span class="hljs-number">255</span>)+toHex(g * <span class="hljs-number">255</span>)+toHex(b * <span class="hljs-number">255</span>);
+        <span class="hljs-keyword">return</span> rgb;
+    }
+`</pre>
+
+<p>再回到我们的彩虹爆炸图。每一个节点对应的所在角度（中心角度）决定了它自己的颜色值。所以，我们可以直接根据这个角度得到颜色的h。然后，为了让彩虹逐渐一圈一圈变淡，再把s饱和度从1逐圈递减（例如0.1），产生变淡的效果。为了防止圈太多最后看不清，减到0.2到0.3左右可以停止递减。</p>
+<pre><span class="widget-clipboard"></span>`<span class="hljs-keyword">var</span> fromAngle=node.getClient(‘fromAngle’);
+<span class="hljs-keyword">var</span> toAngle=node.getClient(‘toAngle’);
+<span class="hljs-keyword">var</span> level=node.getClient(‘level’);<span class="hljs-comment">//节点在第几圈</span>
+<span class="hljs-keyword">var</span> h = (fromAngle+to)/<span class="hljs-number">2</span> % <span class="hljs-number">360</span> /<span class="hljs-number">360</span>; <span class="hljs-comment">//中心角度，并转换为弧度</span>
+<span class="hljs-keyword">var</span> s = <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0.2</span>, <span class="hljs-number">1</span>-level*<span class="hljs-number">0.1</span>);<span class="hljs-comment">//每圈s递减0.1，直到0.2为止</span>
+<span class="hljs-keyword">var</span> v=<span class="hljs-number">1</span>;
+<span class="hljs-keyword">var</span> color=getHSVColor(h, s, v);
+`</pre>
+
+<p>这样就获得了一圈颜色。实验效果如下：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/122/931/1229319040-5559b1a30202a" alt="图片描述"></p>
+<p>如果相对某个节点的颜色做特殊处理，例如强制为橙色来凸显，我们可以在数据中定义时加个标记，设置颜色时候直接使用而不用计算即可。</p>
+<pre><span class="widget-clipboard"></span>`{name:<span class="hljs-string">'浦东新区'</span>, value: <span class="hljs-number">2600</span>, color: <span class="hljs-string">'#FE9A2E'</span>}
+`</pre>
+
+<p>接下来要实现鼠标划过节点，自动计算路径、高亮路径节点、暗淡非路径节点。为了方便路径寻找，程序把每个节点的下一圈子数据定义为子节点，子节点通过getParent()函数可以直接获得父对象。这样，通过不断getParent就可以获得整个路径上的节点，并修改其颜色为预设颜色，实现高亮效果：</p>
+<pre><span class="widget-clipboard"></span>` <span class="hljs-keyword">var</span> node=highlightedNode;
+        <span class="hljs-keyword">while</span>(node){ 
+            node.setClient(‘color’, node.getClient(‘color.original’));
+            node=node.getParent();
+        }
+`</pre>
+
+<p>对于非路径节点的颜色，可以设置为预设颜色但饱和度为0.1的淡颜色 ，让它变淡，以便突出高亮路径：</p>
+<pre><span class="widget-clipboard"></span>`<span class="hljs-keyword">var</span> color = getHSVColor(h, <span class="hljs-number">0.1</span>, v);
+node.setClient(‘color’, color);
+`</pre>
+
+<h2 id="四、动画效果">四、动画效果</h2><p>最后，为了图形更生动，使用了一些动画效果。首先想到的就是图形出来时候，用动画从小到大发散开来，会很动感。这样做需要用动画函数来驱动每一个节点的半径位置，从0增加到所在的半径位置，如果大家一起设置，整个图就会动起来。这里用了一个动画函数来驱动，并使用了网上常用的easing函数来控制，避免线性的动画太死板：</p>
+<pre><span class="widget-clipboard"></span>`<span class="hljs-keyword">new</span> Animate({
+    from: <span class="hljs-number">0</span>,
+    to: <span class="hljs-number">1</span>,
+    dur: <span class="hljs-number">3000</span>+level*<span class="hljs-number">100</span>,
+    easing: <span class="hljs-string">'elasticOut'</span>,
+    onUpdate: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(value)</span> </span>{
+        node.setLocation(<span class="hljs-string">'pie.location’, value);
+    },
+}).play(); 
+</span>`</pre>
+
+<p>上面定义的动画，用3秒钟跑完，用’elasticOut’的easing方式。每一帧，修改node的位置信息。这样就完成了橡皮筋一样的环形弹出散开效果。</p>
+<p>另外，导航条的出来也比较突兀，这里也使用一下动画，让它从左到右慢慢伸出：</p>
+<pre><span class="widget-clipboard"></span>`<span class="hljs-keyword">new</span> Animate({
+    from: {x:x1, y:y1},
+    to: {x:x2, y:y2},
+    delay:<span class="hljs-number">50</span>,
+    type: <span class="hljs-string">'point'</span>,
+    dur: <span class="hljs-number">1000</span>,
+    easing: <span class="hljs-string">'bounceOut'</span>,
+    onUpdate: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(value)</span> </span>{ 
+        node.setCenterLocation(value.x, value.y);
+    },
+}).play(); 
+`</pre>
+
+<p>和上一个动画的不同之处在于这里使用了{x、y}的point结构，每一帧直接更新节点位置。同时设置了50毫秒的delay，让动画有一点点粘性停滞，不至于太突兀。效果不错。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/322/712/3227124234-5559b2c8848a6" alt="图片描述"></p>
+<p>至此，彩虹爆炸图基本上就做的差不多了。使用起来也很简单，只要准备一些json数据就可以了，下面是一些有趣的数据做出来的效果。感兴趣的同学可以邮件<a rel="nofollow">info@servasoft.com</a>索取代码。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/180/042/1800426720-5559b331b8cf1" alt="图片描述"></p>
+<p>实际应用在项目中的示意图。如果你也希望项目中用一下彩虹爆炸图，欢迎给我私信索取:<a rel="nofollow">info@servasoft.com</a></p>
+<p><img src="http://sfault-image.b0.upaiyun.com/124/064/1240643697-5559b369d9625" alt="图片描述"></p>
+<p><img src="http://sfault-image.b0.upaiyun.com/273/445/2734456667-5559b3726d035" alt="图片描述"></p>
+
+      
+    </div>
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Canvas/"> #Canvas </a>
+          
+            <a href="/tags/HTML5/"> #HTML5 </a>
+          
+            <a href="/tags/WebGl/"> #WebGl </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/06/03/web-tree/">Web中常见的四种树形结构</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/29/web-frameworks-note/">框架小结</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2015/06/01/webgl-repost-1/"
+               data-title="HTML5 webGL（第一弹：彩虹爆炸图）" data-url="http://qianzewei.com/2015/06/01/webgl-repost-1/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="QDavid" />
+          <p class="site-author-name">QDavid</p>
+        </div>
+        <p class="site-description motion-element">一只Web小狮子的博客</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+            
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">分类</span>
+              
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/QDavid12" target="_blank">github</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.zhihu.com/people/qian-ze-wei" target="_blank">zhihu</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+        
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">2.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、定义节点对象"><span class="nav-number">3.</span> <span class="nav-text">一、定义节点对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、文字控制"><span class="nav-number">4.</span> <span class="nav-text">二、文字控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、生成彩虹颜色"><span class="nav-number">5.</span> <span class="nav-text">三、生成彩虹颜色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、动画效果"><span class="nav-number">6.</span> <span class="nav-text">四、动画效果</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">QDavid</span>
+</div>
+
+<div class="powered-by">
+  Powered by &nbsp;  <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.3"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.3"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.3" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.3" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"blogq"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js?v=0.4.3"></script>
+
+
+  
+  <!-- lazyload -->
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+      <script type="text/javascript">
+        jQuery(function() {          
+            jQuery("#posts img").lazyload({
+              placeholder:"http://www.arao.me/loading.gif",  
+                effect:"fadeIn"
+              });
+            });
+    </script>   
+</body>
+</html>

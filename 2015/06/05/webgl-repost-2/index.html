@@ -1,0 +1,984 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
+
+
+    <meta name="description" content="一只Web小狮子的博客" />
+
+
+
+  <meta name="keywords" content="Canvas,HTML5,WebGl," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="BlogQ - For Web Dev" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.3" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    analytics: {
+      google: 'UA-63092803-2'
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?76f80a9c5206fc1db460f1a20a2bf7c6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> HTML5 webGL（第二弹：打造最美3D机房） // BlogQ - For Web Dev </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">BlogQ - For Web Dev</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+<form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '92rs5AQbPv-kmm9yiJBu','2.0.0');
+</script>
+
+<div class="site-search-toggle"></div>
+    </div>
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              HTML5 webGL（第二弹：打造最美3D机房）
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-06-05
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/Repost/">Repost</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/06/05/webgl-repost-2/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/05/webgl-repost-2/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <blockquote>
+<p>转载自<a href="http://segmentfault.com/" target="_blank" rel="external">segmentfault</a>上面MonoLog的专栏，<a href="http://segmentfault.com/a/1190000002866653" target="_blank" rel="external">传送门</a></p>
+</blockquote>
+<h2 id="前言">前言</h2><p>最近项目开发任务告一段落，刚好有时间整理这大半年的一些成果。使用html5时间还不久，对js的认识还不够深入。没办法，以前一直搞java，对js的一些语言特性和概念一时还转换不过来。</p>
+<p>上一篇<a href="http://segmentfault.com/a/1190000002775741" target="_blank" rel="external">第一弹</a>介绍了项目中做的一个彩虹爆炸图，主要用了 html5的canvas的2d绘制技术。这一回我想介绍一下项目中的一个亮点技术：html5的3D，以及如何用它打造精美的3D机房监控系统。<br><a id="more"></a></p>
+<h2 id="目标效果图">目标效果图</h2><p>下图是领导给找的一张的效果参考图，客户希望机房至少能达到下面的3D效果。<br><img src="http://sfault-image.b0.upaiyun.com/237/954/237954236-556c064686199" alt="图片描述"></p>
+<p>懂的人都知道，这可是一张设计公司出的装修效果图啊，就算是用max建模，也需要大量的工作，何况咱可是程序员在做数据中心的可视化项目啊。。。强忍心中奔腾的万千头**马，静下心来思考，那就先从搭建一个webGL的场景开始吧。</p>
+<h2 id="WebGL基本场景搭建">WebGL基本场景搭建</h2><p>在html5里面使用3D已经不是什么高深技术，它的基础是WebGL，一个OpenGL的浏览器子集，支持大部分主要3D功能接口。目前最新的浏览器都有比较好的支持，IE需要到11（是的，你没有看错）。</p>
+<blockquote>
+<p>要检测你的浏览器是否支持webGL，可直接访问网页<a href="http://get.webgl.org/" target="_blank" rel="external">http://get.webgl.org/</a> 看是否能看到一个旋转的立方体。如果能看到，说明你的浏览器支持webgGL，否则，可以下一个最新的chrome试试吧。相对来说chrome对webGL的支持最好，效率也很优秀。</p>
+</blockquote>
+<p>要在浏览器里面使用webGL，就要研究webGL相关的技术和用法。做3D应用并不是一件轻松的事。就算最简单的搭建一下webGL场景，也需要下面这些代码：</p>
+<pre class="hljs javascript"><span class="widget-clipboard"></span>`<span class="hljs-keyword">var</span> width = <span class="hljs-built_in">window</span>.innerWidth; 
+<span class="hljs-keyword">var</span> height= <span class="hljs-built_in">window</span>.innerHeight; 
+<span class="hljs-keyword">var</span> container = <span class="hljs-built_in">document</span>.createElement( <span class="hljs-string">'div'</span> ); 
+<span class="hljs-built_in">document</span>.body.appendChild( container ); 
+<span class="hljs-keyword">var</span> webglcanvas = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'canvas'</span>); 
+container.appendChild(webglcanvas); 
+<span class="hljs-keyword">var</span> gl = webglcanvas.getContext(<span class="hljs-string">"experimental-webgl"</span>); 
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateFrame</span> <span class="hljs-params">()</span> </span>{ 
+  gl.viewport ( <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height ); 
+        gl.clearColor(<span class="hljs-number">0.4</span>, <span class="hljs-number">0.4</span>, <span class="hljs-number">0.7</span>, <span class="hljs-number">1</span>); 
+        gl.clear ( gl.COLOR_BUFFER_BIT ); 
+         setTimeout( 
+    <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{updateFrame()}, 
+            <span class="hljs-number">20</span>); 
+     } 
+
+setTimeout( 
+  <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+    updateFrame();
+  }, 
+<span class="hljs-number">20</span>); 
+`</pre>
+
+<p>和html一样，需要先创建一个canvas元素，并获得其webgl上下文：</p>
+<p><code>var gl = webglcanvas.getContext(&quot;experimental-webgl&quot;);</code></p>
+<p>然后在一个<code>updateFrame</code>的函数中，像html5的2D context一样，去绘制3D的内容。</p>
+<p>另外，要再起一个死循环，每隔**毫秒调用一次这个<code>updateFrame</code>函数来重绘场景。和2D不同，3D场景里面的变化是随时随地的，所以需要不停刷新，就像播放电影或视频，静止不动的画面基本没有，所以死循环刷新基本是必要的。不过实际项目使用中会有很多优化，尽量做到“按需刷新”，节省cpu和移动设备电量。有感兴趣的同学，哥可以单独写文章介绍。这段程序基本上什么也没做，就画了一个静止不动的区域，如下图：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/182/795/1827951388-556c040f99841" alt="图片描述"></p>
+<p>虽然看不见任何3D的内容，不过它已经是一个最简单的webgl程序了。我们的3D机房，也就是在这上面不断丰富而已。</p>
+<h2 id="对象封装">对象封装</h2><p>要做项目，搭建下去工作量太大了，时间周期也不允许。使用第三方辅助工具是不可避免的，像Three.js, twaver.js都是选择。这些工具都可以提供3D的基本对象和各种特效，当然这都不是最主要的，主要是如何利用它做出我想要的效果：好看。为了避免大量修改代码，在项目里做了一些封装，即把原始3D的立方体等对象进行进一步封装，让一个json数据就可以提供这些对象的定义。这样使用起来就比较方便了。json大致结构如下：</p>
+<pre class="hljs coffeescript"><span class="widget-clipboard"></span>`<span class="hljs-reserved">var</span> json={ 
+<span class="hljs-attribute">objects</span>: [{
+    <span class="hljs-attribute">name</span>: <span class="hljs-string">'地板'</span>,
+    …
+},{
+…
+}],
+}
+`</pre>
+
+<p>下面我们逐一来看这些3D对象是怎么进行美化的，过程可能稍显啰嗦，跬步千里，这次的基础打好了，以后的项目就手到擒来了。</p>
+<h3 id="地板和斜坡">地板和斜坡</h3><p>第一个要做的，也是应该比较简单的，就是地板对象。3D中，地板应该是一个有些厚度、带上格子贴图的薄薄立方体平面。因此我对经过封装的立方体对象，用一段json对象定义如下：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'地板'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">1600</span>,
+    height: <span class="hljs-number">10</span>,
+    depth: <span class="hljs-number">1300</span>,
+
+    style: {
+        <span class="hljs-string">'m.color'</span>: <span class="hljs-string">'#BEC9BE'</span>,
+        <span class="hljs-string">'m.ambient'</span>: <span class="hljs-string">'#BEC9BE'</span>,
+    </span></span></span>}
+}
+`</pre>
+
+<p>通过定义，创建了一个13米*16米的地板块，这也是客户小型机房的实际尺寸：<br><img src="http://sfault-image.b0.upaiyun.com/245/020/2450209967-556c0631a9fd9" alt="图片描述"></p>
+<p>看起来有那么点意思，就是颜色还不够，需要找一个地板砖纹理图。需要注意的是，纹理图的尺寸都需要是宽和高都是2的幂，例如128x128、256*256等，这样出来效果才会好。这也是3D软件一般所要求的。另外纹理要能连续拼接不露破绽，这样才好。例如下面我google出来的图：<br><img src="http://sfault-image.b0.upaiyun.com/206/110/2061108203-556c069a0b9ef" alt="图片描述"></p>
+<p>在style里面添加：</p>
+<pre class="hljs coffeescript"><span class="widget-clipboard"></span>` <span class="hljs-string">'top.m.texture.image'</span>: <span class="hljs-string">'images/floor.png'</span>,
+   <span class="hljs-string">'top.m.texture.repeat'</span>: <span class="hljs-keyword">new</span> mono.Vec2(<span class="hljs-number">10</span>,<span class="hljs-number">10</span>),
+`</pre>
+
+<p>效果如下：<br><img src="http://sfault-image.b0.upaiyun.com/222/778/2227783586-556c06b175331" alt="图片描述"></p>
+<p>有图片材质纹理，效果果然好多了。突然想到客户说，他们机房底面有一个方便运送设备的斜坡，必须要画出来。这……（╯－＿－）╯</p>
+<p>后来想到twaver里面的对象可以支持运算，比如可以定义一个斜的立方体，让地板剪掉立方体，就可以做到。于是继续定义json：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'地板切坡'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">200</span>,
+    height: <span class="hljs-number">20</span>,
+    depth: <span class="hljs-number">260</span>,
+    translate: [-<span class="hljs-number">348</span>,<span class="hljs-number">0</span>,<span class="hljs-number">530</span>],
+    rotate: [Math.PI/<span class="hljs-number">180</span>*<span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+    op: <span class="hljs-string">'-'</span>,
+    style: {
+        …,
+    </span></span></span>}
+}
+`</pre>
+
+<p>这里定义的一个倾斜的立方体，通过<code>translate</code>定义位置，<code>rotate</code>定义旋转角度，然后再通过<code>op</code>定义运算符，这里是“减去”，就用“-”表示。被剪掉的立方体也可以设置材质、纹理、贴图、颜色…等等，和地板一样。看看效果：<br><img src="http://sfault-image.b0.upaiyun.com/904/485/904485326-556c07ba4a30c" alt="图片描述"></p>
+<p>第一步总算是有惊无险地搞定了。</p>
+<h3 id="走廊桌">走廊桌</h3><p>下一步找了个简单的对象，按要求走廊要放一个接待桌。为了简单，我决定就偷懒做一个立方体表示。</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'走廊板凳'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">300</span>,
+    height: <span class="hljs-number">50</span>,
+    depth: <span class="hljs-number">100</span>,
+    translate: [<span class="hljs-number">350</span>, <span class="hljs-number">0</span>, -<span class="hljs-number">500</span>],
+</span></span></span>}
+`</pre>
+
+<p>效果如下：<br><img src="http://sfault-image.b0.upaiyun.com/132/991/1329916338-556c08138982b" alt="图片描述"></p>
+<p>这里偷懒其实是有原因的。在3D里，最重视的就是效率，千万不要放一些很复杂的模型，尤其是这类非业务对象。就像这个桌子，尽管只是个简单的立方体，但只要和整体风格协调一致，再增加一点配色并启动阴影效果后，看着就好多了：<br><img src="http://sfault-image.b0.upaiyun.com/264/311/2643114269-556c086e081f0" alt="图片描述"></p>
+<h3 id="墙体">墙体</h3><p>墙体是机房里很重要的一个部分，有好的光照、阴影的效果才能看起来更加逼真。由于墙体是不规则的路径，一段一段去生成还真挺麻烦的，还好引擎支持这种物体，甚至曲线路径都可以。这里只要在json里面定义一组数字的坐标，让这些数字依次连接，组成一个墙体，最后生成3D对象放入场景中就行啦。</p>
+<p>json定义如下：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'主墙体'</span>,
+    type: <span class="hljs-string">'path'</span>,
+    width: <span class="hljs-number">20</span>,
+    height: <span class="hljs-number">200</span>,
+    translate: [-<span class="hljs-number">500</span>, <span class="hljs-number">0</span>, -<span class="hljs-number">500</span>],
+    data:[
+        [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+        [<span class="hljs-number">1000</span>, <span class="hljs-number">0</span>],
+        [<span class="hljs-number">1000</span>, <span class="hljs-number">500</span>],
+        [<span class="hljs-number">500</span>, <span class="hljs-number">500</span>],
+        [<span class="hljs-number">500</span>, <span class="hljs-number">1000</span>],
+        [<span class="hljs-number">0</span>, <span class="hljs-number">1000</span>],
+        [<span class="hljs-number">0</span>,<span class="hljs-number">0</span>],
+    ],
+</span></span></span>}
+`</pre>
+
+<p>注意这里的类型变成了<code>path</code>，<code>data</code>中定义了一个二维坐标数组来描述墙体。由于墙都是从底面开始的，所以只定义它的平面的x、y坐标就行了。看看效果：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/317/842/3178426896-556c08b82e8ce" alt="图片描述"></p>
+<p>不过如前文所说，还是需要上色、上阴影，才能有更好的效果。这里我们启用阴影并咨询设计师美眉几个颜色值，加上去后再看下效果：<br><img src="http://sfault-image.b0.upaiyun.com/293/973/2939731936-556c08d3ebac4" alt="图片描述"></p>
+<p>以及一些细节：<br><img src="http://sfault-image.b0.upaiyun.com/313/534/3135344588-556c08e64e318" alt="图片描述"></p>
+<h3 id="门">门</h3><p>看着雪白的墙，是不是觉得少了点什么？对，就是门。在3D机房的监控系统里，门禁是很重要的一块，客户要求门应该与实际位置相对应，并且要有开门关门的动画效果。这样，实际的门禁信息采集上来后，就能在界面实时看到门的状态了。</p>
+<p>这里，考虑到门如果直接放上去，会被墙盖住；如果比墙厚，又难看不符合实际。还是应该先定义一个门洞立方体，把门所在的位置挖掉：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'门洞'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">195</span>,
+    height: <span class="hljs-number">170</span>,
+    depth: <span class="hljs-number">30</span>,
+    op: <span class="hljs-string">'-'</span>,
+    translate:[-<span class="hljs-number">350</span>,<span class="hljs-number">2</span>,<span class="hljs-number">500</span>],
+</span></span></span>}
+`</pre>
+
+<p>刚好挖在斜坡的位置，这样设备进屋就方便了：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/422/332/4223328678-556c09d8a8c63" alt="图片描述"></p>
+<p>不过这门没有一个门框，感觉不太生动。多一个门框会感觉立体感强一些。门框可以是一个比门洞略大的立方体，在挖门洞之前添加：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'门框'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">205</span>,
+    height: <span class="hljs-number">180</span>,
+    depth: <span class="hljs-number">26</span>,
+    translate: [-<span class="hljs-number">350</span>, <span class="hljs-number">0</span>, <span class="hljs-number">500</span>],
+    op: <span class="hljs-string">'+'</span>,
+</span></span></span>}
+`</pre>
+
+<p>加上阴影和光线等综合效果后，还不错，挺有档次的。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/184/975/1849752950-556c09fd856e7" alt="图片描述"></p>
+<p>来张全景图看看：<br><img src="http://sfault-image.b0.upaiyun.com/167/228/1672283062-556c0a2945d1a" alt="图片描述"></p>
+<p>接着，只要把门安上去就行了。门的定义比较简单，就是一个薄的立方体。不过为了做到玻璃效果，需要设置透明度，让它看上去更像一个玻璃，再让设计师美眉弄一张好看一点的门的图，贴上去。尽管有了webGL，复杂的建模工作可以省略了，不过设计师美眉的配合仍然很重要。</p>
+<p>先做左边的门：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'左门'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">93</span>,
+    height: <span class="hljs-number">165</span>,
+    depth: <span class="hljs-number">2</span>,
+    translate:[-<span class="hljs-number">397</span>,<span class="hljs-number">4</span>,<span class="hljs-number">500</span>],
+    style:{
+        <span class="hljs-string">'m.transparent'</span>: true,
+        <span class="hljs-string">'m.texture.image'</span>: <span class="hljs-string">'images/door_left.png'</span>, 
+    </span></span></span>}
+`</pre>
+
+<p>上面增加的style主要透明和贴图两项。看看效果：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/232/066/232066746-556c0a4b4c387" alt="图片描述"></p>
+<p>同样的方法，再把右侧门贴上就搞定了。为了增加体验，也是用户的要求，门上面设置了动画：双击可以自动打开，再双击可以直接关闭。动画功能引擎做好了封装，在json中直接指定动画类型就行了。不过要注意左右门的动画旋转方向要相反，要不然一个向里开一个向外开感觉比较怪异。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/861/022/861022871-556c0b1454ff4" alt="图片描述"></p>
+<h3 id="窗">窗</h3><p>项目中，窗本身不需要有任何业务属性，但是美观度的要求可一点都不能少。方法和门类似，先放窗框后挖窗体。不过为了有点变化，这里不做窗框了，做一个窗台，方法和道理与门相同。</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'主窗户洞'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">420</span>,
+    height: <span class="hljs-number">150</span>,
+    depth: <span class="hljs-number">50</span>, 
+    translate: [<span class="hljs-number">200</span>, <span class="hljs-number">30</span>, <span class="hljs-number">500</span>],
+    op: <span class="hljs-string">'-'</span>,
+</span></span></span>},<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'主窗户台'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">420</span>,
+    height: <span class="hljs-number">10</span>,
+    depth: <span class="hljs-number">40</span>, 
+    translate: [<span class="hljs-number">200</span>, <span class="hljs-number">30</span>, <span class="hljs-number">510</span>],
+    op: <span class="hljs-string">'+'</span>,
+</span></span></span>}
+`</pre>
+
+<p>定义了一个窗洞（挖掉）、一个窗台（添加）。一个大窗户就做好了：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/258/916/2589168837-556c0b5ca58ff" alt="图片描述"></p>
+<p>再添加一个略带颜色的透明玻璃。玻璃设置点高光和反射，增加“玻璃”感觉：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'主窗户玻璃'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">420</span>,
+    height: <span class="hljs-number">150</span>,
+    depth: <span class="hljs-number">2</span>,
+    translate: [<span class="hljs-number">200</span>, <span class="hljs-number">30</span>, <span class="hljs-number">500</span>],
+    op: <span class="hljs-string">'+'</span>,
+    style: {
+        <span class="hljs-string">'m.transparent'</span>: true,
+        <span class="hljs-string">'m.opacity'</span>:<span class="hljs-number">0.4</span>,
+        <span class="hljs-string">'m.color'</span>:<span class="hljs-string">'#58ACFA'</span>,
+    </span></span></span>}, 
+}
+`</pre>
+
+<p>json中玻璃设置了透明度和颜色。这样一个半透明的茶色玻璃就好了：<br><img src="http://sfault-image.b0.upaiyun.com/385/375/3853759272-556c0b774d44b" alt="图片描述"></p>
+<p>到这里突然在想：盖房子如果像写程序一样简单就好了，所有的程序猿就不会是无房一族单身狗了。当然写程序和盖房子一样：该封装好的要封装好，最后就是搭积木组装就行了。如果盖房子都是从挖土活泥巴开始，那就杯具了。写程序也是一样，如果从webGL的main开始写……这3D机房的系统要几个月甚至几年才能做出来呢？</p>
+<h3 id="外侧墙">外侧墙</h3><p>按照项目实际要求，继续增加更多建筑物墙体。主要是房间外侧有两道走廊隔墙。这是一个中间有大片透明玻璃的走廊隔墙，需要做的好看一点。由于是直线墙，没有复杂走向，直接用立方体定义：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'左外墙'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">20</span>,
+    height: <span class="hljs-number">200</span>,
+    depth: <span class="hljs-number">1300</span>,
+    translate: [-<span class="hljs-number">790</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+    op: <span class="hljs-string">'+'</span>,
+</span></span></span>}
+`</pre>
+
+<p>效果如下：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/308/900/3089001985-556c0e5753b24" alt="图片描述"></p>
+<p>再继续挖掉中间的窗户部分：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'左外墙洞'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">30</span>,
+    height: <span class="hljs-number">110</span>,
+    depth: <span class="hljs-number">1300</span>,
+    translate: [-<span class="hljs-number">790</span>, <span class="hljs-number">60</span>, <span class="hljs-number">0</span>],
+    op: <span class="hljs-string">'-'</span>,
+</span></span></span>}
+`</pre>
+
+<p><img src="http://sfault-image.b0.upaiyun.com/647/713/647713443-556c0ec65f1cb" alt="图片描述"></p>
+<p>空白显得很奇怪，加上玻璃试试：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'左外墙玻璃'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">4</span>,
+    height: <span class="hljs-number">110</span>,
+    depth: <span class="hljs-number">1300</span>,
+    translate: [-<span class="hljs-number">790</span>, <span class="hljs-number">60</span>, <span class="hljs-number">0</span>],
+    op: <span class="hljs-string">'+'</span>,
+    style: {
+        <span class="hljs-string">'m.transparent'</span>: true,
+        <span class="hljs-string">'m.opacity'</span>:<span class="hljs-number">0.6</span>,
+    </span></span></span>},
+}
+`</pre>
+
+<p><img src="http://sfault-image.b0.upaiyun.com/292/195/2921957613-556c0ea5e3a00" alt="图片描述"></p>
+<p>有了半透明和高光的效果，看起来就有质感了，右边也如法炮制：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/314/838/3148382993-556c0ee97a26d" alt="图片描述"></p>
+<p>这样，整个建筑的外观就基本完成了。最后，放一些绿植，增加些生气吧。</p>
+<h3 id="植物">植物</h3><p>做一盆植物，需要有一个空的花盆，花盆里面有泥土，上面有一株植物。这些东西用3D做起来都有点啰嗦。不过也不难。花盆用一个大圆柱剪掉中间的小圆柱，做成空心花盆；植物用贴图+透明模拟一下就行，不用真的去做植物的3D模型，否则要累死了。</p>
+<p>根据上面的思路，在项目中通过仔细调整，把创建花盆的代码封装好，然后在json中定义花盆位置就行了。下面定义一个：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'花1'</span>,
+    type: <span class="hljs-string">'plant'</span>,
+    translate: [<span class="hljs-number">560</span>, <span class="hljs-number">0</span>, <span class="hljs-number">400</span>],
+</span></span></span>}
+`</pre>
+
+<p>程序中解析如果type是plant则创建植物对象并添加场景。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/606/507/606507623-556c0f2e5fa19" alt="图片描述"></p>
+<p>在房间、走廊、甚至窗台上都可以放几盆，窗台上的可以通过设置scale缩小一些，并提升其高度到窗台位置即可。<br><img src="http://sfault-image.b0.upaiyun.com/275/507/2755071403-556c0f4be89bd" alt="图片描述"></p>
+<p>看看下整体效果，还不赖吧。<br><img src="http://sfault-image.b0.upaiyun.com/164/479/1644793129-556c0f5a176e6" alt="图片描述"></p>
+<h2 id="机柜和设备">机柜和设备</h2><p>写了那么一大篇，才终于把3D机房的外观装修完成，咱也算是个设计师程序员的混合型人才了呢。其实机房最核心的资源——机柜，还没找落呢，没办法，形象工程也是项目建设的一大亮点。</p>
+<h3 id="机柜">机柜</h3><p>机柜，以及其中的服务器设备。这才是3D机房里面最终要管理的内容。在我们的实际项目中，这些资产都是在数据库中存储，并通过json接口加载到浏览器中显示。这里为了演示方便，直接写几个机柜的片段，看一下显示效果。<br><img src="http://sfault-image.b0.upaiyun.com/914/156/914156955-556c0f926cec9" alt="图片描述"></p>
+<p><strong>机柜对象在项目中是这样封装的：用一个立方体来表示机柜，并加上贴图。项目中，为了提高显示速度，机柜一开始并不加载内部服务器内容，而是只显示自身一个立方体。当用户双击后，会触发一个延迟加载器，从服务器端加载机柜内部服务器，并加载到对应的位置上。此时，机柜会被挖空成一个空心的立方体，以便视觉上更像一个机柜。</strong></p>
+<p>定义机柜的json如下：</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'机柜'</span>,
+    type: <span class="hljs-string">'rack'</span>,
+    lazy: true,
+    width: <span class="hljs-number">70</span>,
+    depth: <span class="hljs-number">100</span>,
+    height: <span class="hljs-number">220</span>,
+    translate: [-<span class="hljs-number">370</span>, <span class="hljs-number">0</span>, -<span class="hljs-number">250</span>],
+    severity: CRITICAL,
+</span></span></span>}
+`</pre>
+
+<p>上面的机柜定义中，有一个<code>lazy</code>标记，标记它是否延迟加载其内容。如果延迟加载，则双击触发，否则程序显示时直接加载其内容。<code>Severity</code>是定义了机柜的告警信息，它是否有业务告警。如果有告警，会用一个气泡显示在机柜的上方，同时机柜也会被染色成告警对应的颜色。</p>
+<p>加入更多的机柜看看效果：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/417/694/4176947532-556c0fe0a020b" alt="图片描述"></p>
+<h3 id="设备">设备</h3><p>简单起见，这里管理的设备假设都是机架设备，尺寸规格比较规整，因此比较容易在机柜中组织。一个设备的外观确定后，在数据库中定义好模板，加载时根据其所在机柜的位置放置即可。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/417/437/4174379090-556c10478633e" alt="图片描述"></p>
+<p>这里只是随机生成了几个服务器设备，并按位置摆放。在实际应用中，可以通过手工录入或者智能机架报送的信息来确定服务器的类型和位置。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/343/734/3437342577-556c1052320a2" alt="图片描述"></p>
+<p><strong>如果需要监控到端口级别，还可以在服务器弹出后，再进一步延迟加载设备商的板卡、端口对象，并点击后进一步进行配置、监控等操作。当然加载的数据越细，对3D引擎和浏览器的压力会越大。可以通过动态延迟加载/卸载策略，获取一些平衡折中。</strong></p>
+<h3 id="电视机">电视机</h3><p>纯属无聊，再做一个电视机挂在墙上。依旧，定义一个立方体、挖空屏幕，放上透明玻璃，再贴上我们喜欢的电视节目画面，就ok了。</p>
+<pre class="hljs css"><span class="widget-clipboard"></span>`<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'电视机体'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">150</span>,
+    height: <span class="hljs-number">80</span>,
+    depth: <span class="hljs-number">5</span>,
+    translate: [<span class="hljs-number">80</span>, <span class="hljs-number">100</span>, <span class="hljs-number">13</span>],
+    op: <span class="hljs-string">'+'</span>, 
+</span></span></span>},<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'电视机挖空'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">130</span>,
+    height: <span class="hljs-number">75</span>,
+    depth: <span class="hljs-number">5</span>,
+    translate: [<span class="hljs-number">80</span>, <span class="hljs-number">102.5</span>, <span class="hljs-number">17</span>],
+    op: <span class="hljs-string">'-'</span>,
+</span></span></span>},<span class="hljs-rules">{
+    <span class="hljs-rule"><span class="hljs-attribute">name</span>:<span class="hljs-value"> <span class="hljs-string">'电视机屏幕'</span>,
+    type: <span class="hljs-string">'cube'</span>,
+    width: <span class="hljs-number">130</span>,
+    height: <span class="hljs-number">75</span>,
+    depth: <span class="hljs-number">1</span>,
+    translate: [<span class="hljs-number">80</span>, <span class="hljs-number">102.5</span>, <span class="hljs-number">14.6</span>],
+    op: <span class="hljs-string">'+'</span>,
+    style: {
+        <span class="hljs-string">'front.m.texture.image'</span>: <span class="hljs-string">'images/screen.jpg'</span>,
+    </span></span></span>},
+}
+`</pre>
+
+<p>当然，实际项目中，可以换上监控大屏幕的效果：<br><img src="http://sfault-image.b0.upaiyun.com/175/103/175103621-556c1081aa689" alt="图片描述"></p>
+<h2 id="总结">总结</h2><p>整个场景写到最后，我也已经脑洞大开游刃有余了。3D场景，尤其是这类业务系统，并不一定要死抠模型的仿真度，才能做到“好看”的效果。先来一张全景看一下：<br><img src="http://sfault-image.b0.upaiyun.com/276/357/2763572951-556c109b39f92" alt="图片描述"></p>
+<p>怎么样，还算精美吧？基本不输前面看到的广告公司的效果图。但和效果图一张死图片不一样，我们这是一个能操作、能漫游、能缩放、有动画、显示流畅、浏览器无需插件就能直接打开的3D机房小程序，就一个json文件和一百多行代码和一天的时间就搞定了，还是让人有点惊讶的。</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/338/284/3382844176-556c10abdfc4e" alt="图片描述"></p>
+<p>不用插件、不用3Dmax，不用模型库，干干净净纯粹的小程序，手机和平板也能用哦，而且还很流畅！上一张我的Nexus5截图瞅瞅：</p>
+<p><img src="http://sfault-image.b0.upaiyun.com/213/632/2136321317-556c10be2f2fe" alt="图片描述"></p>
+<p>经过优化，场景加载已经控制在600毫秒以内，缩放漫游也很流畅。当然，技术和美化永无止境，用户的需求也千变万化精益求精。但只要我们选择好了技术和工具，就能事半功倍。Html5就是极佳的一个选择。</p>
+<p>Html5，也许它还不是银弹，但它确实是很好的一个炮弹。本文这一弹，你还喜欢吗？欢迎来信留言索取代码、技术交流：tw-service@servasoftware.com</p>
+
+      
+    </div>
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Canvas/"> #Canvas </a>
+          
+            <a href="/tags/HTML5/"> #HTML5 </a>
+          
+            <a href="/tags/WebGl/"> #WebGl </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/06/05/domain-name-trouble/">被域名折腾的灰常Angry</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/06/04/htaccess-tricks/">.htaccess技巧-URL重写(Rewrite)与重定向(Redirect)</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2015/06/05/webgl-repost-2/"
+               data-title="HTML5 webGL（第二弹：打造最美3D机房）" data-url="http://qianzewei.com/2015/06/05/webgl-repost-2/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="QDavid" />
+          <p class="site-author-name">QDavid</p>
+        </div>
+        <p class="site-description motion-element">一只Web小狮子的博客</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+            
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">分类</span>
+              
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/QDavid12" target="_blank">github</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.zhihu.com/people/qian-ze-wei" target="_blank">zhihu</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+        
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目标效果图"><span class="nav-number">2.</span> <span class="nav-text">目标效果图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebGL基本场景搭建"><span class="nav-number">3.</span> <span class="nav-text">WebGL基本场景搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象封装"><span class="nav-number">4.</span> <span class="nav-text">对象封装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#地板和斜坡"><span class="nav-number">4.1.</span> <span class="nav-text">地板和斜坡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#走廊桌"><span class="nav-number">4.2.</span> <span class="nav-text">走廊桌</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#墙体"><span class="nav-number">4.3.</span> <span class="nav-text">墙体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#门"><span class="nav-number">4.4.</span> <span class="nav-text">门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#窗"><span class="nav-number">4.5.</span> <span class="nav-text">窗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外侧墙"><span class="nav-number">4.6.</span> <span class="nav-text">外侧墙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#植物"><span class="nav-number">4.7.</span> <span class="nav-text">植物</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#机柜和设备"><span class="nav-number">5.</span> <span class="nav-text">机柜和设备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#机柜"><span class="nav-number">5.1.</span> <span class="nav-text">机柜</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设备"><span class="nav-number">5.2.</span> <span class="nav-text">设备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#电视机"><span class="nav-number">5.3.</span> <span class="nav-text">电视机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">QDavid</span>
+</div>
+
+<div class="powered-by">
+  Powered by &nbsp;  <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.3"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.3"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.3" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.3" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"blogq"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js?v=0.4.3"></script>
+
+
+  
+  <!-- lazyload -->
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+      <script type="text/javascript">
+        jQuery(function() {          
+            jQuery("#posts img").lazyload({
+              placeholder:"http://www.arao.me/loading.gif",  
+                effect:"fadeIn"
+              });
+            });
+    </script>   
+</body>
+</html>
