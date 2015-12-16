@@ -232,11 +232,23 @@
 
       
         <h4 id="写在前面">写在前面</h4><blockquote>
-<p>云音乐api通过抓包整理，仅供开发学习使用，因此产生的纠纷与本人无关<br>参考：<a href="https://github.com/darknessomi/musicbox" target="_blank" rel="external">musicbox 命令行网易云音乐</a><br><a id="more"></a></p>
-<h4 id="登陆和个人信息">登陆和个人信息</h4><p><strong>POST</strong><br>网易帐号登录<br><code>https://music.163.com/weapi/login/</code><br>手机登录<br><code>https://music.163.com/weapi/login/cellphone/</code><br>参数<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    params: encText,</span><br><span class="line">    encSecKey: encSecKey</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>云音乐api通过抓包整理，仅供开发学习使用，因此产生的纠纷与本人无关<br>参考：<a href="https://github.com/darknessomi/musicbox" target="_blank" rel="external">musicbox 命令行网易云音乐</a></p>
 </blockquote>
-<p>参数部分加密很复杂。。搞了好久才搞清楚<br>基本的参数如下（密码需要经过md5加密）<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 如果是帐号密码，phone要改成username</span><br><span class="line">&#123;</span><br><span class="line">    Text: JSON.stringify(&#123;phone:"xxx",password:"md5 hashed Data",rememberLogin:"true"&#125;)</span><br><span class="line">    pubKey: 010001</span><br><span class="line">    nonce: 0CoJUm6Qyw8W8jud</span><br><span class="line">    modulus: <span class="number">00e0b509</span>f6259df8642dbc<span class="number">35662901477</span>df22677ec152b5ff68ace615bb<span class="number">7b725152b3</span>ab17a876aea8a5aa<span class="number">76d2e41762</span>9ec4ee<span class="number">341f56135</span>fccf<span class="number">695280104e03</span>12ecbda<span class="number">92557c93870</span>114af<span class="number">6c9d05c4</span>f<span class="number">7f0c3685</span>b7a46bee<span class="number">255932575</span>cce<span class="number">10b424d81</span>3cfe<span class="number">4875d3e82</span>047b97ddef<span class="number">52741d546</span>b8e289dc6935b3ece0462db<span class="number">0a22b8e7</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>然后encText和encSecretKey的逻辑如下</p>
+<a id="more"></a>
+<h4 id="登陆和个人信息">登陆和个人信息</h4><p><strong>POST</strong><br>网易帐号登录<br><code>https://music.163.com/weapi/login/</code><br>手机登录<br><code>https://music.163.com/weapi/login/cellphone/</code><br>参数</p>
+<pre><code>{
+    <span class="attribute">params</span>: encText,
+    <span class="attribute">encSecKey</span>: encSecKey
+}
+</code></pre><p>参数部分加密很复杂。。搞了好久才搞清楚<br>基本的参数如下（密码需要经过md5加密）</p>
+<pre><code># 如果是帐号密码，phone要改成username
+{
+    Text: JSON.stringify({phone:"xxx",password:"md5 hashed Data",rememberLogin:"true"})
+    pubKey: 010001
+    nonce: 0CoJUm6Qyw8W8jud
+    modulus: <span class="number">00e0b509</span>f6259df8642dbc<span class="number">35662901477</span>df22677ec152b5ff68ace615bb<span class="number">7b725152b3</span>ab17a876aea8a5aa<span class="number">76d2e41762</span>9ec4ee<span class="number">341f56135</span>fccf<span class="number">695280104e03</span>12ecbda<span class="number">92557c93870</span>114af<span class="number">6c9d05c4</span>f<span class="number">7f0c3685</span>b7a46bee<span class="number">255932575</span>cce<span class="number">10b424d81</span>3cfe<span class="number">4875d3e82</span>047b97ddef<span class="number">52741d546</span>b8e289dc6935b3ece0462db<span class="number">0a22b8e7</span>
+}
+</code></pre><p>然后encText和encSecretKey的逻辑如下</p>
 <pre><code>aesRsaEncrypt = <span class="function"><span class="keyword">function</span> <span class="params">(text, pubKey, modulus, nonce)</span> {</span>
     var secKey = createSecretKey<span class="params">(<span class="number">16</span>)</span>;
     return {
