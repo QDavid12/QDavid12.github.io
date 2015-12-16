@@ -24,7 +24,7 @@
 
 
 
-  <meta name="keywords" content="web开发, 个人博客, 前端, 机器学习" />
+  <meta name="keywords" content="api," />
 
 
 
@@ -59,7 +59,7 @@
 
 
 
-  <title> 网易云音乐api整理 // BlogQ </title>
+  <title> 网易云音乐api整理（神坑慎入） // BlogQ </title>
 </head>
 
 <body>
@@ -188,7 +188,7 @@
           
           
             
-              网易云音乐api整理
+              网易云音乐api整理（神坑慎入）
             
           
         </h1>
@@ -199,6 +199,17 @@
           发表于 2015-12-10
         </span>
 
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/Code/">Code</a>
+
+              
+              
+
+            
+          </span>
         
 
         
@@ -220,16 +231,53 @@
       
 
       
-        
+        <h4 id="写在前面">写在前面</h4><blockquote>
+<p>云音乐api通过抓包整理，仅供开发学习使用，因此产生的纠纷与本人无关<br>参考：<a href="https://github.com/darknessomi/musicbox" target="_blank" rel="external">musicbox 命令行网易云音乐</a><br><a id="more"></a></p>
+<h4 id="登陆和个人信息">登陆和个人信息</h4><p><strong>POST</strong><br>网易帐号登录<br><code>https://music.163.com/weapi/login/</code><br>手机登录<br><code>https://music.163.com/weapi/login/cellphone/</code><br>参数<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    params: encText,</span><br><span class="line">    encSecKey: encSecKey</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>参数部分加密很复杂。。搞了好久才搞清楚<br>基本的参数如下（密码需要经过md5加密）<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 如果是帐号密码，phone要改成username</span><br><span class="line">&#123;</span><br><span class="line">    Text: JSON.stringify(&#123;phone:"xxx",password:"md5 hashed Data",rememberLogin:"true"&#125;)</span><br><span class="line">    pubKey: 010001</span><br><span class="line">    nonce: 0CoJUm6Qyw8W8jud</span><br><span class="line">    modulus: <span class="number">00e0b509</span>f6259df8642dbc<span class="number">35662901477</span>df22677ec152b5ff68ace615bb<span class="number">7b725152b3</span>ab17a876aea8a5aa<span class="number">76d2e41762</span>9ec4ee<span class="number">341f56135</span>fccf<span class="number">695280104e03</span>12ecbda<span class="number">92557c93870</span>114af<span class="number">6c9d05c4</span>f<span class="number">7f0c3685</span>b7a46bee<span class="number">255932575</span>cce<span class="number">10b424d81</span>3cfe<span class="number">4875d3e82</span>047b97ddef<span class="number">52741d546</span>b8e289dc6935b3ece0462db<span class="number">0a22b8e7</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后encText和encSecretKey的逻辑如下</p>
+<pre><code>aesRsaEncrypt = <span class="function"><span class="keyword">function</span> <span class="params">(text, pubKey, modulus, nonce)</span> {</span>
+    var secKey = createSecretKey<span class="params">(<span class="number">16</span>)</span>;
+    return {
+        encText : aesEncrypt<span class="params">(aesEncrypt<span class="params">(text, nonce)</span>, secKey)</span>,
+        encSecKey : rsaEncrypt<span class="params">(secKey, pubKey, modulus)</span>
+    }
+}
+</code></pre><p>上述是js实现，python实现可以看贴在最上面的参考repo<br>总的来说，就是有一个本地私钥secKey，十六位在本地生成，之后encText通过aes加密（<strong>AES-128-CBC，输出为base64，需要lv: <code>0102030405060708</code></strong>）生成，在通过rsa吧secKey加密作为参数一起传回</p>
+<p>确实挺复杂的。。<br>返回json太长就不贴了</p>
+<h4 id="私人FM">私人FM</h4><p><code>http://music.163.com/api/radio/get</code><br>每次返回三首歌</p>
+<h4 id="用户歌单">用户歌单</h4><p><code>http://music.163.com/api/user/playlist</code></p>
+<pre><code>{
+    "<span class="attribute">offset</span>": <span class="value">offset</span>,
+    "<span class="attribute">limit</span>": <span class="value">limit</span>,
+    "<span class="attribute">uid</span>": <span class="value">uid
+</span>}
+</code></pre><h4 id="歌单详情">歌单详情</h4><p><code>http://music.163.com/api/playlist/detail</code></p>
+<pre><code>{<span class="string">"id"</span>: id}
+<span class="comment">//或者</span>
+{<span class="string">"ids"</span>: <span class="preprocessor">[</span>id1, id2, <span class="attribute">...</span><span class="preprocessor">]</span><span class="markup">}</span>
+</code></pre><h4 id="歌曲详情">歌曲详情</h4><p><code>http://music.163.com/api/song/detail</code></p>
+<pre><code>{"<span class="attribute">ids</span>": <span class="value">[id1, id2, ...]</span>}
+</code></pre><h4 id="播放与收藏">播放与收藏</h4><p>待续</p>
+
       
     </div>
 
     <div class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/api/"> #api </a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/16/netease-music-develop-notes-1/">云音乐客户端开发笔记</a>
             
           </div>
 
@@ -256,7 +304,7 @@
       <div class="comments" id="comments">
         
           <div class="ds-thread" data-thread-key="2015/12/10/网易云音乐api整理/"
-               data-title="网易云音乐api整理" data-url="http://qianzewei.com/2015/12/10/网易云音乐api整理/">
+               data-title="网易云音乐api整理（神坑慎入）" data-url="http://qianzewei.com/2015/12/10/网易云音乐api整理/">
           </div>
         
       </div>
@@ -303,7 +351,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -311,7 +359,7 @@
           <div class="site-state-item site-state-categories">
             <a href="/categories">
             
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">分类</span>
               
               </a>
@@ -319,7 +367,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -364,7 +412,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#登陆和个人信息"><span class="nav-number">2.</span> <span class="nav-text">登陆和个人信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#私人FM"><span class="nav-number">3.</span> <span class="nav-text">私人FM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用户歌单"><span class="nav-number">4.</span> <span class="nav-text">用户歌单</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#歌单详情"><span class="nav-number">5.</span> <span class="nav-text">歌单详情</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#歌曲详情"><span class="nav-number">6.</span> <span class="nav-text">歌曲详情</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#播放与收藏"><span class="nav-number">7.</span> <span class="nav-text">播放与收藏</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

@@ -24,7 +24,7 @@
 
 
 
-  <meta name="keywords" content="Django,Express,JavaScript,Laravel,Nodejs,Php,Python,Web框架," />
+  <meta name="keywords" content="web开发, 个人博客, 前端, 机器学习" />
 
 
 
@@ -59,7 +59,7 @@
 
 
 
-  <title> 框架小结 // BlogQ </title>
+  <title> 云音乐客户端开发笔记 // BlogQ </title>
 </head>
 
 <body>
@@ -188,7 +188,7 @@
           
           
             
-              框架小结
+              云音乐客户端开发笔记
             
           
         </h1>
@@ -196,14 +196,22 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-05-29
+          发表于 2015-12-16
         </span>
 
         
           <span class="post-category">
             &nbsp; | &nbsp; 分类于
             
-              <a href="/categories/Coding/">Coding</a>
+              <a href="/categories/Diary/">Diary</a>
+
+              
+              
+                ， 
+              
+
+            
+              <a href="/categories/Diary/Code/">Code</a>
 
               
               
@@ -216,8 +224,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/05/29/web-frameworks-note/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/29/web-frameworks-note/"></span>
+            <a href="/2015/12/16/netease-music-develop-notes-1/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/16/netease-music-develop-notes-1/"></span>
             </a>
           </span>
           
@@ -231,85 +239,44 @@
       
 
       
-        <h3 id="写在前面">写在前面</h3><p>这段时间（大概大半个月吧）用</p>
-<blockquote>
-<p>nodejs(express) + mongodb（搭建完成）<br>django + mysql（写到登录和博客页面的解析结束）<br>php(laravel) + mysql（目前博客的构建）</p>
+        <h3 id="云音乐客户端开发笔记（一）">云音乐客户端开发笔记（一）</h3><p>12.12 - 12.15<br><a id="more"></a></p>
+<h4 id="flux">flux</h4><blockquote>
+<p>git地址： <a href="https://github.com/facebook/flux/tree/master/examples/flux-todomvc" target="_blank" rel="external">todo-flux</a><br><img src="https://raw.githubusercontent.com/facebook/flux/master/docs/img/flux-diagram-white-background.png" alt="flux"></p>
 </blockquote>
-<p>都写了遍自己的博客<br>总台感受是，没有最好的框架，只有最适合的框架<br>小结一下，写的多有不到位，还望指出</p>
-<h2 id="<!-_more_->"><a id="more"></a></h2><h3 id="Django">Django</h3><p>Django还挺好用的，而且组件相当全，本身基因决定是个服务于媒体站点的框架<br>自带auth、article、blog、admin这样的模块<br>非常方便好用，而且部署还算是比较方便的（天杀的sae竟然只有1.4的django，应用引擎们对某些框架不是特别友好唉）<br>而且app这样的概念非常棒，可以木有顾虑的删除某个app子目录而不影响整个应用，在其他框架里比较少见的优点。</p>
-<p>要说缺点的话</p>
-<p>总感觉Django框架的速度比php的框架要慢，速度一般般吧，虽然可以用c改写组件，但是好多国内的应用引擎不支持CPYTHON<br>template很弱还不太好换<br>比如我在用的sae（再来一遍吐艳的sae）</p>
-<p><strong>就这个框架本身而言，优缺点是相生的</strong></p>
-<blockquote>
-<ul>
-<li>组件的丰富就构成了第一个缺点，大包大揽，框架不够轻。虽然不要的组件也不会影响效率，可以自己在原生的组件基础上修改自己的model出来，很人性化（说好的缺点呢= =），但是不是那么好改的。他自己的auth模块改了很久，因为他是Nickname unique，耦合性高，牵一发动全身 </li>
-<li>最为人吐槽的一点，就是官方文档和官方教程有点简陋，而且我至今木有找到一个非常新的教程（本人用的是1.8的系统），边看官方的文档，然后借助stackoverflow到处填坑；</li>
-<li>坑比较多，更新官方称是向后兼容的，其实1.7、1.8已经变动非常大了，但是主流的这些个app engine还没有支持最新的，django book写只写到了1.6，所以好多还多坑啊（主要是我还不习惯完全用文档来学习0.0）</li>
-</ul>
-</blockquote>
-<p>总结来讲：<br><strong>Django是一个相对比较重的框架，大包大揽，组件的可替换和扩展性比较差。如果你的web开发风格和django很相似，那django对你来说简直是仙丹，但是如果有很多相悖的地方，改造起来很痛苦，甚至不如自己组建一个框架。</strong></p>
-<hr>
-<h3 id="Express">Express</h3><p>JavaScript真是个又爱又恨的语言（Php：主人那不是我么，爱我你不怕么O.O），优点是动态语言这个大类都有的，不过缺点啊。。回调用来处理小程序的非阻塞还好，试想一下如果是写一个逻辑稍复杂一些的，cb套cb想起来就有点恐怖啊，非阻塞也有非阻塞的坏处。<br>不过很多大神表示这个还是很好克服的，以后关注一下。作为一只前端，能用JavaScript来写后台，太浪漫了。</p>
-<p>不过，我用NodeJs遇到的最大的一个困难，是mongodb的model层，我先后用monk、mongoose管理mongodb，monk非常简洁，当然功能不够丰富，没有model的概念，mongoose是有model的概念的，当时认证卡了比较长的时间。当时正好想试试django、php，这点就直接放下了，博客写完了没部署。</p>
-<p>用的时间不长，不多写了，留个坑以后填。</p>
-<hr>
-<h3 id="Laravel">Laravel</h3><p><strong>Php是个又爱又恨的典范</strong></p>
-<p>骂Php的人很多，因为他太流行了，份额巨大，也有托WP的福。<br>大家一直都这么说，不过这个语言就是为web而生的，不能再适合快速敏捷的Web开发了。 </p>
-<p>为什么大家都黑他，其实跟当年JavaScript很相像嘛，入门门槛很低，很多不重视技术的站长都拿来扫个两眼视频教程，想怎么写就怎么写，JavaScript往HTML里到处写、随便命名（这错误自己入门时候经常犯），不像Java、Python的使用者那样平均素养来的高<br>写Php的就更不说了。。我相信有非常非常多的人都是在不合理的使用Php，比如把视图、逻辑、数据模型全都混在一起。</p>
-<p><strong>Laravel提供了一个比较完善的解决方案</strong></p>
-<p>我用过的框架不多，公司里用的Java的Spring，自己也只用过屈指可数的框架。  </p>
-<p>但是一用到<strong>Laravel</strong>瞬间觉得世界都美好了。</p>
-<ul>
-<li>开发优雅、简单、语义化，开发的非常开心，不到2天就基本写完了，一些基本的组件很轻很好扩展，比如用户认证这块，甩了Django好远，而且有Eloquent ORM这么强大的model层组件，非常非常好使。</li>
-<li>部署快捷也是优势，直接传文件，改一下.htaccess就上线了，对于中小型的web开发是神器级别的。</li>
-</ul>
-<p><strong>缺点呢</strong> </p>
-<ul>
-<li>调试真的不是非常方便，有点反人类，duang几个翻页的信息，问题定位比较慢。<a href="http://golaravel.com" target="_blank" rel="external">Laravel中文社区</a>上面有问答区，还是比较活跃的。</li>
-<li>路由模块有点反人类，个人认为不如django的正则优雅。有时候会出奇奇怪怪的问题。</li>
-<li>其他暂时没发现什么。</li>
-</ul>
-<hr>
-<p>个人最习惯用的还是Laravel</p>
-<p>2015.5.30</p>
+<h4 id="project的使用">project的使用</h4><p>开发环境需要手动electron main.js<br>npm build 打包导出各系统的客户端</p>
+<h4 id="关于前端的架构">关于前端的架构</h4><p><strong>2015.12.12</strong><br>目前我采用的是webpack+react的前端工具<br>整个前端，用react分为三级的component</p>
+<p>最初一级是app<br>负责所有数据的存放和改变，包括api数据的请求和state的改变<br>这样的好处是 数据不会散乱<br>子组件只需负责渲染数据，数据单向流动</p>
+<p>第二级就是具体的表层组件<br>和app.js放在一个目录<br>这些就是常用功能模块的粗略分块</p>
+<p>toolbar 是最上面的最大最小化的小工具栏<br>nav 就是往下的红色导航栏，有头像、搜索等<br>左边是sidebar<br>右边是具体的内容页<br>最下面就是player panel</p>
+<p>第三级别就是第二级别的子组件，就不展开说了</p>
+<p>才发现原来今天双十二。。<br>接着写咯</p>
+<p><strong>2015.12.13</strong><br>之前出了一个问题，没有更新上来<br>crypto这个库，webpack无法打包到bundle.js<br>会报错 createCipheriv 没有包括在browserify里面</p>
+<p>后来解决方法。。就是在main.js注册了一个ipcMain<br>让renderer process来和他通信<br>相当于登录过程的加密<br>放到了本地而不是browser执行<br>突然发现这样安全性还好了不杀</p>
+<p>架构给也给改了</p>
+<p>现在初步确定了架构<br>决定使用redux架构<br>确实dispatcher这个模块在flux中有些很模糊的地方</p>
+<p>所以现在的架构是<br>action-&gt;reducer-&gt;store-&gt;react<br>具体的架构实现准备另开一篇写<br>主要是把思路得理清楚</p>
+<p><strong>2015.12.15</strong><br>一天没有写<br>写了好多代码，然后也看了redux<br>但是redux感觉不适合我<br>我只是需要一个数据管理</p>
+<p>所以就自己写了个store<br>这里还有个坑</p>
+<p>我一开始的设计是two smart components<br>一个是顶层app<br>另一个是player播放器</p>
+<p>但是写到私人fm的时候除了个很严重的问题<br>就是fm页面也有播放控制<br>但是fm和player是同级组件<br>交流非常困难<br>数据同步bug非常多<br>代码又臭又长</p>
+<p>然后一怒之下<br>把player也改成了dumb component<br>只剩一个app和action还有store交互</p>
+<p>解决了上面的问题<br>最佳实践还是最佳实践啊</p>
 
       
     </div>
 
     <div class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Django/"> #Django </a>
-          
-            <a href="/tags/Express/"> #Express </a>
-          
-            <a href="/tags/JavaScript/"> #JavaScript </a>
-          
-            <a href="/tags/Laravel/"> #Laravel </a>
-          
-            <a href="/tags/Nodejs/"> #Nodejs </a>
-          
-            <a href="/tags/Php/"> #Php </a>
-          
-            <a href="/tags/Python/"> #Python </a>
-          
-            <a href="/tags/Web框架/"> #Web框架 </a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/06/01/webgl-repost-1/">HTML5 webGL（第一弹：彩虹爆炸图）</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/05/25/laravel-dev-note/">Laravel开发手记</a>
+              <a href="/2015/12/10/网易云音乐api整理/">网易云音乐api整理（神坑慎入）</a>
             
           </div>
         </div>
@@ -329,8 +296,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/05/29/web-frameworks-note/"
-               data-title="框架小结" data-url="http://qianzewei.com/2015/05/29/web-frameworks-note/">
+          <div class="ds-thread" data-thread-key="2015/12/16/netease-music-develop-notes-1/"
+               data-title="云音乐客户端开发笔记" data-url="http://qianzewei.com/2015/12/16/netease-music-develop-notes-1/">
           </div>
         
       </div>
@@ -438,7 +405,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#<!-_more_->"><span class="nav-number"></span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Django"><span class="nav-number">1.</span> <span class="nav-text">Django</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Express"><span class="nav-number">2.</span> <span class="nav-text">Express</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Laravel"><span class="nav-number">3.</span> <span class="nav-text">Laravel</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#云音乐客户端开发笔记（一）"><span class="nav-number">1.</span> <span class="nav-text">云音乐客户端开发笔记（一）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#flux"><span class="nav-number">1.1.</span> <span class="nav-text">flux</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#project的使用"><span class="nav-number">1.2.</span> <span class="nav-text">project的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于前端的架构"><span class="nav-number">1.3.</span> <span class="nav-text">关于前端的架构</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

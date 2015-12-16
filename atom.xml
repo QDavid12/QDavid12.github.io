@@ -5,7 +5,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://qianzewei.com//"/>
-  <updated>2015-12-10T14:25:24.665Z</updated>
+  <updated>2015-12-16T16:52:16.723Z</updated>
   <id>http://qianzewei.com//</id>
   
   <author>
@@ -16,15 +16,90 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[网易云音乐api整理]]></title>
+    <title><![CDATA[云音乐客户端开发笔记]]></title>
+    <link href="http://qianzewei.com/2015/12/16/netease-music-develop-notes-1/"/>
+    <id>http://qianzewei.com/2015/12/16/netease-music-develop-notes-1/</id>
+    <published>2015-12-15T16:49:13.000Z</published>
+    <updated>2015-12-16T16:52:16.723Z</updated>
+    <content type="html"><![CDATA[<h3 id="云音乐客户端开发笔记（一）">云音乐客户端开发笔记（一）</h3><p>12.12 - 12.15<br><a id="more"></a></p>
+<h4 id="flux">flux</h4><blockquote>
+<p>git地址： <a href="https://github.com/facebook/flux/tree/master/examples/flux-todomvc" target="_blank" rel="external">todo-flux</a><br><img src="https://raw.githubusercontent.com/facebook/flux/master/docs/img/flux-diagram-white-background.png" alt="flux"></p>
+</blockquote>
+<h4 id="project的使用">project的使用</h4><p>开发环境需要手动electron main.js<br>npm build 打包导出各系统的客户端</p>
+<h4 id="关于前端的架构">关于前端的架构</h4><p><strong>2015.12.12</strong><br>目前我采用的是webpack+react的前端工具<br>整个前端，用react分为三级的component</p>
+<p>最初一级是app<br>负责所有数据的存放和改变，包括api数据的请求和state的改变<br>这样的好处是 数据不会散乱<br>子组件只需负责渲染数据，数据单向流动</p>
+<p>第二级就是具体的表层组件<br>和app.js放在一个目录<br>这些就是常用功能模块的粗略分块</p>
+<p>toolbar 是最上面的最大最小化的小工具栏<br>nav 就是往下的红色导航栏，有头像、搜索等<br>左边是sidebar<br>右边是具体的内容页<br>最下面就是player panel</p>
+<p>第三级别就是第二级别的子组件，就不展开说了</p>
+<p>才发现原来今天双十二。。<br>接着写咯</p>
+<p><strong>2015.12.13</strong><br>之前出了一个问题，没有更新上来<br>crypto这个库，webpack无法打包到bundle.js<br>会报错 createCipheriv 没有包括在browserify里面</p>
+<p>后来解决方法。。就是在main.js注册了一个ipcMain<br>让renderer process来和他通信<br>相当于登录过程的加密<br>放到了本地而不是browser执行<br>突然发现这样安全性还好了不杀</p>
+<p>架构给也给改了</p>
+<p>现在初步确定了架构<br>决定使用redux架构<br>确实dispatcher这个模块在flux中有些很模糊的地方</p>
+<p>所以现在的架构是<br>action-&gt;reducer-&gt;store-&gt;react<br>具体的架构实现准备另开一篇写<br>主要是把思路得理清楚</p>
+<p><strong>2015.12.15</strong><br>一天没有写<br>写了好多代码，然后也看了redux<br>但是redux感觉不适合我<br>我只是需要一个数据管理</p>
+<p>所以就自己写了个store<br>这里还有个坑</p>
+<p>我一开始的设计是two smart components<br>一个是顶层app<br>另一个是player播放器</p>
+<p>但是写到私人fm的时候除了个很严重的问题<br>就是fm页面也有播放控制<br>但是fm和player是同级组件<br>交流非常困难<br>数据同步bug非常多<br>代码又臭又长</p>
+<p>然后一怒之下<br>把player也改成了dumb component<br>只剩一个app和action还有store交互</p>
+<p>解决了上面的问题<br>最佳实践还是最佳实践啊</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="云音乐客户端开发笔记（一）">云音乐客户端开发笔记（一）</h3><p>12.12 - 12.15<br>]]>
+    
+    </summary>
+    
+      <category term="Diary" scheme="http://qianzewei.com/categories/Diary/"/>
+    
+      <category term="Code" scheme="http://qianzewei.com/categories/Diary/Code/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[网易云音乐api整理（神坑慎入）]]></title>
     <link href="http://qianzewei.com/2015/12/10/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90api%E6%95%B4%E7%90%86/"/>
     <id>http://qianzewei.com/2015/12/10/网易云音乐api整理/</id>
     <published>2015-12-10T14:25:24.000Z</published>
-    <updated>2015-12-10T14:25:24.665Z</updated>
-    <content type="html"></content>
+    <updated>2015-12-16T16:48:54.316Z</updated>
+    <content type="html"><![CDATA[<h4 id="写在前面">写在前面</h4><blockquote>
+<p>云音乐api通过抓包整理，仅供开发学习使用，因此产生的纠纷与本人无关<br>参考：<a href="https://github.com/darknessomi/musicbox" target="_blank" rel="external">musicbox 命令行网易云音乐</a><br><a id="more"></a></p>
+<h4 id="登陆和个人信息">登陆和个人信息</h4><p><strong>POST</strong><br>网易帐号登录<br><code>https://music.163.com/weapi/login/</code><br>手机登录<br><code>https://music.163.com/weapi/login/cellphone/</code><br>参数<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    params: encText,</span><br><span class="line">    encSecKey: encSecKey</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>参数部分加密很复杂。。搞了好久才搞清楚<br>基本的参数如下（密码需要经过md5加密）<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 如果是帐号密码，phone要改成username</span><br><span class="line">&#123;</span><br><span class="line">    Text: JSON.stringify(&#123;phone:"xxx",password:"md5 hashed Data",rememberLogin:"true"&#125;)</span><br><span class="line">    pubKey: 010001</span><br><span class="line">    nonce: 0CoJUm6Qyw8W8jud</span><br><span class="line">    modulus: <span class="number">00e0b509</span>f6259df8642dbc<span class="number">35662901477</span>df22677ec152b5ff68ace615bb<span class="number">7b725152b3</span>ab17a876aea8a5aa<span class="number">76d2e41762</span>9ec4ee<span class="number">341f56135</span>fccf<span class="number">695280104e03</span>12ecbda<span class="number">92557c93870</span>114af<span class="number">6c9d05c4</span>f<span class="number">7f0c3685</span>b7a46bee<span class="number">255932575</span>cce<span class="number">10b424d81</span>3cfe<span class="number">4875d3e82</span>047b97ddef<span class="number">52741d546</span>b8e289dc6935b3ece0462db<span class="number">0a22b8e7</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后encText和encSecretKey的逻辑如下</p>
+<pre><code>aesRsaEncrypt = <span class="function"><span class="keyword">function</span> <span class="params">(text, pubKey, modulus, nonce)</span> {</span>
+    var secKey = createSecretKey<span class="params">(<span class="number">16</span>)</span>;
+    return {
+        encText : aesEncrypt<span class="params">(aesEncrypt<span class="params">(text, nonce)</span>, secKey)</span>,
+        encSecKey : rsaEncrypt<span class="params">(secKey, pubKey, modulus)</span>
+    }
+}
+</code></pre><p>上述是js实现，python实现可以看贴在最上面的参考repo<br>总的来说，就是有一个本地私钥secKey，十六位在本地生成，之后encText通过aes加密（<strong>AES-128-CBC，输出为base64，需要lv: <code>0102030405060708</code></strong>）生成，在通过rsa吧secKey加密作为参数一起传回</p>
+<p>确实挺复杂的。。<br>返回json太长就不贴了</p>
+<h4 id="私人FM">私人FM</h4><p><code>http://music.163.com/api/radio/get</code><br>每次返回三首歌</p>
+<h4 id="用户歌单">用户歌单</h4><p><code>http://music.163.com/api/user/playlist</code></p>
+<pre><code>{
+    "<span class="attribute">offset</span>": <span class="value">offset</span>,
+    "<span class="attribute">limit</span>": <span class="value">limit</span>,
+    "<span class="attribute">uid</span>": <span class="value">uid
+</span>}
+</code></pre><h4 id="歌单详情">歌单详情</h4><p><code>http://music.163.com/api/playlist/detail</code></p>
+<pre><code>{<span class="string">"id"</span>: id}
+<span class="comment">//或者</span>
+{<span class="string">"ids"</span>: <span class="preprocessor">[</span>id1, id2, <span class="attribute">...</span><span class="preprocessor">]</span><span class="markup">}</span>
+</code></pre><h4 id="歌曲详情">歌曲详情</h4><p><code>http://music.163.com/api/song/detail</code></p>
+<pre><code>{"<span class="attribute">ids</span>": <span class="value">[id1, id2, ...]</span>}
+</code></pre><h4 id="播放与收藏">播放与收藏</h4><p>待续</p>
+]]></content>
     <summary type="html">
+    <![CDATA[<h4 id="写在前面">写在前面</h4><blockquote>
+<p>云音乐api通过抓包整理，仅供开发学习使用，因此产生的纠纷与本人无关<br>参考：<a href="https://github.com/darknessomi/musicbox">musicbox 命令行网易云音乐</a><br>]]>
     
     </summary>
+    
+      <category term="api" scheme="http://qianzewei.com/tags/api/"/>
+    
+      <category term="Code" scheme="http://qianzewei.com/categories/Code/"/>
     
   </entry>
   
@@ -33,7 +108,7 @@
     <link href="http://qianzewei.com/2015/12/10/%E5%87%86%E5%A4%87%E5%BC%80%E6%96%B0%E5%9D%91/"/>
     <id>http://qianzewei.com/2015/12/10/准备开新坑/</id>
     <published>2015-12-10T12:51:35.000Z</published>
-    <updated>2015-12-10T13:22:22.607Z</updated>
+    <updated>2015-12-16T16:49:00.872Z</updated>
     <content type="html"><![CDATA[<p>很久没有在博客里面更东西了，灰常的不好！<br>linux用起来算是习惯了，开发环境整体转移好咯<br>接下来就是开新坑的时间了<br><a id="more"></a><br>转linux有段时间了<br>发现一个很严重的时间</p>
 <pre><code>网易云音乐居然没有linux版本
 </code></pre><p>上网查了一下<br>oschina上有位童鞋一直在做linux版本<br>用了一下<br>觉得有点不适应<br>正好最近有比较多的时间<br>准备用electron+react写一个linux客户端<br>练练reactjs</p>
