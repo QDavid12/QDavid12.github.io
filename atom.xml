@@ -5,7 +5,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://qianzewei.com//"/>
-  <updated>2015-12-16T16:52:16.723Z</updated>
+  <updated>2016-10-22T07:04:00.667Z</updated>
   <id>http://qianzewei.com//</id>
   
   <author>
@@ -16,11 +16,155 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[机械式计算姬]]></title>
+    <link href="http://qianzewei.com/2016/10/15/mechanical-calculator/"/>
+    <id>http://qianzewei.com/2016/10/15/mechanical-calculator/</id>
+    <published>2016-10-15T11:40:49.000Z</published>
+    <updated>2016-10-22T07:04:00.667Z</updated>
+    <content type="html"><![CDATA[<h4 id="不务正业">不务正业</h4><p>最近在研究机械式计算机，还挺有意思的<br><a href="http://www.bilibili.com/video/av6601267/" target="_blank" rel="external">【操作方式和原理】视频资料</a></p>
+<p><img src="http://7xjdel.com1.z0.glb.clouddn.com/%E6%9C%BA%E6%A2%B0%E5%BC%8F%E8%AE%A1%E7%AE%97%E6%9C%BA.PNG" alt="实物"></p>
+<a id="more"></a>
+<ol>
+<li><p>滑座—可以左右移动</p>
+</li>
+<li><p>输入计数器—通过杠杆设置加数</p>
+</li>
+<li><p>显示计数器—显示运算的结果</p>
+</li>
+<li><p>转数计数器—显示曲柄的旋转次数</p>
+</li>
+<li><p>显示计数器归零曲柄—将显示计数器清零</p>
+</li>
+<li><p>转数计数器归零曲柄—将转数计数器清零</p>
+</li>
+<li><p>滑座锁止键—按下之后允许滑座左右移动</p>
+</li>
+<li><p>滑座左进键—按下之后指示滑座右移一个十位</p>
+</li>
+<li><p>滑座右进键—按下之后指示滑座座椅一个十位</p>
+</li>
+<li><p>小数点指示—指示各种计数器中小数点所在位置</p>
+</li>
+<li><p>操作曲柄—由图示位置向直面外方向旋转为正，表示加运算或者乘运算；反方向旋转为负，表示减运算或者除运算</p>
+</li>
+</ol>
+<h4 id="背景">背景</h4><p>手摇计算机是1878年由一位在俄国工作的瑞典发明家奥涅尔制造的，这是一种齿数可变的齿轮计算机。<br>奥涅尔计算机的主要特点是，它利用齿数可变的齿轮，代替了莱布尼兹的阶梯形轴。其中，字轮与基数齿轮之间没有中间齿轮，数字直接刻在齿数可变齿轮上，置好的数在外壳窗口中显示出来。它是后来流几十年的台式手摇计算机的前身。<br>奥涅尔后来在俄国批量生产他研制的计算机。国外的许多公司也在纷纷按照类似的结构原理生产计算机，其中最著名的是德国的布龙斯维加公司，他们从1892年起投产，到1912年，年产量已高达2万台。<br>在20世纪最初的二三十年间，手摇计算机已成为人类主要的一种计算装置。</p>
+<h4 id="操作">操作</h4><p><a href="http://www.bilibili.com/video/av6601267/index_3.html" target="_blank" rel="external"><strong>操作视频</strong></a></p>
+<p>（1）加法</p>
+<p>案例：43+376=419</p>
+<p>收将滑座完全移到左边。将输入计数器的右数第一、二个拨销拨至 3、4，顺时</p>
+<p>针方向旋转操作曲柄一周。然后同样将拨销拨至 376，将操作曲柄顺时针旋转一</p>
+<p>周，最后结果将显示到显示计数器中。装束计数器中的 2 表示加数的数量。</p>
+<p>（2）减法</p>
+<p>案例：419-376=43</p>
+<p>在（1）中操作结束后，输入计数器仍置于 376 不变，此时将操作曲柄逆时针旋</p>
+<p>转一周，则显示计数器显示结果 43。</p>
+<p>（3）乘法</p>
+<p>案例：33×22=726</p>
+<p>收将滑座完全移到左边。将输入计数器的右数第一、二个拨销拨至 3、3，顺时</p>
+<p>针方向旋转操作曲柄两周，此时显示计数器显示 66。然后下次滑座锁止键，并</p>
+<p>将滑座向右移一位，然后将操作曲柄顺时针旋转两周，此时显示计数器得到结果</p>
+<p>726。</p>
+<p>（4）除法</p>
+<p>案例：147/12=12.08333</p>
+<p>收将滑座完全移到最右边。将输入计数器的拨至 147，将操作曲柄顺时针旋转一</p>
+<p>周，将显示到显示计数器中，然后将转数计数器清零。将输入计数器调至 12，</p>
+<p>并移动滑座使 12 与显示计数器的 14 对齐，将操作曲柄逆时针旋转一周，当听到</p>
+<p>铃声时（即减法操作过多，被减数从 0 变 9），将曲柄顺时针旋转一周，将 9 消</p>
+<p>除，然后将滑座左移一位进行重复操作，最后转数计数器将显示结果。</p>
+<h4 id="部分原理简介">部分原理简介</h4><p>原理不太好说明，看上面的视频好理解</p>
+<h5 id="加减法原理部分">加减法原理部分</h5><ol>
+<li>通过拨动输入计数器的拨销来调整指针轮上指针的数量</li>
+<li>旋转操作曲柄的过程中，通过指针来拨动中间轮</li>
+<li>由中间轮拨动计数轮<br><img src="http://7xjdel.com1.z0.glb.clouddn.com/calc-1.png" alt="1"></li>
+</ol>
+<h5 id="进位部分_-_通过进位杆实现">进位部分 - 通过进位杆实现</h5><ol>
+<li>进位杆内部有弹簧和止尾销，将进位杆的位置限定在前、后两个位置</li>
+<li>当某一位的计数轮由 9 拨至 0 使，进位杆由计数轮上的进位齿拨至“后”位。</li>
+<li>当进位杆拨至“后”位时，指针轮上的进位齿可以拨动下一位的计数轮实现进位，</li>
+<li>在进位之后，指针轮上的轮缘将进位杆拨至“前”位，使指针轮上的进位指针无法接触到计数轮上的下一位。<br><img src="http://7xjdel.com1.z0.glb.clouddn.com/calc-2.png" alt="2"></li>
+</ol>
+<h5 id="乘除法">乘除法</h5><p>基于加减法，结合滑座的<code>可平移特性</code>与<code>转数计数器</code>，实现乘除法<br>跟列竖式计算的原理差不多</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h4 id="不务正业">不务正业</h4><p>最近在研究机械式计算机，还挺有意思的<br><a href="http://www.bilibili.com/video/av6601267/">【操作方式和原理】视频资料</a></p>
+<p><img src="http://7xjdel.com1.z0.glb.clouddn.com/%E6%9C%BA%E6%A2%B0%E5%BC%8F%E8%AE%A1%E7%AE%97%E6%9C%BA.PNG" alt="实物"></p>]]>
+    
+    </summary>
+    
+      <category term="机械" scheme="http://qianzewei.com/tags/%E6%9C%BA%E6%A2%B0/"/>
+    
+      <category term="Diary" scheme="http://qianzewei.com/categories/Diary/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[云音乐客户端弃坑]]></title>
+    <link href="http://qianzewei.com/2016/06/01/netease-music-linux/"/>
+    <id>http://qianzewei.com/2016/06/01/netease-music-linux/</id>
+    <published>2016-06-01T01:49:27.000Z</published>
+    <updated>2016-10-22T06:30:22.072Z</updated>
+    <content type="html"><![CDATA[<h4 id="一个公告">一个公告</h4><p>网易居然自己做了linux版本！有点伐开心<br><img src="http://7xjdel.com1.z0.glb.clouddn.com/netease-music-linux.PNG" alt="官方"><br><a id="more"></a></p>
+<h4 id="一些总结">一些总结</h4><p>这个个人项目还是没有善终<br>不过收获还挺多的<br>仔细研究了<code>React</code>, <code>Electron</code>, <code>Redux</code><br>(最后没有使用Redux，这个库给我一种非常浮夸的感觉，自己造了精简的Redux)<br>最终这个练手项目给我带来了一份不错的实习offer</p>
+<h4 id="写在最后">写在最后</h4><p>Github上关于网易云音乐的api啊，第三方客户端挺多的<br>官方MP3地址的计算方法也不难破解<br>关键是GUI的复杂度够高<br>作为练手项目<br>比TodoList不知道高到哪里去了<br>或许我会把这个项目做完吧</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h4 id="一个公告">一个公告</h4><p>网易居然自己做了linux版本！有点伐开心<br><img src="http://7xjdel.com1.z0.glb.clouddn.com/netease-music-linux.PNG" alt="官方"><br>]]>
+    
+    </summary>
+    
+      <category term="网易云音乐" scheme="http://qianzewei.com/tags/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90/"/>
+    
+      <category term="Code" scheme="http://qianzewei.com/categories/Code/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[看哔哩哔哩上线咯]]></title>
+    <link href="http://qianzewei.com/2016/04/25/kanbilibili/"/>
+    <id>http://qianzewei.com/2016/04/25/kanbilibili/</id>
+    <published>2016-04-24T20:28:55.000Z</published>
+    <updated>2016-10-22T06:15:58.713Z</updated>
+    <content type="html"><![CDATA[<h4 id="写在前面">写在前面</h4><p>终于写好了，一个拖延症大佬近两个月的成果<br><a href="http://www.kanbilibili.com" target="_blank" rel="external">【点我点我】看哔哩哔哩</a></p>
+<p><img src="http://7xteex.com1.z0.glb.clouddn.com/json/daily/20160424/cover.jpg" alt="4.24封面"><br><a id="more"></a></p>
+<h4 id="缘起">缘起</h4><p>2014注册的B站，混迹B站也有两年了<br>2015年开始沉迷zhihu，发现了苏丽安大大的kanzhihu.com</p>
+<p>【2016.10更新】苏神关了看知乎 = = sigh<br><img src="http://7xjdel.com1.z0.glb.clouddn.com/kanzhihu-down.png" alt="看知乎关停"></p>
+<p>看了实现思路，很受启发<br>联想到bilibili很弱的排行榜<br>于是有了做一只<strong><code>哔哩哔哩日报</code></strong>的想法</p>
+<h4 id="功能">功能</h4><p>定期发布日报、周刊、月刊、UP榜(7月已完成)、总排行榜(10月已完成)等数据统计报告<br>视频详情页提供<strong>历史数据查看</strong>、<strong>B站视频下载</strong>、<strong>B站视频封面下载</strong>等功能<br>(在B站视频页地址的<code>bilibili</code>前加上<code>kan</code>，摁下回车)</p>
+<h4 id="代码代码">代码代码</h4><p>后台的爬虫写的一般<br>暂时也不准备抽成一个通用的轮子，就不开源啦</p>
+<blockquote>
+<p>每天的十二点，爬虫会准时启动<br>Step 1: 爬取所有视频的信息，储存起来<br>Step 2: 与前一天的数据作差，得到<code>当日增量</code><br>Step 3: 排序生成日报，发布到站点</p>
+</blockquote>
+<p>目前整个流程大约耗时约2小时（服务器架在国外）<br>观察了一周，稳定性还可以</p>
+<h4 id="下一步做什么">下一步做什么</h4><ol>
+<li>吃药治拖延症</li>
+<li>提升爬虫的稳定性</li>
+<li>更多的数据分析</li>
+<li>移动支持</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h4 id="写在前面">写在前面</h4><p>终于写好了，一个拖延症大佬近两个月的成果<br><a href="http://www.kanbilibili.com">【点我点我】看哔哩哔哩</a></p>
+<p><img src="http://7xteex.com1.z0.glb.clouddn.com/json/daily/20160424/cover.jpg" alt="4.24封面"><br>]]>
+    
+    </summary>
+    
+      <category term="bilibili" scheme="http://qianzewei.com/tags/bilibili/"/>
+    
+      <category term="crawler" scheme="http://qianzewei.com/tags/crawler/"/>
+    
+      <category term="爬虫" scheme="http://qianzewei.com/tags/%E7%88%AC%E8%99%AB/"/>
+    
+      <category term="Code" scheme="http://qianzewei.com/categories/Code/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[云音乐客户端开发笔记]]></title>
     <link href="http://qianzewei.com/2015/12/16/netease-music-develop-notes-1/"/>
     <id>http://qianzewei.com/2015/12/16/netease-music-develop-notes-1/</id>
     <published>2015-12-15T16:49:13.000Z</published>
-    <updated>2015-12-16T16:52:16.723Z</updated>
+    <updated>2015-12-16T16:52:16.000Z</updated>
     <content type="html"><![CDATA[<h3 id="云音乐客户端开发笔记（一）">云音乐客户端开发笔记（一）</h3><p>12.12 - 12.15<br><a id="more"></a></p>
 <h4 id="flux">flux</h4><blockquote>
 <p>git地址： <a href="https://github.com/facebook/flux/tree/master/examples/flux-todomvc" target="_blank" rel="external">todo-flux</a><br><img src="https://raw.githubusercontent.com/facebook/flux/master/docs/img/flux-diagram-white-background.png" alt="flux"></p>
@@ -60,7 +204,7 @@
     <link href="http://qianzewei.com/2015/12/10/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90api%E6%95%B4%E7%90%86/"/>
     <id>http://qianzewei.com/2015/12/10/网易云音乐api整理/</id>
     <published>2015-12-10T14:25:24.000Z</published>
-    <updated>2015-12-17T01:48:11.264Z</updated>
+    <updated>2015-12-17T01:48:11.000Z</updated>
     <content type="html"><![CDATA[<h4 id="写在前面">写在前面</h4><blockquote>
 <p>云音乐api通过抓包整理，仅供开发学习使用，因此产生的纠纷与本人无关<br>参考：<a href="https://github.com/darknessomi/musicbox" target="_blank" rel="external">musicbox 命令行网易云音乐</a></p>
 </blockquote>
@@ -121,15 +265,15 @@
     <link href="http://qianzewei.com/2015/12/10/%E5%87%86%E5%A4%87%E5%BC%80%E6%96%B0%E5%9D%91/"/>
     <id>http://qianzewei.com/2015/12/10/准备开新坑/</id>
     <published>2015-12-10T12:51:35.000Z</published>
-    <updated>2015-12-16T16:49:00.872Z</updated>
-    <content type="html"><![CDATA[<p>很久没有在博客里面更东西了，灰常的不好！<br>linux用起来算是习惯了，开发环境整体转移好咯<br>接下来就是开新坑的时间了<br><a id="more"></a><br>转linux有段时间了<br>发现一个很严重的时间</p>
-<pre><code>网易云音乐居然没有linux版本
-</code></pre><p>上网查了一下<br>oschina上有位童鞋一直在做linux版本<br>用了一下<br>觉得有点不适应<br>正好最近有比较多的时间<br>准备用electron+react写一个linux客户端<br>练练reactjs</p>
+    <updated>2016-10-22T05:28:08.260Z</updated>
+    <content type="html"><![CDATA[<p>很久没有在博客里面更东西了，灰常的不好！<br>linux折腾差不多了，开发环境整体转移好咯<br>接下来就是开新坑的时间了<br><a id="more"></a><br>转linux有段时间了<br>发现一个很严重的时间</p>
+<pre><code>网易云音乐居然木有linux版本
+</code></pre><p>上网查了一下<br>oschina上有位童鞋一直在做linux版本<br>用了一下<br>觉得有点不适应<br>正好最近有比较多的时间<br>准备用electron+react写一个linux客户端<br>练练react</p>
 <p>之后的计划<br>react native吧</p>
 <p>就酱</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>很久没有在博客里面更东西了，灰常的不好！<br>linux用起来算是习惯了，开发环境整体转移好咯<br>接下来就是开新坑的时间了<br>]]>
+    <![CDATA[<p>很久没有在博客里面更东西了，灰常的不好！<br>linux折腾差不多了，开发环境整体转移好咯<br>接下来就是开新坑的时间了<br>]]>
     
     </summary>
     
@@ -142,7 +286,7 @@
     <link href="http://qianzewei.com/2015/07/08/hello-hexo/"/>
     <id>http://qianzewei.com/2015/07/08/hello-hexo/</id>
     <published>2015-07-08T07:21:41.000Z</published>
-    <updated>2015-12-10T13:17:01.859Z</updated>
+    <updated>2015-12-10T13:17:01.000Z</updated>
     <content type="html"><![CDATA[<p>博客改成了 hexo + gitpage<br>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.<br><a id="more"></a></p>
 <h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 <p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
@@ -167,7 +311,7 @@
     <link href="http://qianzewei.com/2015/06/18/date-object-problem/"/>
     <id>http://qianzewei.com/2015/06/18/date-object-problem/</id>
     <published>2015-06-18T03:33:19.000Z</published>
-    <updated>2015-07-11T07:39:33.760Z</updated>
+    <updated>2015-07-11T07:39:33.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>最近用Datepicker出了一个很奇怪的兼容性问题，算是个坑，填一下  </p>
 </blockquote>
@@ -226,7 +370,7 @@ dateObj = <span class="keyword">new</span> <span class="built_in">Date</span>(ye
     <link href="http://qianzewei.com/2015/06/16/cmd-rename-tricks/"/>
     <id>http://qianzewei.com/2015/06/16/cmd-rename-tricks/</id>
     <published>2015-06-16T06:15:25.000Z</published>
-    <updated>2015-07-11T07:30:14.547Z</updated>
+    <updated>2015-07-11T07:30:14.000Z</updated>
     <content type="html"><![CDATA[<font face="宋体">原文链接：</font><a href="http://www.newsmth.net/bbscon.php?bid=34&amp;id=17370" target="_blank" rel="external"><font face="宋体">http://www.newsmth.net/bbscon.php?bid=34&amp;id=17370</font></a><br><br><font face="宋体">水木社区的老坟了，平时win用的多，刚好用到了</font><br><a id="more"></a><br><font face="宋体">发信人: oicu (Oh! I see you!), 信区: DOS<br>标  题: 按数字递增批量重命名文件的批处理<br>发信站: 水木社区 (Sat Dec 16 02:33:49 2006), 站内<br><br>一时兴起写了个简单的批量重命名的批处理：<br><br><font color="#008000"><strong>从数字1递增批量重命名ren.bat</strong>：</font><br>@echo off<br>SETLOCAL ENABLEDELAYEDEXPANSION<br>set /A num=0<br>FOR /F “tokens=<em>“ %%i in (‘dir /A-D /B /OD /TC’) do (<br>    IF NOT “%%i”==”%~n0%~x0” (<br>        set /A num+=1<br>        ren “%%i” “!num!%%~xi”<br>    )<br>)<br>ENDLOCAL<br>exit<br><br></em></font><font face="宋体"><font color="#008000"><strong>按00001这类格式递增批量重命名ren.bat：
 </strong></font>@echo off<br>SETLOCAL ENABLEDELAYEDEXPANSION<br>set /A num=0<br>FOR /F “tokens=“ %%i in (‘dir /A-D /B /OD /TC’) do (<br>    IF NOT “%%i”==”%~n0%~x0” (<br>        set /A num+=1<br>        if !num! LSS 10 (<br>            ren “%%i” 0000!num!%%~xi<br>        ) ELSE (<br>            if !num! LSS 100 (<br>                ren “%%i” 000!num!%%~xi<br>            ) ELSE (<br>                if !num! LSS 1000 (<br>                    ren “%%i” 00!num!%%~xi<br>                ) ELSE (<br>                    if !num! LSS 10000 ren “%%i” 0!num!%%~xi<br>                )<br>            )<br>        )<br>    )<br>)<br>ENDLOCAL<br>exit<br><br>如果觉得0多了，可以用下面的批处理来去掉，默认是去1个，要去多少个就<br>把!name:~1!中的数字1改成要去的个数，改这个批处理要比改前面的批处理<br>方便一些，所以写了这个用：<br><br>@echo off<br>SETLOCAL ENABLEDELAYEDEXPANSION<br>set name=<br>FOR /F “tokens=<em>“ %%i in (‘dir /A-D /B /OD /TC’) do (<br>    IF NOT “%%i”==”%~n0%~x0” (<br>        set name=%%i<br>        set name=!name:~1!<br>        ren “%%i” “!name!”<br>    )<br>)<br>ENDLOCAL<br>exit<br><br>上面的批处理要和文件放在一个目录里，命名后删除批处理文件即可。<br><br>直接使用dir的话，缺点是重命名的时候把批处理本身及子文件夹也改名了，而且<br>所得文件名字不能连续排序（批处理文件可能占了中间某个序号），因此用dir参<br>数进行排除文件夹内的子文件夹以及排序（排序目的就是把批处理排到最后）。<br><br>还有就是重名现象不好解决，如果原来已经含有一个重命名后可能会出现的名称，<br>名称被占用了程序就不能继续运行。可以事先用系统的重命名功能命名一次，方<br>法是选择要重命名的所有文件，Ctrl+a或者选择第一个再按住Shift不放，再选最<br>后一个进行连续选择，右键点击其中一个文件，选择重命名，然后随便写一个名<br>字，你将看到系统的批量命名是以括号内数字递增的。<br><br>排序参数的说明：<br>下面这行<br>FOR /F “tokens=</em>“ %%i in (‘dir /A-D /B /OD /TC’) do (<br>中的/OD参数是按时间排序，使用的时候把批处理文件复制到文件夹里，那么批处<br>理文件的创建时间就是最后的了，解决了文件连续的问题。<br><br>如果用/O-E也可以，这样也能使批处理文件排在最后(扩展名是bat，b的优先级高，<br>用-号来颠倒顺序)。<br><br><strong><font color="#ff0000">/OD后再加/TC更准确些。</font></strong></font>
 
@@ -255,9 +399,9 @@ dateObj = <span class="keyword">new</span> <span class="built_in">Date</span>(ye
     <link href="http://qianzewei.com/2015/06/14/reactjs-documents/"/>
     <id>http://qianzewei.com/2015/06/14/reactjs-documents/</id>
     <published>2015-06-14T14:41:24.000Z</published>
-    <updated>2015-07-11T07:30:44.174Z</updated>
+    <updated>2016-10-22T05:31:50.555Z</updated>
     <content type="html"><![CDATA[<blockquote>
-<p>最近在学习ReactJs，一起看的还有Angular的1/2、Flux/Reflux、backbone这些个东东，先列一下React入门比较有用的资料<br>研究一段时间补充几篇具体的笔记</p>
+<p>最近在学ReactJs，一起看的还有Angular的1/2、Flux/Reflux、backbone这些个东东，先列一下React入门比较有用的资料<br>研究一段时间补充几篇具体的笔记</p>
 </blockquote>
 <a id="more"></a>
 <p>Flux + ReactJS架构 </p>
@@ -279,7 +423,7 @@ dateObj = <span class="keyword">new</span> <span class="built_in">Date</span>(ye
 ]]></content>
     <summary type="html">
     <![CDATA[<blockquote>
-<p>最近在学习ReactJs，一起看的还有Angular的1/2、Flux/Reflux、backbone这些个东东，先列一下React入门比较有用的资料<br>研究一段时间补充几篇具体的笔记</p>
+<p>最近在学ReactJs，一起看的还有Angular的1/2、Flux/Reflux、backbone这些个东东，先列一下React入门比较有用的资料<br>研究一段时间补充几篇具体的笔记</p>
 </blockquote>]]>
     
     </summary>
@@ -297,7 +441,7 @@ dateObj = <span class="keyword">new</span> <span class="built_in">Date</span>(ye
     <link href="http://qianzewei.com/2015/06/05/domain-name-trouble/"/>
     <id>http://qianzewei.com/2015/06/05/domain-name-trouble/</id>
     <published>2015-06-05T09:02:00.000Z</published>
-    <updated>2015-07-11T07:37:05.834Z</updated>
+    <updated>2015-07-11T07:37:05.000Z</updated>
     <content type="html"><![CDATA[<h4 id="为什马吐这个槽">为什马吐这个槽</h4><p>qianzewei.com这个域名是5月份在万网买的，万网的价格也没有很多人说的比godaddy高上很多，价格还是很亲民的。<br>折腾就这么开始了。。也可以说作死就这么开始了  </p>
 <h2 id="<!-_more_->"><a id="more"></a></h2><p>之前两个域名都是在万网买的，感觉就是备案真是麻烦，当时naive，还不知道只要主机是在国内，就得备案。。<br>就记得那时候一心不想备案，还真没想到什么好选择，香港机房的主机普遍有些坑，就没尝试。<br>主要原因是当时手里已经有阿里云的两个虚拟主机了，就不太想换到香港或者国外主机去了。  </p>
 <p>于是很自作聪明的想到了把域名转到国外去是不是就可以绕过备案了？</p>
@@ -331,7 +475,7 @@ dateObj = <span class="keyword">new</span> <span class="built_in">Date</span>(ye
     <link href="http://qianzewei.com/2015/06/05/webgl-repost-2/"/>
     <id>http://qianzewei.com/2015/06/05/webgl-repost-2/</id>
     <published>2015-06-05T08:03:41.000Z</published>
-    <updated>2015-07-11T07:19:55.633Z</updated>
+    <updated>2015-07-11T07:19:55.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>转载自<a href="http://segmentfault.com/" target="_blank" rel="external">segmentfault</a>上面MonoLog的专栏，<a href="http://segmentfault.com/a/1190000002866653" target="_blank" rel="external">传送门</a></p>
 </blockquote>
@@ -703,7 +847,7 @@ setTimeout(
     <link href="http://qianzewei.com/2015/06/04/htaccess-tricks/"/>
     <id>http://qianzewei.com/2015/06/04/htaccess-tricks/</id>
     <published>2015-06-04T07:44:06.000Z</published>
-    <updated>2015-07-11T07:31:09.152Z</updated>
+    <updated>2015-07-11T07:31:09.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>转载自<a href="https://lesca.me/archives/htaccess-rewrite.html" target="_blank" rel="external">.htaccess技巧: URL重写(Rewrite)与重定向(Redirect) - Lesca技术宅</a></p>
 </blockquote>
@@ -943,7 +1087,7 @@ RewriteRule .*\.(gif|jpg|png)$ /hotlink.png [NC]
     <link href="http://qianzewei.com/2015/06/03/web-tree/"/>
     <id>http://qianzewei.com/2015/06/03/web-tree/</id>
     <published>2015-06-02T18:15:21.000Z</published>
-    <updated>2015-07-11T07:39:52.431Z</updated>
+    <updated>2015-07-11T07:39:52.000Z</updated>
     <content type="html"><![CDATA[<h4 id="写在前面">写在前面</h4><blockquote>
 <p>最近开发博客的时候Tag Model想写成树形结构，翻了一些博客文章，写篇小结，仅供参考。</p>
 </blockquote>
@@ -1041,7 +1185,7 @@ RewriteRule .*\.(gif|jpg|png)$ /hotlink.png [NC]
     <link href="http://qianzewei.com/2015/06/01/webgl-repost-1/"/>
     <id>http://qianzewei.com/2015/06/01/webgl-repost-1/</id>
     <published>2015-06-01T07:46:54.000Z</published>
-    <updated>2015-07-11T07:20:55.016Z</updated>
+    <updated>2015-07-11T07:20:55.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>转载自<a href="http://segmentfault.com/" target="_blank" rel="external">segmentfault</a>上面MonoLog的专栏，<a href="http://segmentfault.com/a/1190000002775741" target="_blank" rel="external">传送门</a></p>
 </blockquote>
@@ -1260,7 +1404,7 @@ node.setClient(‘color’, color);
     <link href="http://qianzewei.com/2015/05/29/web-frameworks-note/"/>
     <id>http://qianzewei.com/2015/05/29/web-frameworks-note/</id>
     <published>2015-05-29T08:21:41.000Z</published>
-    <updated>2015-07-11T06:03:09.188Z</updated>
+    <updated>2015-07-11T06:03:09.000Z</updated>
     <content type="html"><![CDATA[<h3 id="写在前面">写在前面</h3><p>这段时间（大概大半个月吧）用</p>
 <blockquote>
 <p>nodejs(express) + mongodb（搭建完成）<br>django + mysql（写到登录和博客页面的解析结束）<br>php(laravel) + mysql（目前博客的构建）</p>
@@ -1338,7 +1482,7 @@ node.setClient(‘color’, color);
     <link href="http://qianzewei.com/2015/05/25/laravel-dev-note/"/>
     <id>http://qianzewei.com/2015/05/25/laravel-dev-note/</id>
     <published>2015-05-25T01:38:13.000Z</published>
-    <updated>2015-07-11T05:56:37.258Z</updated>
+    <updated>2015-07-11T05:56:37.000Z</updated>
     <content type="html"><![CDATA[<h3 id="写在前面">写在前面</h3><blockquote>
 <p>其实刚开始想到要写博客的时候，我是拒绝的，你不能让我写就写<br>我得先试一试，于是……<br>duang，就试了三种语言，NodeJs、Python还有Php   </p>
 </blockquote>
@@ -1365,7 +1509,7 @@ node.setClient(‘color’, color);
     <link href="http://qianzewei.com/2015/05/25/blogq-start/"/>
     <id>http://qianzewei.com/2015/05/25/blogq-start/</id>
     <published>2015-05-25T00:42:41.000Z</published>
-    <updated>2015-12-10T13:22:16.607Z</updated>
+    <updated>2015-12-10T13:22:16.000Z</updated>
     <content type="html"><![CDATA[<h3 id="BlogQ_version1-0上线">BlogQ version1.0上线</h3><blockquote>
 <p>2015.5.25上线  </p>
 </blockquote>
