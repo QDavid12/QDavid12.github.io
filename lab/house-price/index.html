@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>房价数据图表</title>
+  <meta charset="utf-8">
+  <style>
+    * {
+      border: 0;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: "Helvetica Neue","Helvetica","Lucida Grande","Arial","Hiragino Sans GB","Microsoft Yahei","WenQuanYi Micro Hei","sans-serif";
+    }
+
+    /* legends */
+    div#legends {
+      padding: 10px 0;
+    }
+    .legend {
+      display: inline-block;
+      width: 20%;
+      padding: 5px 15px;
+    }
+    .chart:first-child {
+      width: 100%;
+      height: 450px;
+    }
+    .legend span {
+      border: 1px solid #2196f3;
+      color: #2196f3;
+      display: block;
+      text-align: center;
+      padding: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 3px;
+      transition: all 0.3s
+    }
+    .legend span:hover {
+      background: #2196f3;
+      color: #fff;
+    }
+    .legend.active span {
+      background: #2196f3;
+      color: #fff;
+    }
+    /* chart */
+    .chart {
+      width: 25%;
+      height: 300px;
+      display: inline-block;
+      padding: 5px 15px;
+    }
+    .title-container {
+      margin: 10px 0;
+    }
+    .title {
+      margin-left: 15px;
+      font-size: 16px;
+    }
+    .sub-title {
+      margin-left: 15px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    @media(max-width: 1000px) {
+      html {
+        zoom: 2;
+      }
+      .chart {
+        width: 100%;
+      }
+      .legend {
+        width: 50%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="legends">
+    <div class="title-container">
+      <span class="title">房价相关数据图表</span>
+      <span class="sub-title">数据来源：<a target="_blank" href="http://data.stats.gov.cn/easyquery.htm?cn=E0105&zb=A03&reg=110000&sj=2014">国家统计局</a></span>
+    </div>
+  </div>
+  <div id="app"></div>
+  <script type="text/javascript" src="http://cdn.bootcss.com/echarts/3.2.3/echarts.min.js"></script>
+  <script type="text/javascript" src="./data.js"></script>
+  <script type="text/javascript">
+    // console.log(options);
+    var app = document.querySelector('#app');
+    var charts = [];
+    /*options = options.filter(function(ins){
+      return ins.title.text.indexOf('武汉')===-1;
+    })
+*/
+    var legendData = options[0].legend.data;
+    var legendsContainer = document.querySelector('#legends');
+    var legends = [];
+    legendData.forEach(function(legend, index){
+      var div = document.createElement('div');
+      var span = document.createElement('span');
+      div.className = "legend";
+      span.innerHTML = legend.split("(")[0];
+      span.onclick = changeLegend.bind(null, index);
+      div.appendChild(span);
+      legendsContainer.appendChild(div);
+      legends.push(div);
+    })
+
+    var tmp = JSON.parse(JSON.stringify(options[0]));
+    tmp.title.text = '';
+    // all in one
+    var cities = [], series = {};
+    options.forEach(function(option){
+      var city = option.title.text;
+      cities.push(city);
+      for(var legend in option.series){
+        if(!series[legend]) series[legend] = [];
+        var t = copy(option.series[legend]);
+        t.name = city;
+        series[legend].push(t);
+      };
+    });
+    tmp.legend.data = cities;
+    tmp.legend.show = true;
+    //tmp.legend.width = 200;
+    tmp.series = series[1];
+    delete tmp.legend.selected;
+    options.unshift(tmp);
+    options.forEach(function(option, i){
+      var div = document.createElement('div');
+      div.className = 'chart';
+      app.appendChild(div);
+      var chart = echarts.init(div);
+      chart.setOption(option);
+      charts.push(chart);
+    })
+    changeLegend(0);
+
+    function copy(obj){
+      return JSON.parse(JSON.stringify(obj));
+    }
+    function changeLegend(index){
+      var legend = legendData[index];
+      var nextLegend = {};
+      legendData.forEach(function(key, i){
+        var isActive = index===i;
+        nextLegend[key] = isActive;
+        if(isActive){
+          addClass(legends[i], 'active');
+        } else {
+          removeClass(legends[i], 'active');
+        }
+      });
+      charts.forEach(function(chart, i){
+        var newOption;
+        if(i===0){
+          //console.log(JSON.stringify(series[index], null, 2));
+          if(index===1) index=0;
+          else if(index===0) index=1;
+          newOption = {
+            title: {
+              subtext: legend.split('(')[0]
+            },
+            series: series[index],
+            yAxis: [
+              {
+                type: "value",
+                name: legend.split('(')[1].replace(')', '')
+              }
+            ]
+          }
+        }
+        else{
+          newOption = {
+            title: {
+              subtext: legend.split('(')[0]
+            },
+            legend: {
+              selected: nextLegend
+            },
+            yAxis: [
+              {
+                type: "value",
+                name: legend.split('(')[1].replace(')', '')
+              }
+            ]
+          }
+        }
+        chart.setOption(newOption);
+      });
+    }
+    function addClass(el, name){
+      var classNames = el.className.split(' ');
+      classNames.push(name);
+      el.className = classNames.join(' ');
+    }
+    function removeClass(el, name){
+      var classNames = el.className.split(' ');
+      classNames = classNames.filter(function(tmp){
+        return !(tmp==name);
+      })
+      el.className = classNames.join(' ');
+    }
+  </script>
+</body>
+</html>
