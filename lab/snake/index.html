@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>贪吃蛇</title>
+  <meta charset="utf8">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+    html, body, .container {
+      width: 100%;
+      height: 100%;
+    }
+    .info {
+      text-align: center;
+      padding-top: 30px;
+      margin: 0 auto;
+    }
+    .info .lable {
+      margin: 10px;
+    }
+    .info input#speed {
+      width: 50px;
+      border: 1px solid #666;
+    }
+  </style>
+</head>
+<body>
+  <div className="container">
+    <div class="info">
+      <span class="label">操作:</span>
+      <span class="control">空格开始/暂停</span>
+      <span class="label">得分:</span>
+      <span class="score" id="score">0</span>
+      <span class="label">时间:</span>
+      <span class="time" id="time">00:00</span>
+      <span class="label">帧间隔</span>
+      <span><input id="speed"/>(回车确定)</span>
+    </div>
+    <div class="snake" id="snake"> 
+      
+    </div>
+  </div>
+  <script>
+    // Public
+    function c(type, className, id){
+      var t = document.createElement(type||"div");
+      t.class = className||"";
+      t.id = id||"";
+      return  t;
+    }
+    // Snake
+    function Snake(){
+      this.direction = {
+        x: -1,
+        y: 0
+      }
+      this.code = 0;
+      this.codeMap = {
+        0: {x:-1, y: 0},
+        1: {x: 0, y:-1},
+        2: {x: 1, y: 0},
+        3: {x: 0, y: 1}
+      }
+      this.length = 6;
+      this.start = {
+        x: 18,
+        y: 8
+      }
+      this.pixel = 30;
+      this.nodes = [];
+      this.canvas = null;
+      this.bgColor = "#333";
+    }
+    Snake.prototype = {
+      init: function(){
+        for(var i=0;i<this.length;i++){
+          var node = this.createNode(this.start.x + i, this.start.y);
+          this.canvas.appendChild(node);
+          this.nodes.push({
+            x: this.start.x + i,
+            y: this.start.y,
+            node: node
+          })
+        }
+      },
+      changeDirection: function(code){
+        if(Math.abs(code-this.code)==2||Math.abs(code-this.code)==0){
+          return;
+        }
+        else{
+          this.direction = this.codeMap[code];
+          this.code = code;
+        }
+      },
+      createNode: function(x, y){
+        var node = c("div", "snake-node");
+        node.style.width = this.pixel + "px";
+        node.style.height = this.pixel + "px";
+        node.style.backgroundColor = this.bgColor;
+        node.style.position = "absolute";
+        node.style.left = x*this.pixel + "px";
+        node.style.top = y*this.pixel + "px";
+        this.canvas.appendChild(node);
+        return node;
+      },
+      longer: function(){
+        var tail = this.nodes[this.length-1];
+        var tail1 = this.nodes[this.length-2];
+        var x = tail.x*2-tail1.x;
+        var y = tail.y*2-tail1.y
+        var node = this.createNode(x, y);
+        this.nodes.push({
+          x: x,
+          y: y,
+          node: node
+        })
+        this.length += 1;
+      },
+      move: function(){
+        var tail = this.nodes.pop().node;
+        var head = this.nodes[0];
+        var x = head.x + this.direction.x;
+        var y = head.y + this.direction.y;
+        tail.style.left = x*this.pixel + "px";
+        tail.style.top = y*this.pixel + "px";
+        this.nodes.unshift({
+          x: x,
+          y: y,
+          node: tail
+        });
+      }
+    }
+    // Food
+    function Food(){
+      this.x = 10;
+      this.y = 8;
+      this.bgColor = "#CC3333";
+      this.node = null;
+      this.canvas = null;
+      this.pixel = 30;
+    }
+    Food.prototype = {
+      init: function(){
+        var node = c("div", "food", "food");
+        node.style.width = this.pixel + "px";
+        node.style.height = this.pixel + "px";
+        node.style.borderRadius = "50%";
+        node.style.position = "absolute";
+        node.style.backgroundColor = this.bgColor;
+        this.node = node;
+        this.locate();
+        this.canvas.appendChild(node);
+      },
+      locate: function(){
+        this.node.style.top = this.y*this.pixel + "px";
+        this.node.style.left = this.x*this.pixel + "px";
+      }
+    }
+    // Game
+    function Game(){
+      this.id = "snake";
+      this.time = "0";
+      this.score = 0;
+      this.canvas = null;
+      this.config = {
+        width: 30,
+        height: 20,
+        pixel: 30,
+        bgColor: "#eee"
+      }
+      this.snake = null;
+      this.food = null;
+      this.timer = null;
+      this.speed = 500;
+      this.poss = [];
+      this.scoreNode = document.getElementById("score");
+      this.timeNode = document.getElementById("time");
+      this.speedNode = document.getElementById("speed");
+      this.running = false;
+    }
+    Game.prototype = {
+      init: function(){
+        // canvas
+        this.canvas = c("div", "canvas", "canvas");
+        this.canvas.style.width = this.config.width*this.config.pixel + "px";
+        this.canvas.style.height = this.config.height*this.config.pixel + "px";
+        this.canvas.style.backgroundColor = this.config.bgColor;
+        this.canvas.style.position = "relative";
+        this.canvas.style.margin = "50px auto";
+        document.getElementById(this.id).appendChild(this.canvas);
+        // snake
+        this.snake = new Snake();
+        this.snake.pixel = 30;
+        this.snake.canvas = this.canvas;
+        this.snake.init();
+        // food
+        this.food = new Food();
+        this.food.pixel = 30;
+        this.food.canvas = this.canvas;
+        this.food.init();
+        // end
+        this.score = 0;
+        this.time = 0;
+        this.speed = 500;
+        this.updateInfo();
+        console.log("init");
+        this.speedNode.onkeypress = function(event){
+          var keyCode = event.which||event.keyCode;
+          var speed = parseInt(this.speedNode.value);
+          if(keyCode==13){
+            if(speed>=50&&speed<1000){
+              this.speed = speed;
+              this.updateInfo();
+              console.log("speed: "+speed)
+            }
+            else{
+              alert("只能在50和1000之间");
+            }
+          }
+        }.bind(this);
+        document.onkeydown = function(event){
+          var keyCode = event.which||event.keyCode;
+          if(keyCode>=37&&keyCode<=40){
+            console.log(keyCode-37);
+            this.snake.changeDirection(keyCode-37);
+          }
+          else if(keyCode==32){
+            start.call(this);
+          }
+        }.bind(this);
+        function start(){
+          if(this.running) this.stop();
+          else this.run();
+        }
+      },
+      generatePoss: function(){
+        // poss
+        this.poss = [];
+        for(var x=0;x<this.config.width;x++){
+          for(var y=0;y<this.config.height;y++){
+            this.poss.push({
+              x: x,
+              y: y
+            });
+          }
+        }
+        for(var i=0;i<this.snake.length;i++){
+          var node = this.snake.nodes[i];
+          for(var j=0;j<this.poss.length;j++){
+            if((this.poss[j].x==node.x)&&(this.poss[j].y==node.y)){
+              this.poss.splice(j, 1);
+              //console.log(j, node.x, node.y);
+            }
+          }
+        }
+      },
+      updateInfo: function(){
+        this.scoreNode.innerHTML = this.score;
+        this.timeNode.innerHTML = Math.floor(this.time/1000);
+        this.speedNode.value = this.speed;
+      },
+      locate: function(){
+        this.generatePoss();
+        console.log(this.poss.length);
+        var index = Math.floor(Math.random()*(this.poss.length));
+        this.food.x = this.poss[index].x;
+        this.food.y = this.poss[index].y;
+        this.food.locate();
+      },
+      step: function(){
+        this.snake.move();
+        var dead = false;
+        var x = this.snake.nodes[0].x;
+        var y = this.snake.nodes[0].y;
+        if((x<0)||(x>=this.config.width)||(y<0)||(y>=this.config.height)){
+          dead = true;
+        }
+        else{
+          for(var i=1;i<this.snake.length;i++){
+            if((x==this.snake.nodes[i].x)&&(y==this.snake.nodes[i].y)){
+              dead = true;
+              break;
+            }
+          }
+        }
+        if(dead){
+          this.stop();
+          console.log("Game Over!");
+          return;
+        }
+        if((x==this.food.x)&&(y==this.food.y)){
+          this.locate();
+          console.log("score!");
+          this.score += 1;
+          this.snake.longer();
+        }
+        this.time += this.speed;
+        this.updateInfo();
+      },
+      run: function(){
+        this.running = true;
+        this.timer = window.setInterval(this.step.bind(this), this.speed);
+      },
+      stop: function(){
+        this.running = false;
+        window.clearInterval(this.timer);
+      }
+    }
+    // Run
+    var game = new Game();
+    game.init();
+    //game.run();
+  </script>
+</body>
+</html> 
