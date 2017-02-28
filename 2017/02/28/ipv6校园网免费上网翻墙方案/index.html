@@ -24,7 +24,7 @@
 
 
 
-  <meta name="keywords" content="web开发, 个人博客, 前端, 机器学习" />
+  <meta name="keywords" content="ipv6,shadowsocks,校园网," />
 
 
 
@@ -220,12 +220,45 @@
       
 
       
-        <p>测试hexo-admin</p>
+        <h4 id="缘起">缘起</h4><p>很多学校的校园网都是流量分段计价的，我免费的20G流量根本不够用，但是ipv6的流量无限使用，所以想到了ipv4转ipv6来实现免费上网，日常浏览网页看视频上youtube速度很快。<br>需要：</p>
+<ul>
+<li>校园网支持ipv6</li>
+<li>一台支持ipv6的vps</li>
+<li>稍微折腾一下<a id="more"></a>
+</li>
+</ul>
+<h4 id="检查校园网是否支持ipv6">检查校园网是否支持ipv6</h4><p><a href="http://test-ipv6.com/" target="_blank" rel="external">点这里测试ipv6</a></p>
+<p>IPv6指互联网协议（IP）第6版。目前大家上网主要使用互联网协议第四版，即IPv4。 在全球互联网高度发展的今天，IPv4 地址资源已经枯竭，互联网正在经历从IPv4网络向IPv6网络的过渡。 IPv4地址是类似 A.B.C.D 的格式，共32位，用 . 分成四段，用10进制表示； 而IPv6地址类似X:X:X:X:X:X:X:X的格式，它是128位的，用:分成8段，用16进制表示。 RFC2373 中详细定义了IPv6地址，按照定义，一个完整的IPv6地址的表示法：xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx。</p>
+<h4 id="一台vps">一台vps</h4><p>推荐这几家，东京和洛杉矶机房速度都不错：</p>
+<ol>
+<li><a href="https://m.do.co/c/c4c3b7609943" target="_blank" rel="external">DigitalOcean</a> 注册给10刀，最低配5刀一个月</li>
+<li><a href="http://www.vultr.com/?ref=6942370-3B" target="_blank" rel="external">Vultr</a> 注册送20刀，最低配一个月5刀</li>
+<li><a href="https://bandwagonhost.com/aff.php?aff=13762" target="_blank" rel="external">搬瓦工</a> 价格便宜，以前有一年9.9刀的，不过卖光了，现在最低配一年19.6刀，也非常便宜，而且支持傻瓜式配置shadowsocks和openVPN</li>
+</ol>
+<p>创建VPS后，ssh登录vps或者通过服务商提供的在线的console登录vps。</p>
+<h4 id="安装shadowsocks">安装shadowsocks</h4><p>shadowsocks是一个代理，主流平台如Windows、Android、iOS、Mac、Linux都支持。<br>如果买的是搬瓦工，进入管理后台(kiwivm control panel)，点KiwiVM Extras栏目底下的Shadowsocks Server，Install之后配置一下就行了。</p>
+<p>如果是普通的VPS，先<code>apt-get update</code><br>然后安装shadowsocks：<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get <span class="keyword">install</span> python-pip</span><br><span class="line">pip <span class="keyword">install</span> shadowsocks</span><br></pre></td></tr></table></figure></p>
+<h4 id="配置shadowsocks">配置shadowsocks</h4><p>在某个你中意的位置，建一个<code>config.json</code>，内容：<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"server"</span>: <span class="string">"::"</span></span><br><span class="line">  <span class="string">"server_port"</span>: <span class="number">6666</span>, <span class="comment">// 端口号</span></span><br><span class="line">  <span class="string">"password"</span>:<span class="string">"这里写密码"</span>,</span><br><span class="line">  <span class="string">"timeout"</span>:<span class="number">60</span>,</span><br><span class="line">  <span class="string">"method"</span>:<span class="string">"rc4-md5"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后启动shadowsocks<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssserver -c config<span class="class">.json</span> -d start</span><br></pre></td></tr></table></figure></p>
+<h4 id="配置客户端">配置客户端</h4><p>到<a href="https://shadowsocks.org/en/download/clients.html" target="_blank" rel="external">官网</a>下载系统对应的客户端。</p>
+<p>然后打开把ss服务器的ipv6地址、端口号、密码什么的都填进去，就配置完成了。</p>
+<h4 id="配置各个软件或者使用Proxifier实现全局代理">配置各个软件或者使用Proxifier实现全局代理</h4><p>现在本地127.0.0.1:1080运行着一个代理服务器，把你所使用的软件的代理都指向这里就可以了。<br>比如chrome，用SwitchyOmega这个扩展修改代理：<br><img src="\\images\pasted-2.png\" alt="upload successful"></p>
+<p>或者你可以使用Proxifier来实现全局代理，参考<a href="https://www.echoteen.com/proxifier-newway.html" target="_blank" rel="external">这篇文章</a></p>
 
       
     </div>
 
     <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ipv6/"> #ipv6 </a>
+          
+            <a href="/tags/shadowsocks/"> #shadowsocks </a>
+          
+            <a href="/tags/校园网/"> #校园网 </a>
+          
+        </div>
       
 
       
@@ -320,7 +353,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -365,7 +398,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#缘起"><span class="nav-number">1.</span> <span class="nav-text">缘起</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查校园网是否支持ipv6"><span class="nav-number">2.</span> <span class="nav-text">检查校园网是否支持ipv6</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一台vps"><span class="nav-number">3.</span> <span class="nav-text">一台vps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装shadowsocks"><span class="nav-number">4.</span> <span class="nav-text">安装shadowsocks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置shadowsocks"><span class="nav-number">5.</span> <span class="nav-text">配置shadowsocks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置客户端"><span class="nav-number">6.</span> <span class="nav-text">配置客户端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置各个软件或者使用Proxifier实现全局代理"><span class="nav-number">7.</span> <span class="nav-text">配置各个软件或者使用Proxifier实现全局代理</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
