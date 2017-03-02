@@ -251,16 +251,17 @@
     <title><![CDATA[网易云音乐api整理（神坑慎入）]]></title>
     <link href="http://qianzewei.com/2015/12/10/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90api%E6%95%B4%E7%90%86/"/>
     <id>http://qianzewei.com/2015/12/10/网易云音乐api整理/</id>
-    <published>2015-12-10T14:25:24.000Z</published>
-    <updated>2015-12-17T01:48:11.000Z</updated>
+    <published>2015-12-10T14:25:00.000Z</published>
+    <updated>2017-03-02T13:30:54.144Z</updated>
     <content type="html"><![CDATA[<h4 id="写在前面">写在前面</h4><blockquote>
-<p>云音乐api通过抓包整理，仅供开发学习使用，因此产生的纠纷与本人无关<br>参考：<a href="https://github.com/darknessomi/musicbox" target="_blank" rel="external">musicbox 命令行网易云音乐</a></p>
+<p>云音乐api通过抓包整理，仅供开发学习使用，因此产生的纠纷与本人无关<br>参考：<a href="https://github.com/darknessomi/musicbox" target="_blank" rel="external">musicbox 命令行网易云音乐</a><br>npm包：<a href="https://www.npmjs.com/package/netease-cloud-music-api" target="_blank" rel="external">netease-cloud-music-api</a></p>
 </blockquote>
 <a id="more"></a>
+<p><strong>PS:以下未标注的均为GET方式</strong></p>
 <h4 id="登陆和个人信息">登陆和个人信息</h4><p><strong>POST</strong><br>网易帐号登录<br><code>https://music.163.com/weapi/login/</code><br>手机登录<br><code>https://music.163.com/weapi/login/cellphone/</code><br>参数</p>
 <pre><code>{
-    <span class="attribute">params</span>: encText,
-    <span class="attribute">encSecKey</span>: encSecKey
+  <span class="attribute">params</span>: encText,
+  <span class="attribute">encSecKey</span>: encSecKey
 }
 </code></pre><p>参数部分加密很复杂。。搞了好久才搞清楚<br>基本的参数如下（密码需要经过md5加密）</p>
 <pre><code># 如果是帐号密码，phone要改成username
@@ -270,22 +271,22 @@
     nonce: 0CoJUm6Qyw8W8jud
     modulus: <span class="number">00e0b509</span>f6259df8642dbc<span class="number">35662901477</span>df22677ec152b5ff68ace615bb<span class="number">7b725152b3</span>ab17a876aea8a5aa<span class="number">76d2e41762</span>9ec4ee<span class="number">341f56135</span>fccf<span class="number">695280104e03</span>12ecbda<span class="number">92557c93870</span>114af<span class="number">6c9d05c4</span>f<span class="number">7f0c3685</span>b7a46bee<span class="number">255932575</span>cce<span class="number">10b424d81</span>3cfe<span class="number">4875d3e82</span>047b97ddef<span class="number">52741d546</span>b8e289dc6935b3ece0462db<span class="number">0a22b8e7</span>
 }
-</code></pre><p>然后encText和encSecretKey的逻辑如下</p>
+</code></pre><p>encText和encSecretKey的代码如下</p>
 <pre><code>aesRsaEncrypt = <span class="function"><span class="keyword">function</span> <span class="params">(text, pubKey, modulus, nonce)</span> {</span>
-    var secKey = createSecretKey<span class="params">(<span class="number">16</span>)</span>;
-    return {
-        encText : aesEncrypt<span class="params">(aesEncrypt<span class="params">(text, nonce)</span>, secKey)</span>,
-        encSecKey : rsaEncrypt<span class="params">(secKey, pubKey, modulus)</span>
-    }
+  var secKey = createSecretKey<span class="params">(<span class="number">16</span>)</span>;
+  return {
+    encText : aesEncrypt<span class="params">(aesEncrypt<span class="params">(text, nonce)</span>, secKey)</span>,
+    encSecKey : rsaEncrypt<span class="params">(secKey, pubKey, modulus)</span>
+  }
 }
 </code></pre><p>上述是js实现，python实现可以看贴在最上面的参考repo<br>总的来说，就是有一个本地私钥secKey，十六位在本地生成，之后encText通过aes加密（<strong>AES-128-CBC，输出为base64，需要lv: <code>0102030405060708</code></strong>）生成，在通过rsa吧secKey加密作为参数一起传回</p>
 <p>确实挺复杂的。。<br>返回json太长就不贴了</p>
 <h4 id="私人FM">私人FM</h4><p><code>http://music.163.com/api/radio/get</code><br>每次返回三首歌</p>
 <h4 id="用户歌单">用户歌单</h4><p><code>http://music.163.com/api/user/playlist</code></p>
 <pre><code>{
-    "<span class="attribute">offset</span>": <span class="value">offset</span>,
-    "<span class="attribute">limit</span>": <span class="value">limit</span>,
-    "<span class="attribute">uid</span>": <span class="value">uid
+  "<span class="attribute">offset</span>": <span class="value">offset</span>,
+  "<span class="attribute">limit</span>": <span class="value">limit</span>,
+  "<span class="attribute">uid</span>": <span class="value">uid
 </span>}
 </code></pre><h4 id="歌单详情">歌单详情</h4><p><code>http://music.163.com/api/playlist/detail</code></p>
 <pre><code>{<span class="string">"id"</span>: id}
@@ -293,16 +294,62 @@
 {<span class="string">"ids"</span>: <span class="preprocessor">[</span>id1, id2, <span class="attribute">...</span><span class="preprocessor">]</span><span class="markup">}</span>
 </code></pre><h4 id="歌曲详情">歌曲详情</h4><p><code>http://music.163.com/api/song/detail</code></p>
 <pre><code>{"<span class="attribute">ids</span>": <span class="value">[id1, id2, ...]</span>}
-</code></pre><h4 id="播放与收藏">播放与收藏</h4><p>待续</p>
+</code></pre><h4 id="获取歌词">获取歌词</h4><p><code>http://music.163.com/api/song/media</code></p>
+<pre><code>{"<span class="attribute">id</span>": <span class="value">id</span>}
+</code></pre><h4 id="获得mp3地址">获得mp3地址</h4><p>每个单曲对应一个dfsId，在获取歌曲信息时会返回，真实播放地址格式为：<br><code>http://m2.music.126.net/[encodedId]/[id].mp3</code><br>其中中间的encode函数为：</p>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">encode</span>(<span class="params">id</span>)</span>{
+  <span class="keyword">var</span> magic = _bytearray(<span class="string">'3go8&amp;$8*3*3h0k(2)2'</span>);
+  <span class="keyword">var</span> song_id = _bytearray(id.toString());
+  <span class="keyword">var</span> len = magic.length;
+  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;song_id.length;i++){
+      song_id[i] = song_id[i] ^ magic[i % len]
+  }
+  song_id = _bytestring(song_id);
+  <span class="keyword">return</span> Crypto.MD564(song_id).replace(<span class="regexp">/\//g</span>, <span class="string">"_"</span>).replace(<span class="regexp">/\+/g</span>, <span class="string">"-"</span>);
+}
+
+<span class="function"><span class="keyword">function</span> <span class="title">_bytearray</span>(<span class="params">str</span>)</span>{
+  <span class="keyword">var</span> res = [];
+  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;str.length;i++){
+      res.push(str.substr(i,<span class="number">1</span>).charCodeAt());
+  }
+  <span class="keyword">return</span> res;
+}
+
+<span class="function"><span class="keyword">function</span> <span class="title">_bytestring</span>(<span class="params">array</span>)</span>{
+  <span class="keyword">var</span> res = <span class="string">""</span>;
+  <span class="keyword">for</span>(<span class="keyword">var</span> x <span class="keyword">in</span> array){
+      res += <span class="built_in">String</span>.fromCharCode(array[x]);
+  }
+  <span class="keyword">return</span> res;
+}
+</code></pre><h4 id="喜欢歌曲">喜欢歌曲</h4><p><code>http://music.163.com/api/radio/like</code></p>
+<pre><code>{
+  <span class="attribute">like</span>: true,
+  <span class="attribute">trackId</span>: 歌曲id,
+  <span class="attribute">alg</span>: <span class="string">"itembased"</span>,
+  <span class="attribute">time</span>: <span class="number">25</span>
+}
+</code></pre><h4 id="搜索">搜索</h4><p><strong>POST</strong><br><code>http://music.163.com/api/search/get</code></p>
+<pre><code>{
+  <span class="attribute">s</span>: <span class="string">"word"</span>,            <span class="comment">// 搜索词</span>
+  <span class="attribute">type</span>: <span class="number">1</span>,              <span class="comment">// 单曲(1)，歌手(100)，专辑(10)，歌单(1000)，用户(1002)</span>
+  <span class="attribute">offset</span>: <span class="number">0</span>,            <span class="comment">// 偏移量</span>
+  <span class="attribute">total</span>: true,          <span class="comment">// 是否加上总数等信息</span>
+  <span class="attribute">limit</span>: <span class="number">60</span>             <span class="comment">// 结果数</span>
+}
+</code></pre><p>待续</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h4 id="写在前面">写在前面</h4><blockquote>
-<p>云音乐api通过抓包整理，仅供开发学习使用，因此产生的纠纷与本人无关<br>参考：<a href="https://github.com/darknessomi/musicbox">musicbox 命令行网易云音乐</a></p>
+<p>云音乐api通过抓包整理，仅供开发学习使用，因此产生的纠纷与本人无关<br>参考：<a href="https://github.com/darknessomi/musicbox">musicbox 命令行网易云音乐</a><br>npm包：<a href="https://www.npmjs.com/package/netease-cloud-music-api">netease-cloud-music-api</a></p>
 </blockquote>]]>
     
     </summary>
     
       <category term="api" scheme="http://qianzewei.com/tags/api/"/>
+    
+      <category term="网易云音乐" scheme="http://qianzewei.com/tags/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90/"/>
     
       <category term="Code" scheme="http://qianzewei.com/categories/Code/"/>
     
