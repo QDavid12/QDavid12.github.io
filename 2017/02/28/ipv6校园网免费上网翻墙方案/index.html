@@ -237,9 +237,9 @@
 </ol>
 <p>创建VPS后，ssh登录vps或者通过服务商提供的在线的console登录vps。</p>
 <h4 id="安装shadowsocks">安装shadowsocks</h4><p>shadowsocks是一个代理，主流平台如Windows、Android、iOS、Mac、Linux都支持。<br>如果买的是搬瓦工，进入管理后台(kiwivm control panel)，点KiwiVM Extras栏目底下的Shadowsocks Server，Install之后配置一下就行了。</p>
-<p>如果是普通的VPS，先<code>apt-get update</code><br>然后安装shadowsocks：<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get <span class="keyword">install</span> python-pip</span><br><span class="line">pip <span class="keyword">install</span> shadowsocks</span><br></pre></td></tr></table></figure></p>
-<h4 id="配置shadowsocks">配置shadowsocks</h4><p>在某个你中意的位置，建一个<code>config.json</code>，内容：<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"server"</span>: <span class="string">"::"</span></span><br><span class="line">  <span class="string">"server_port"</span>: <span class="number">6666</span>, <span class="comment">// 端口号</span></span><br><span class="line">  <span class="string">"password"</span>:<span class="string">"这里写密码"</span>,</span><br><span class="line">  <span class="string">"timeout"</span>:<span class="number">60</span>,</span><br><span class="line">  <span class="string">"method"</span>:<span class="string">"rc4-md5"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>然后启动shadowsocks<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssserver -c config<span class="class">.json</span> -d start</span><br></pre></td></tr></table></figure></p>
+<p>如果是普通的VPS，先<code>apt-get update</code><br>然后安装shadowsocks：<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">apt-get <span class="keyword">install</span> python-pip</div><div class="line">pip <span class="keyword">install</span> shadowsocks</div></pre></td></tr></table></figure></p>
+<h4 id="配置shadowsocks">配置shadowsocks</h4><p>在某个你中意的位置，建一个<code>config.json</code>，内容：<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="string">"server"</span>: <span class="string">"::"</span></div><div class="line">  <span class="string">"server_port"</span>: <span class="number">6666</span>, <span class="comment">// 端口号</span></div><div class="line">  <span class="string">"password"</span>:<span class="string">"这里写密码"</span>,</div><div class="line">  <span class="string">"timeout"</span>:<span class="number">60</span>,</div><div class="line">  <span class="string">"method"</span>:<span class="string">"rc4-md5"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后启动shadowsocks<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssserver -c <span class="built_in">config</span>.<span class="keyword">json </span>-d start</div></pre></td></tr></table></figure></p>
 <h4 id="配置客户端">配置客户端</h4><p>到<a href="https://shadowsocks.org/en/download/clients.html" target="_blank" rel="external">官网</a>下载系统对应的客户端。</p>
 <p>然后打开把ss服务器的ipv6地址、端口号、密码什么的都填进去，就配置完成了。</p>
 <h4 id="配置各个软件或者使用Proxifier实现全局代理">配置各个软件或者使用Proxifier实现全局代理</h4><p>现在本地127.0.0.1:1080运行着一个代理服务器，把你所使用的软件的代理都指向这里就可以了。<br>比如chrome，用SwitchyOmega这个扩展修改代理：<br><img src="\images\pasted-2.png" alt="upload successful"></p>
@@ -264,6 +264,8 @@
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/15/ES6笔记/">ES6笔记</a>
             
           </div>
 
@@ -337,7 +339,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

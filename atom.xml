@@ -5,7 +5,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://qianzewei.com//"/>
-  <updated>2017-02-28T07:40:35.073Z</updated>
+  <updated>2017-03-17T07:25:50.452Z</updated>
   <id>http://qianzewei.com//</id>
   
   <author>
@@ -14,6 +14,97 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[ES6笔记]]></title>
+    <link href="http://qianzewei.com/2017/03/15/ES6%E7%AC%94%E8%AE%B0/"/>
+    <id>http://qianzewei.com/2017/03/15/ES6笔记/</id>
+    <published>2017-03-15T06:44:00.000Z</published>
+    <updated>2017-03-17T07:25:50.452Z</updated>
+    <content type="html"><![CDATA[<p>ES6新特性学习笔记<br><a id="more"></a></p>
+<h1 id="let和const">let和const</h1><p>ES6有了大括号块级作用域，<code>let</code>定义的只在当前块级作用域有效，循环绑定onclick清楚多了。</p>
+<pre><code><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="built_in">list</span>.length;i++){
+  <span class="built_in">list</span>[i].onclick = <span class="keyword">function</span><span class="literal">()</span>{
+    alert(i);
+  }
+}
+</code></pre><p><code>let</code>存在暂时死区（必须在声明之后只用），不允许重复声明</p>
+<p><code>const</code>所定义的变量只读，一旦声明，不可改变，且必须在定义时赋值</p>
+<pre><code><span class="keyword">const</span> foo = 1;
+<span class="keyword">const</span> foo = {}; <span class="comment">//注意</span>
+<span class="keyword">const</span> foo = {};
+
+<span class="comment">// 为 foo 添加一个属性，可以成功</span>
+foo.<span class="keyword">prop</span> = 123;
+foo.<span class="keyword">prop</span> <span class="comment">// 123</span>
+
+<span class="comment">// 将 foo 指向另一个对象，就会报错</span>
+foo = {}; <span class="comment">// TypeError: "foo" is read-only</span>
+</code></pre><p><code>const</code>所保证的只是指向的内存地址不变，指向对象时需要谨慎。</p>
+<h1 id="变量的解构赋值">变量的解构赋值</h1><h2 id="数组">数组</h2><pre><code><span class="atom">let</span> [<span class="atom">a</span>, <span class="atom">b</span>, <span class="atom">c</span>] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];
+
+<span class="atom">let</span> [<span class="atom">foo</span>, [[<span class="atom">bar</span>], <span class="atom">baz</span>]] = [<span class="number">1</span>, [[<span class="number">2</span>], <span class="number">3</span>]];
+<span class="atom">foo</span> // <span class="number">1</span>
+<span class="atom">bar</span> // <span class="number">2</span>
+<span class="atom">baz</span> // <span class="number">3</span>
+
+<span class="atom">let</span> [ , , <span class="atom">third</span>] = [<span class="string">"foo"</span>, <span class="string">"bar"</span>, <span class="string">"baz"</span>];
+<span class="atom">third</span> // <span class="string">"baz"</span>
+
+<span class="atom">let</span> [<span class="atom">x</span>, , <span class="atom">y</span>] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];
+<span class="atom">x</span> // <span class="number">1</span>
+<span class="atom">y</span> // <span class="number">3</span>
+
+<span class="atom">let</span> [<span class="atom">head</span>, ...<span class="atom">tail</span>] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];
+<span class="atom">head</span> // <span class="number">1</span>
+<span class="atom">tail</span> // [<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]
+
+<span class="atom">let</span> [<span class="atom">x</span>, <span class="atom">y</span>, ...<span class="atom">z</span>] = [<span class="string">'a'</span>];
+<span class="atom">x</span> // <span class="string">"a"</span>
+<span class="atom">y</span> // <span class="atom">undefined</span>
+<span class="atom">z</span> // []
+
+<span class="atom">let</span> [<span class="atom">x</span>, <span class="atom">y</span>, <span class="atom">z</span>] = <span class="atom">new</span> <span class="name">Set</span>([<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]);
+</code></pre><p>可以指定默认值</p>
+<pre><code><span class="reserved">let</span> [foo = <span class="literal">true</span>] = [];
+foo <span class="regexp">//</span> <span class="literal">true</span>
+
+<span class="reserved">let</span> [x, y = <span class="string">'b'</span>] = [<span class="string">'a'</span>]; <span class="regexp">//</span> x=<span class="string">'a'</span>, y=<span class="string">'b'</span>
+<span class="reserved">let</span> [x, y = <span class="string">'b'</span>] = [<span class="string">'a'</span>, <span class="literal">undefined</span>]; <span class="regexp">//</span> x=<span class="string">'a'</span>, y=<span class="string">'b'</span>
+</code></pre><h2 id="对象">对象</h2><pre><code>let { foo, bar } = { <span class="string">foo:</span> <span class="string">"aaa"</span>, <span class="string">bar:</span> <span class="string">"bbb"</span> };
+
+let obj = { <span class="string">first:</span> <span class="string">'hello'</span>, <span class="string">last:</span> <span class="string">'world'</span> };
+let { <span class="string">first:</span> f, <span class="string">last:</span> l } = obj;
+f <span class="comment">// 'hello'</span>
+l <span class="comment">// 'world'</span>
+
+let { log, sin, cos } = Math;
+</code></pre><h2 id="字符串">字符串</h2><pre><code><span class="keyword">const</span> [a, b, c, <span class="keyword">d</span>, <span class="keyword">e</span>] = 'hello';
+</code></pre><h2 id="函数参数">函数参数</h2><pre><code><span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">([x=<span class="number">1</span>, y=<span class="number">2</span>] = [])</span>{</span>
+  return x+y;
+}
+
+add<span class="params">([<span class="number">3</span>, <span class="number">3</span>])</span>;  <span class="comment">//6</span>
+add<span class="params">([<span class="number">4</span>])</span>;     <span class="comment">//6</span>
+add<span class="params">([,<span class="number">1</span>])</span>;    <span class="comment">//2</span>
+add<span class="params">()</span>;        <span class="comment">//3</span>
+add<span class="params">(null)</span>;    <span class="comment">//TypeError  </span>
+</code></pre><h1 id="字符串的扩展">字符串的扩展</h1><h2 id="遍历器">遍历器</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> str = <span class="string">'a b'</span>;</div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> s <span class="keyword">of</span> str) &#123;</div><div class="line">  <span class="built_in">console</span>.log(s);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//a</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//b</span></div></pre></td></tr></table></figure>
+<h2 id="搜索_includes,startsWith,endsWith">搜索 includes,startsWith,endsWith</h2><figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var s = <span class="string">'Hello world!'</span>;</div><div class="line"></div><div class="line">s.<span class="keyword">startsWith</span>(<span class="string">'world'</span>, <span class="number">6</span>) <span class="comment">// true</span></div><div class="line">s.<span class="keyword">endsWith</span>(<span class="string">'Hello'</span>, <span class="number">5</span>) <span class="comment">// true</span></div><div class="line">s.includes(<span class="string">'Hello'</span>, <span class="number">6</span>) <span class="comment">// false</span></div><div class="line"><span class="comment">// 第二个参数表示开始搜索的位置，默认为0，endsWith从指定位置向前搜索，其他两个向后搜索</span></div></pre></td></tr></table></figure>
+<h2 id="重复_repeat">重复 repeat</h2><figure class="highlight gcode"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="string">'x'</span>.<span class="keyword">repeat</span><span class="comment">(3)</span> <span class="comment">// "xxx"</span></div><div class="line"><span class="string">'hello'</span>.<span class="keyword">repeat</span><span class="comment">(2)</span> <span class="comment">// "hellohello"</span></div><div class="line"><span class="string">'na'</span>.<span class="keyword">repeat</span><span class="comment">(0)</span> <span class="comment">// ""</span></div></pre></td></tr></table></figure>
+<h2 id="补全_padStart,_padEnd">补全 padStart, padEnd</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="string">'x'</span>.padStart(<span class="number">5</span>, <span class="string">'ab'</span>) <span class="regexp">//</span> <span class="string">'ababx'</span></div><div class="line"><span class="string">'x'</span>.padStart(<span class="number">4</span>, <span class="string">'ab'</span>) <span class="regexp">//</span> <span class="string">'abax'</span></div><div class="line"></div><div class="line"><span class="string">'x'</span>.padEnd(<span class="number">5</span>, <span class="string">'ab'</span>) <span class="regexp">//</span> <span class="string">'xabab'</span></div><div class="line"><span class="string">'x'</span>.padEnd(<span class="number">4</span>, <span class="string">'ab'</span>) <span class="regexp">//</span> <span class="string">'xaba'</span></div></pre></td></tr></table></figure>
+<h2 id="模板字符串">模板字符串</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 基本的变量嵌入和简单计算</span></div><div class="line"><span class="keyword">var</span> name = <span class="string">"Bob"</span>, time = <span class="string">"today"</span>;</div><div class="line"><span class="string">`Hello <span class="subst">$&#123;name&#125;</span>, how are you <span class="subst">$&#123;time&#125;</span>?`</span></div></pre></td></tr></table></figure>
+<h1 id="数组的扩展">数组的扩展</h1><h2 id="Array-from">Array.from</h2><p>只要是部署了Iterator接口的数据结构，Array.from都能将其转为数组。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// NodeList对象</span></div><div class="line"><span class="keyword">let</span> ps = <span class="built_in">document</span>.querySelectorAll(<span class="string">'p'</span>);</div><div class="line"><span class="built_in">Array</span>.from(ps).forEach(<span class="function"><span class="keyword">function</span> (<span class="params">p</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(p);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// arguments对象</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> args = <span class="built_in">Array</span>.from(<span class="built_in">arguments</span>);</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="entries()，keys()和values()">entries()，keys()和values()</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> index <span class="keyword">of</span> [<span class="string">'a'</span>, <span class="string">'b'</span>].keys()) &#123;</div><div class="line">  <span class="built_in">console</span>.log(index);</div><div class="line">&#125;</div><div class="line"><span class="comment">// 0</span></div><div class="line"><span class="comment">// 1</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> elem <span class="keyword">of</span> [<span class="string">'a'</span>, <span class="string">'b'</span>].values()) &#123;</div><div class="line">  <span class="built_in">console</span>.log(elem);</div><div class="line">&#125;</div><div class="line"><span class="comment">// 'a'</span></div><div class="line"><span class="comment">// 'b'</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> [index, elem] <span class="keyword">of</span> [<span class="string">'a'</span>, <span class="string">'b'</span>].entries()) &#123;</div><div class="line">  <span class="built_in">console</span>.log(index, elem);</div><div class="line">&#125;</div><div class="line"><span class="comment">// 0 "a"</span></div><div class="line"><span class="comment">// 1 "b"</span></div></pre></td></tr></table></figure>
+<h2 id="includes">includes</h2><p>解决了<code>indexOf</code>不够语义化和对<code>NaN</code>误判的问题。<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 第二个参数表示从开始搜索位置的index</span></div><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].includes(<span class="number">3</span>, <span class="number">3</span>);  <span class="comment">// false</span></div><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].includes(<span class="number">3</span>, <span class="number">-1</span>); <span class="comment">// true</span></div><div class="line"></div><div class="line">[NaN].includes(NaN)</div><div class="line"><span class="comment">// true</span></div></pre></td></tr></table></figure></p>
+<h1 id="函数的扩展">函数的扩展</h1><h2 id="默认值">默认值</h2><p>```</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>ES6新特性学习笔记<br>]]>
+    
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[ipv6校园网免费上网翻墙方案]]></title>
@@ -38,9 +129,9 @@
 </ol>
 <p>创建VPS后，ssh登录vps或者通过服务商提供的在线的console登录vps。</p>
 <h4 id="安装shadowsocks">安装shadowsocks</h4><p>shadowsocks是一个代理，主流平台如Windows、Android、iOS、Mac、Linux都支持。<br>如果买的是搬瓦工，进入管理后台(kiwivm control panel)，点KiwiVM Extras栏目底下的Shadowsocks Server，Install之后配置一下就行了。</p>
-<p>如果是普通的VPS，先<code>apt-get update</code><br>然后安装shadowsocks：<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get <span class="keyword">install</span> python-pip</span><br><span class="line">pip <span class="keyword">install</span> shadowsocks</span><br></pre></td></tr></table></figure></p>
-<h4 id="配置shadowsocks">配置shadowsocks</h4><p>在某个你中意的位置，建一个<code>config.json</code>，内容：<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"server"</span>: <span class="string">"::"</span></span><br><span class="line">  <span class="string">"server_port"</span>: <span class="number">6666</span>, <span class="comment">// 端口号</span></span><br><span class="line">  <span class="string">"password"</span>:<span class="string">"这里写密码"</span>,</span><br><span class="line">  <span class="string">"timeout"</span>:<span class="number">60</span>,</span><br><span class="line">  <span class="string">"method"</span>:<span class="string">"rc4-md5"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>然后启动shadowsocks<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssserver -c config<span class="class">.json</span> -d start</span><br></pre></td></tr></table></figure></p>
+<p>如果是普通的VPS，先<code>apt-get update</code><br>然后安装shadowsocks：<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">apt-get <span class="keyword">install</span> python-pip</div><div class="line">pip <span class="keyword">install</span> shadowsocks</div></pre></td></tr></table></figure></p>
+<h4 id="配置shadowsocks">配置shadowsocks</h4><p>在某个你中意的位置，建一个<code>config.json</code>，内容：<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="string">"server"</span>: <span class="string">"::"</span></div><div class="line">  <span class="string">"server_port"</span>: <span class="number">6666</span>, <span class="comment">// 端口号</span></div><div class="line">  <span class="string">"password"</span>:<span class="string">"这里写密码"</span>,</div><div class="line">  <span class="string">"timeout"</span>:<span class="number">60</span>,</div><div class="line">  <span class="string">"method"</span>:<span class="string">"rc4-md5"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后启动shadowsocks<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssserver -c <span class="built_in">config</span>.<span class="keyword">json </span>-d start</div></pre></td></tr></table></figure></p>
 <h4 id="配置客户端">配置客户端</h4><p>到<a href="https://shadowsocks.org/en/download/clients.html" target="_blank" rel="external">官网</a>下载系统对应的客户端。</p>
 <p>然后打开把ss服务器的ipv6地址、端口号、密码什么的都填进去，就配置完成了。</p>
 <h4 id="配置各个软件或者使用Proxifier实现全局代理">配置各个软件或者使用Proxifier实现全局代理</h4><p>现在本地127.0.0.1:1080运行着一个代理服务器，把你所使用的软件的代理都指向这里就可以了。<br>比如chrome，用SwitchyOmega这个扩展修改代理：<br><img src="\images\pasted-2.png" alt="upload successful"></p>
@@ -197,11 +288,11 @@
     
     </summary>
     
-      <category term="bilibili" scheme="http://qianzewei.com/tags/bilibili/"/>
+      <category term="爬虫" scheme="http://qianzewei.com/tags/%E7%88%AC%E8%99%AB/"/>
     
       <category term="crawler" scheme="http://qianzewei.com/tags/crawler/"/>
     
-      <category term="爬虫" scheme="http://qianzewei.com/tags/%E7%88%AC%E8%99%AB/"/>
+      <category term="bilibili" scheme="http://qianzewei.com/tags/bilibili/"/>
     
       <category term="Code" scheme="http://qianzewei.com/categories/Code/"/>
     
@@ -347,9 +438,9 @@
     
     </summary>
     
-      <category term="api" scheme="http://qianzewei.com/tags/api/"/>
-    
       <category term="网易云音乐" scheme="http://qianzewei.com/tags/%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90/"/>
+    
+      <category term="api" scheme="http://qianzewei.com/tags/api/"/>
     
       <category term="Code" scheme="http://qianzewei.com/categories/Code/"/>
     
@@ -383,13 +474,13 @@
     <published>2015-07-08T07:21:41.000Z</published>
     <updated>2015-12-10T13:17:01.000Z</updated>
     <content type="html"><![CDATA[<p>博客改成了 hexo + gitpage<br>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.<br><a id="more"></a></p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
 <p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
 <p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
 <p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
 <p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
     <summary type="html">
@@ -414,7 +505,7 @@
 <p>页面用的是jQuery-ui里面的datepicker组件，用来选择起止时间以展示数据，有一个需求是页面初始化的时候，默认加载最近7天的数据。<br>于是定义了一个获取N天前的xxxx-xx-xx的函数：  </p>
 <pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">addDate</span>(<span class="params">date,days</span>)</span>{
     <span class="keyword">var</span> dtemp = date.replace(<span class="regexp">/[年-]/</span>, <span class="string">"/"</span>).replace(<span class="regexp">/[月-]/</span>, <span class="string">"/"</span>).replace(<span class="string">"日"</span>, <span class="string">""</span>);
-    <span class="comment">//在IE里面new Date().toLocaleDateString()会返回一个"<span class="doctag"><span class="keyword">xxx</span></span>x年xx月xx日"，这里做一个强制转换</span>
+    <span class="comment">//在IE里面new Date().toLocaleDateString()会返回一个"xxxx年xx月xx日"，这里做一个强制转换</span>
     d.setDate(d.getDate()+days);
     <span class="keyword">var</span> m=d.getMonth()+<span class="number">1</span>;
     <span class="keyword">if</span> (m.toString().length&lt;<span class="number">2</span>){m=<span class="string">"0"</span>+m;}
@@ -929,9 +1020,9 @@ setTimeout(
     
       <category term="Canvas" scheme="http://qianzewei.com/tags/Canvas/"/>
     
-      <category term="HTML5" scheme="http://qianzewei.com/tags/HTML5/"/>
-    
       <category term="WebGl" scheme="http://qianzewei.com/tags/WebGl/"/>
+    
+      <category term="HTML5" scheme="http://qianzewei.com/tags/HTML5/"/>
     
       <category term="Repost" scheme="http://qianzewei.com/categories/Repost/"/>
     
@@ -1200,7 +1291,7 @@ RewriteRule .*\.(gif|jpg|png)$ /hotlink.png [NC]
 <h4 id="Adjacency_List">Adjacency List</h4><blockquote>
 <p>这是最常见也是最简单的一种方式，仅仅加上一个parent_id就可以。</p>
 </blockquote>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">|<span class="string"> node_id </span>|<span class="string"> parent_id </span>|</span><br></pre></td></tr></table></figure>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">|<span class="string"> node_id </span>|<span class="string"> parent_id </span>|</div></pre></td></tr></table></figure>
 <h5 id="CRUD方面">CRUD方面</h5><p>由于互相之间的关系只由一个parent_id维护，所以增删改都是非常容易，只需要改动和他直接相关的记录就可以。<br>但是，<strong>查询和展现开销比较大</strong>，举个例子，如果想要返回所有<strong>水果</strong>，也就是水果的所有子孙节点，看似很简单的操作，就需要用到<strong>duang</strong>一堆<strong>递归</strong>了。所以异步加载这个特性也不太友好，天生不适合，不如一次性返回整个数。</p>
 <p>如果数据量很有限，那么这是一个很好（简单暴力）的选择。（比如一个博客程序的tags归类）</p>
 <h4 id="Path_Enumerations">Path Enumerations</h4><blockquote>
@@ -1213,11 +1304,11 @@ RewriteRule .*\.(gif|jpg|png)$ /hotlink.png [NC]
 <p>这和上面的Path思路一致，但是不同的是用单独的一张表，维护Path</p>
 </blockquote>
 <p>参考文章 <a href="https://coderwall.com/p/lixing/closure-tables-for-browsing-trees-in-sql" target="_blank" rel="external"><strong>Closure Tables for Browsing Trees in SQL</strong></a></p>
-<p>用comment表煮个栗子<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">comment</span><br><span class="line"> -<span class="ruby"> id</span><br><span class="line"></span> -<span class="ruby"> name</span><br><span class="line"></span> -<span class="ruby"> parent</span><br><span class="line"></span> -<span class="ruby"> rank</span><br><span class="line"></span>comment_closure</span><br><span class="line"> -<span class="ruby"> ancester(the parent)</span><br><span class="line"></span> -<span class="ruby"> descendant(the child)</span><br><span class="line"></span> -<span class="ruby"> depth</span></span><br></pre></td></tr></table></figure></p>
-<p>比如有这样的一个评论结构<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> </span><br><span class="line">   <span class="string">| - 2 </span></span><br><span class="line">       <span class="string">| - 3 </span></span><br><span class="line">           <span class="string">| - 6</span></span><br><span class="line">       <span class="string">| - 5</span></span><br><span class="line">   <span class="string">| - 4</span></span><br></pre></td></tr></table></figure></p>
-<p>那么我们的cloure_table就会这么设计<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO `comment_closure` <span class="params">(`ancestor`, `descendant`, `depth`)</span> VALUES</span><br><span class="line"><span class="params">(<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">2</span>, <span class="number">2</span>, <span class="number">0</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">3</span>, <span class="number">3</span>, <span class="number">0</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">0</span>, <span class="number">3</span>, <span class="number">2</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">4</span>, <span class="number">4</span>, <span class="number">0</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">0</span>, <span class="number">4</span>, <span class="number">1</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">5</span>, <span class="number">5</span>, <span class="number">0</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">1</span>, <span class="number">5</span>, <span class="number">2</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">2</span>, <span class="number">5</span>, <span class="number">1</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">0</span>, <span class="number">5</span>, <span class="number">2</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">6</span>, <span class="number">6</span>, <span class="number">0</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">1</span>, <span class="number">6</span>, <span class="number">3</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">2</span>, <span class="number">6</span>, <span class="number">2</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">3</span>, <span class="number">6</span>, <span class="number">1</span>)</span>,</span><br><span class="line"><span class="params">(<span class="number">0</span>, <span class="number">6</span>, <span class="number">3</span>)</span>;</span><br></pre></td></tr></table></figure></p>
-<p>取6这个节点说明，<code>(6, 6, 0)</code>就是这个节点本身，<code>(1, 6, 3)，(2, 6, 2),(3, 6, 1)，(0, 6, 3)</code>分别代表这个节点和0（root），1，2，3这四个节点的深度关系。<br>来做一次查询，我们查询2节点下的整个树：<br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT <span class="escape">`i</span>d<span class="escape">`,</span><span class="escape">`p</span>arent<span class="escape">` </span>FROM <span class="escape">`c</span>omments<span class="escape">` </span><span class="escape">`c</span>omment<span class="escape">`</span><br><span class="line"></span>  JOIN <span class="escape">`c</span>omments_closure<span class="escape">` </span><span class="escape">`c</span>losure<span class="escape">`</span><br><span class="line"></span>  ON <span class="escape">`c</span>omment<span class="escape">`.</span><span class="escape">`i</span>d<span class="escape">` </span>= <span class="escape">`c</span>losure<span class="escape">`.</span><span class="escape">`d</span>escendant<span class="escape">`</span><br><span class="line"></span>WHERE <span class="escape">`c</span>losure<span class="escape">`.</span><span class="escape">`a</span>ncestor<span class="escape">` </span>= <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
-<p>于是很愉快的返回了<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="property">id</span> parent</span><br><span class="line"><span class="number">2</span> <span class="number">1</span></span><br><span class="line"><span class="number">3</span> <span class="number">2</span></span><br><span class="line"><span class="number">5</span> <span class="number">2</span></span><br><span class="line"><span class="number">6</span> <span class="number">3</span></span><br></pre></td></tr></table></figure></p>
+<p>用comment表煮个栗子<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">comment</div><div class="line"> -<span class="ruby"> id</span></div><div class="line"> -<span class="ruby"> name</span></div><div class="line"> -<span class="ruby"> parent</span></div><div class="line"> -<span class="ruby"> rank</span></div><div class="line">comment_closure</div><div class="line"> -<span class="ruby"> ancester(the parent)</span></div><div class="line"> -<span class="ruby"> descendant(the child)</span></div><div class="line"> -<span class="ruby"> depth</span></div></pre></td></tr></table></figure></p>
+<p>比如有这样的一个评论结构<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span> </div><div class="line">   | - <span class="number">2</span> </div><div class="line">       | - <span class="number">3</span> </div><div class="line">           | - <span class="number">6</span></div><div class="line">       | - <span class="number">5</span></div><div class="line">   | - <span class="number">4</span></div></pre></td></tr></table></figure></p>
+<p>那么我们的cloure_table就会这么设计<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">INSERT INTO `comment_closure` (`ancestor`, `descendant`, `depth`) VALUES</div><div class="line">(<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>),</div><div class="line">(<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>),</div><div class="line">(<span class="number">2</span>, <span class="number">2</span>, <span class="number">0</span>),</div><div class="line">(<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>),</div><div class="line">(<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>),</div><div class="line">(<span class="number">3</span>, <span class="number">3</span>, <span class="number">0</span>),</div><div class="line">(<span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>),</div><div class="line">(<span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>),</div><div class="line">(<span class="number">0</span>, <span class="number">3</span>, <span class="number">2</span>),</div><div class="line">(<span class="number">4</span>, <span class="number">4</span>, <span class="number">0</span>),</div><div class="line">(<span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>),</div><div class="line">(<span class="number">0</span>, <span class="number">4</span>, <span class="number">1</span>),</div><div class="line">(<span class="number">5</span>, <span class="number">5</span>, <span class="number">0</span>),</div><div class="line">(<span class="number">1</span>, <span class="number">5</span>, <span class="number">2</span>),</div><div class="line">(<span class="number">2</span>, <span class="number">5</span>, <span class="number">1</span>),</div><div class="line">(<span class="number">0</span>, <span class="number">5</span>, <span class="number">2</span>),</div><div class="line">(<span class="number">6</span>, <span class="number">6</span>, <span class="number">0</span>),</div><div class="line">(<span class="number">1</span>, <span class="number">6</span>, <span class="number">3</span>),</div><div class="line">(<span class="number">2</span>, <span class="number">6</span>, <span class="number">2</span>),</div><div class="line">(<span class="number">3</span>, <span class="number">6</span>, <span class="number">1</span>),</div><div class="line">(<span class="number">0</span>, <span class="number">6</span>, <span class="number">3</span>);</div></pre></td></tr></table></figure></p>
+<p>取6这个节点说明，<code>(6, 6, 0)</code>就是这个节点本身，<code>(1, 6, 3)，(2, 6, 2),(3, 6, 1)，(0, 6, 3)</code>分别代表这个节点和0（root），1，2，3这四个节点的深度关系。<br>来做一次查询，我们查询2节点下的整个树：<br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> <span class="symbol">`id`</span>,<span class="symbol">`parent`</span> <span class="keyword">FROM</span> <span class="symbol">`comments`</span> <span class="symbol">`comment`</span></div><div class="line">  <span class="keyword">JOIN</span> <span class="symbol">`comments_closure`</span> <span class="symbol">`closure`</span></div><div class="line">  <span class="keyword">ON</span> <span class="symbol">`comment`</span>.<span class="symbol">`id`</span> = <span class="symbol">`closure`</span>.<span class="symbol">`descendant`</span></div><div class="line"><span class="keyword">WHERE</span> <span class="symbol">`closure`</span>.<span class="symbol">`ancestor`</span> = <span class="number">2</span></div></pre></td></tr></table></figure></p>
+<p>于是很愉快的返回了<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">id parent</div><div class="line"><span class="number">2</span> <span class="number">1</span></div><div class="line"><span class="number">3</span> <span class="number">2</span></div><div class="line"><span class="number">5</span> <span class="number">2</span></div><div class="line"><span class="number">6</span> <span class="number">3</span></div></pre></td></tr></table></figure></p>
 <p>rank这个字段是由他的Path生成的，类似于这样：<code>0000000001-0000000002-0000000003</code>，在上面提到的文章中，原作者将他的适用场景描述为：对comments进行排序操作。个人觉得不是这个方法的精髓，所以不放在文章里面了，有兴趣的童鞋请移步<a href="https://coderwall.com/p/lixing/closure-tables-for-browsing-trees-in-sql" target="_blank" rel="external">传送们</a>。</p>
 <p>查询优化了很多，不过<strong>缺点</strong>也是显而易见的，<strong>查询</strong>和<strong>删除</strong>这样的操作会涉及非常多的东西，需要单独写函数来做了= =<br>如果树结构很庞大，对查询、定位这样的效率需求高，又不是很追求改动的效率的话（改动次数少、只有管理员可以改动），这个方式比较适合</p>
 <hr>
@@ -1267,9 +1358,9 @@ RewriteRule .*\.(gif|jpg|png)$ /hotlink.png [NC]
     
     </summary>
     
-      <category term="MySql" scheme="http://qianzewei.com/tags/MySql/"/>
-    
       <category term="Web开发" scheme="http://qianzewei.com/tags/Web%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="MySql" scheme="http://qianzewei.com/tags/MySql/"/>
     
       <category term="Coding" scheme="http://qianzewei.com/categories/Coding/"/>
     
@@ -1486,9 +1577,9 @@ node.setClient(‘color’, color);
     
       <category term="Canvas" scheme="http://qianzewei.com/tags/Canvas/"/>
     
-      <category term="HTML5" scheme="http://qianzewei.com/tags/HTML5/"/>
-    
       <category term="WebGl" scheme="http://qianzewei.com/tags/WebGl/"/>
+    
+      <category term="HTML5" scheme="http://qianzewei.com/tags/HTML5/"/>
     
       <category term="Repost" scheme="http://qianzewei.com/categories/Repost/"/>
     
@@ -1552,19 +1643,19 @@ node.setClient(‘color’, color);
     
     </summary>
     
-      <category term="Django" scheme="http://qianzewei.com/tags/Django/"/>
-    
-      <category term="Express" scheme="http://qianzewei.com/tags/Express/"/>
-    
       <category term="JavaScript" scheme="http://qianzewei.com/tags/JavaScript/"/>
-    
-      <category term="Laravel" scheme="http://qianzewei.com/tags/Laravel/"/>
-    
-      <category term="Nodejs" scheme="http://qianzewei.com/tags/Nodejs/"/>
     
       <category term="Php" scheme="http://qianzewei.com/tags/Php/"/>
     
       <category term="Python" scheme="http://qianzewei.com/tags/Python/"/>
+    
+      <category term="Nodejs" scheme="http://qianzewei.com/tags/Nodejs/"/>
+    
+      <category term="Laravel" scheme="http://qianzewei.com/tags/Laravel/"/>
+    
+      <category term="Express" scheme="http://qianzewei.com/tags/Express/"/>
+    
+      <category term="Django" scheme="http://qianzewei.com/tags/Django/"/>
     
       <category term="Web框架" scheme="http://qianzewei.com/tags/Web%E6%A1%86%E6%9E%B6/"/>
     
@@ -1591,9 +1682,9 @@ node.setClient(‘color’, color);
     
     </summary>
     
-      <category term="Laravel" scheme="http://qianzewei.com/tags/Laravel/"/>
-    
       <category term="Php" scheme="http://qianzewei.com/tags/Php/"/>
+    
+      <category term="Laravel" scheme="http://qianzewei.com/tags/Laravel/"/>
     
       <category term="Coding" scheme="http://qianzewei.com/categories/Coding/"/>
     
@@ -1611,7 +1702,7 @@ node.setClient(‘color’, color);
 <a id="more"></a>
 <p>基本是裸奔在阿里云上啊<br>刚刚写了不到3天的博客代码<br>用的laravel5做的框架<br>只做了很基本的文章发布和后台管理<br>还有很简单的评论功能</p>
 <p>都很简单<br>不过<br>博客虽小<br>他也是个博客咯<br>以后就在这个小窝里写文章了</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello, world</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hello, world</div></pre></td></tr></table></figure>
 <p>第一篇博文就是这么短0.0<br><img src="http://7xjdel.com1.z0.glb.clouddn.com/blogq/blog-5.30.jpg" alt=""></p>
 ]]></content>
     <summary type="html">

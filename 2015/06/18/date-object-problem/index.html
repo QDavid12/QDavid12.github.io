@@ -238,7 +238,7 @@
 <p>页面用的是jQuery-ui里面的datepicker组件，用来选择起止时间以展示数据，有一个需求是页面初始化的时候，默认加载最近7天的数据。<br>于是定义了一个获取N天前的xxxx-xx-xx的函数：  </p>
 <pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">addDate</span>(<span class="params">date,days</span>)</span>{
     <span class="keyword">var</span> dtemp = date.replace(<span class="regexp">/[年-]/</span>, <span class="string">"/"</span>).replace(<span class="regexp">/[月-]/</span>, <span class="string">"/"</span>).replace(<span class="string">"日"</span>, <span class="string">""</span>);
-    <span class="comment">//在IE里面new Date().toLocaleDateString()会返回一个"<span class="doctag"><span class="keyword">xxx</span></span>x年xx月xx日"，这里做一个强制转换</span>
+    <span class="comment">//在IE里面new Date().toLocaleDateString()会返回一个"xxxx年xx月xx日"，这里做一个强制转换</span>
     d.setDate(d.getDate()+days);
     <span class="keyword">var</span> m=d.getMonth()+<span class="number">1</span>;
     <span class="keyword">if</span> (m.toString().length&lt;<span class="number">2</span>){m=<span class="string">"0"</span>+m;}
@@ -361,7 +361,7 @@ dateObj = <span class="keyword">new</span> <span class="built_in">Date</span>(ye
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

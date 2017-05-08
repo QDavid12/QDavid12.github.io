@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>建行贵金属</title>
+  <meta charset="utf-8">
+  <style type="text/css">
+    * {
+      margin: 0;
+      border: 0;
+      padding: 0;
+    }
+    #chart {
+      width: 1000px;
+      height: 600px;
+      margin: 0 auto;
+    }
+    #buttons {
+      width: 600px;
+      text-align: center;
+      margin: 50px auto 10px auto;
+    }
+    .button {
+      display: inline;
+      width: 100px;
+      height: 40px;
+      margin: 5px 10px;
+      background: #fff;
+      border: 1px solid #000;
+      border-radius: 3px;
+      padding: 5px 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .button:hover {
+      background: #000;
+      color: #fff;
+    }
+
+  </style>
+</head>
+<body>
+  <div id='buttons'></div>
+  <div id="chart"></div>
+  <script src="http://cdn.bootcss.com/echarts/3.5.4/echarts.min.js"></script>
+  <script type="text/javascript">
+
+    init();
+    loadData('ag');
+
+    function init(){
+      types = ['ag', 'au9999', 'au9995'];
+      var buttons = document.getElementById('buttons');
+      types.forEach(function(t){
+        var a = document.createElement('button');
+        a.innerHTML = t;
+        a.className = 'button';
+        a.onclick = loadData.bind(null, t);
+        buttons.appendChild(a);
+      })
+      chart = echarts.init(document.getElementById('chart'));
+      render('ag', [[1,2], [2,4]]);
+    }
+
+    function jsonp(url, callback){
+      var s = document.createElement('script');
+      var func = 'jsonpcallback' + Math.random().toString().split('.')[1];
+      window[func] = callback;
+      s.src = url + '?callback=' + func;
+      document.body.appendChild(s);
+    }
+
+    function loadData(t){
+      var types = ['ag', 'au9999', 'au9995'];
+      var x = [],
+          y = [];
+      if(types.indexOf(t)!==-1){
+        jsonp('http://47.93.45.236:9999/'+t, function(res){
+          console.log(`[data] ${t} got`);
+          render(t, res);
+        })
+      }
+    }
+
+    function render(t, data){
+      var option = {
+        title: {
+          text: '建行贵金属 - '+t
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross'
+            }
+        },
+        xAxis: {
+          type: 'value',
+          min: 'dataMin'
+        },
+        yAxis: {
+          type: 'value',
+          min: 'dataMin'
+        },
+        series: [{
+          name: t,
+          type: 'line',
+          label: {
+            emphasis: {
+                show: true,
+                position: 'right',
+                textStyle: {
+                    color: 'blue',
+                    fontSize: 16
+                }
+            }
+        },
+          data: data
+        }]
+      };
+      chart.setOption(option);
+    }
+
+
+
+  </script>
+</body>
+</html>
